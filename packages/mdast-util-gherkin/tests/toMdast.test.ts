@@ -2,7 +2,7 @@ import { expect, suite, test } from "vite-plus/test";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gherkinFromMarkdown } from "../src/index.ts";
 
-suite("gherkin", () => {
+suite("Markdown with Gherkin to mdast", () => {
   const getTree = (text: string, _options: {} = {}) =>
     fromMarkdown(text, undefined, { mdastExtensions: [gherkinFromMarkdown()] });
 
