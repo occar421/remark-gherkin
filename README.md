@@ -1,6 +1,6 @@
-# Vite+ Monorepo Starter
+# Unified.js Gherkin
 
-A starter for creating a Vite+ monorepo.
+Packages to implement [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/main/MARKDOWN_WITH_GHERKIN.md) in remark.
 
 ## Development
 
