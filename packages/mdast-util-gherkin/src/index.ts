@@ -6,6 +6,10 @@ import type { Options as ToMarkdownExtension } from "mdast-util-to-markdown";
 const GHERKIN_KEYWORD_TYPE = "gherkinKeyword" as const;
 const FEATURE_KEYWORD = "Feature:";
 const BACKGROUND_KEYWORD = "Background:";
+const RULE_KEYWORD = "Rule:";
+const SCENARIO_KEYWORD = "Scenario:";
+const SCENARIO_OUTLINE_KEYWORD = "Scenario Outline:";
+const EXAMPLE_KEYWORD = "Example:";
 
 export interface GherkinKeyword extends Literal {
   type: typeof GHERKIN_KEYWORD_TYPE;
@@ -31,7 +35,14 @@ const gherkinTransform: Transform = (tree) => {
 
     const firstChild = node.children[0];
     if (firstChild.type === "text") {
-      for (const keyword of [FEATURE_KEYWORD, BACKGROUND_KEYWORD]) {
+      for (const keyword of [
+        FEATURE_KEYWORD,
+        BACKGROUND_KEYWORD,
+        RULE_KEYWORD,
+        SCENARIO_KEYWORD,
+        SCENARIO_OUTLINE_KEYWORD,
+        EXAMPLE_KEYWORD,
+      ]) {
         if (firstChild.value.startsWith(`${keyword} `)) {
           // prevent text directive `:color[]{}`
           node.children.shift(); // === firstChild

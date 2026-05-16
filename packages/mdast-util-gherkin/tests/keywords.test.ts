@@ -19,19 +19,25 @@ suite("gherkin", () => {
       });
     });
 
-    suite.each(["Feature", "Background"])("%s", (keyword) => {
-      test.each([1, 2, 3, 4, 5, 6])(`"${keyword}:" is parsed as GherkinKeyword in h%i`, (level) => {
-        const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
-        expect(tree.children).toHaveLength(1);
-        expect(tree.children[0]).toMatchObject({
-          type: "heading",
-          depth: level,
-          children: [
-            { type: "gherkinKeyword", value: `${keyword}:` },
-            { type: "text", value: "Hello" },
-          ],
-        });
-      });
-    });
+    suite.each(["Feature", "Background", "Rule", "Scenario", "Scenario Outline", "Example"])(
+      "%s",
+      (keyword) => {
+        test.each([1, 2, 3, 4, 5, 6])(
+          `"${keyword}:" is parsed as GherkinKeyword in h%i`,
+          (level) => {
+            const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
+            expect(tree.children).toHaveLength(1);
+            expect(tree.children[0]).toMatchObject({
+              type: "heading",
+              depth: level,
+              children: [
+                { type: "gherkinKeyword", value: `${keyword}:` },
+                { type: "text", value: "Hello" },
+              ],
+            });
+          },
+        );
+      },
+    );
   });
 });
