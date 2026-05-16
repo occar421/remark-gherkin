@@ -1,0 +1,22 @@
+import { expect, suite, test } from "vite-plus/test";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { gherkinFromMarkdown } from "../src/index.ts";
+
+suite("gherkin", () => {
+  const getTree = (text: string, _options: {} = {}) =>
+    fromMarkdown(text, undefined, { mdastExtensions: [gherkinFromMarkdown()] });
+
+  suite("keyword", () => {
+    suite("Feature", () => {
+      test.each([1, 2, 3, 4, 5, 6])("Normal header should pass through in h%i", (level) => {
+        const tree = getTree(`${"#".repeat(level)} Hello`);
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toMatchObject({
+          type: "heading",
+          depth: level,
+          children: [{ type: "text", value: "Hello" }],
+        });
+      });
+    });
+  });
+});
