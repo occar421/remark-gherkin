@@ -1,4 +1,6 @@
 export const GHERKIN_KEYWORD_TYPE = "gherkinKeyword" as const;
+export const GHERKIN_DELIMITED_PARAMETER_TYPE = "gherkinDelimitedParameter" as const;
+
 export const FEATURE_KEYWORD = "Feature:" as const;
 export const BACKGROUND_KEYWORD = "Background:" as const;
 export const RULE_KEYWORD = "Rule:" as const;

@@ -61,7 +61,7 @@ suite("gherkin", () => {
       test.each(["*", "-"])(
         `"${keyword}:" is parsed as GherkinKeyword in list item "%s"`,
         (bulletSign) => {
-          const tree = getTree(`${bulletSign} ${keyword} there are 3 cucumbers`);
+          const tree = getTree(`${bulletSign} ${keyword} there are <start> cucumbers`);
 
           expect(tree.children).toHaveLength(1);
           expect(tree.children[0]).toMatchObject({
@@ -77,7 +77,9 @@ suite("gherkin", () => {
                     type: "paragraph",
                     children: [
                       { type: "gherkinKeyword", value: keyword },
-                      { type: "text", value: "there are 3 cucumbers" },
+                      { type: "text", value: "there are " },
+                      { type: "gherkinDelimitedParameter", ident: "start" },
+                      { type: "text", value: " cucumbers" },
                     ],
                   },
                 ],
