@@ -52,6 +52,7 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Tags
   visitParents(tree, GHERKIN_SEGMENT_KEYWORD_TYPE, (node, ancestors) => {
     if (ancestors.length <= 1) {
       return;
