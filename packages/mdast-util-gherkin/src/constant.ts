@@ -1,4 +1,5 @@
-export const GHERKIN_KEYWORD_TYPE = "gherkinKeyword" as const;
+export const GHERKIN_SEGMENT_KEYWORD_TYPE = "gherkinSegmentKeyword" as const;
+export const GHERKIN_STEP_KEYWORD_TYPE = "gherkinStepKeyword" as const;
 export const GHERKIN_DELIMITED_PARAMETER_TYPE = "gherkinDelimitedParameter" as const;
 
 export const FEATURE_KEYWORD = "Feature:" as const;

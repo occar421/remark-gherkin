@@ -6,7 +6,7 @@ import {
   BUT_KEYWORD,
   EXAMPLE_KEYWORD,
   FEATURE_KEYWORD,
-  GHERKIN_KEYWORD_TYPE,
+  GHERKIN_SEGMENT_KEYWORD_TYPE,
   GHERKIN_DELIMITED_PARAMETER_TYPE,
   GIVEN_KEYWORD,
   RULE_KEYWORD,
@@ -14,9 +14,11 @@ import {
   SCENARIO_OUTLINE_KEYWORD,
   THEN_KEYWORD,
   WHEN_KEYWORD,
+  GHERKIN_STEP_KEYWORD_TYPE,
 } from "./constant.ts";
 
 const gherkinTransform: Transform = (tree) => {
+  // Segment Keyword
   visit(tree, "heading", (node) => {
     if (node.children.length === 0) {
       return;
@@ -39,13 +41,14 @@ const gherkinTransform: Transform = (tree) => {
             type: "text",
             value: firstChild.value.slice(keyword.length + 1),
           });
-          node.children.unshift({ type: GHERKIN_KEYWORD_TYPE, value: keyword });
+          node.children.unshift({ type: GHERKIN_SEGMENT_KEYWORD_TYPE, value: keyword });
           break;
         }
       }
     }
   });
 
+  // Step Keyword
   visit(tree, "listItem", (node) => {
     if (node.children.length === 0) {
       return;
@@ -87,7 +90,7 @@ const gherkinTransform: Transform = (tree) => {
               type: "text",
               value: textNode.value.slice(keyword.length + 1),
             });
-            firstChild.children.unshift({ type: GHERKIN_KEYWORD_TYPE, value: keyword });
+            firstChild.children.unshift({ type: GHERKIN_STEP_KEYWORD_TYPE, value: keyword });
             break;
           }
         }

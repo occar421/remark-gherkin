@@ -40,7 +40,7 @@ suite("gherkin", () => {
       "%s",
       (keyword) => {
         test.each([1, 2, 3, 4, 5, 6])(
-          `"${keyword}:" is parsed as GherkinKeyword in h%i`,
+          `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
           (level) => {
             const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
             expect(tree.children).toHaveLength(1);
@@ -48,7 +48,7 @@ suite("gherkin", () => {
               type: "heading",
               depth: level,
               children: [
-                { type: "gherkinKeyword", value: `${keyword}:` },
+                { type: "gherkinSegmentKeyword", value: `${keyword}:` },
                 { type: "text", value: "Hello" },
               ],
             });
@@ -59,7 +59,7 @@ suite("gherkin", () => {
 
     suite.each(["Given", "When", "Then", "And", "But"])("%s", (keyword) => {
       test.each(["*", "-"])(
-        `"${keyword}:" is parsed as GherkinKeyword in list item "%s"`,
+        `"${keyword}:" is parsed as Gherkin step keyword in list item "%s"`,
         (bulletSign) => {
           const tree = getTree(`${bulletSign} ${keyword} there are <start> cucumbers`);
 
@@ -76,7 +76,7 @@ suite("gherkin", () => {
                   {
                     type: "paragraph",
                     children: [
-                      { type: "gherkinKeyword", value: keyword },
+                      { type: "gherkinStepKeyword", value: keyword },
                       { type: "text", value: "there are " },
                       { type: "gherkinDelimitedParameter", ident: "start" },
                       { type: "text", value: " cucumbers" },
