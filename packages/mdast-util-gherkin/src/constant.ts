@@ -1,3 +1,4 @@
+export const GHERKIN_TAG_TYPE = "gherkinTag" as const;
 export const GHERKIN_SEGMENT_KEYWORD_TYPE = "gherkinSegmentKeyword" as const;
 export const GHERKIN_STEP_KEYWORD_TYPE = "gherkinStepKeyword" as const;
 export const GHERKIN_DELIMITED_PARAMETER_TYPE = "gherkinDelimitedParameter" as const;

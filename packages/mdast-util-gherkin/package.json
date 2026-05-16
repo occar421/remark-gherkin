@@ -31,6 +31,7 @@
     "mdast-util-from-markdown": "catalog:",
     "mdast-util-to-markdown": "catalog:",
     "unist-util-find-all-after": "catalog:",
+    "unist-util-find-before": "catalog:",
     "unist-util-visit": "catalog:",
     "unist-util-visit-parents": "catalog:"
   },

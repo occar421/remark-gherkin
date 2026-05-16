@@ -89,5 +89,28 @@ suite("gherkin", () => {
         },
       );
     });
+
+    suite("Tags", () => {
+      test("Tags are parsed correctly", () => {
+        const tree = getTree(`
+${"`@important` `@essential`"}
+### Scenario Outline: eating
+`);
+        expect(tree.children).toHaveLength(2);
+
+        expect(tree.children[0]).toMatchObject({
+          type: "paragraph",
+          children: [
+            { type: "gherkinTag", value: "@important" },
+            { type: "text", value: " " },
+            { type: "gherkinTag", value: "@essential" },
+          ],
+        });
+        expect(tree.children[1]).toMatchObject({
+          type: "heading",
+          depth: 3,
+        });
+      });
+    });
   });
 });

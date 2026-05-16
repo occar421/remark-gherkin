@@ -27,6 +27,9 @@ catalogs:
     unist-util-find-all-after:
       specifier: ^5.0.0
       version: 5.0.0
+    unist-util-find-before:
+      specifier: ^4.0.1
+      version: 4.0.1
     unist-util-visit:
       specifier: ^5.1.0
       version: 5.1.0
@@ -60,6 +63,9 @@ importers:
       unist-util-find-all-after:
         specifier: 'catalog:'
         version: 5.0.0
+      unist-util-find-before:
+        specifier: 'catalog:'
+        version: 4.0.1
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -1126,6 +1132,9 @@ packages:
   unist-util-find-all-after@5.0.0:
     resolution: {integrity: sha512-nGmOYvTSdGcI4RvrUNfe0mOsqqbbJOtqCQsppsY9KZjmv3nwM3YRgNBwFPdZ8Y+iv9Z/2PDjR9u6u+uK62XTTg==}
 
+  unist-util-find-before@4.0.1:
+    resolution: {integrity: sha512-hfpCNqPbCOseOjHU8oBkRXM8gDQ++Ua3dN7sDYz7VJ+1alt+yd/I+ECZDhv1aqpJ1x47AHbzP/xA0jWf4omAIw==}
+
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
 
@@ -2014,6 +2023,11 @@ snapshots:
       vfile: 6.0.3
 
   unist-util-find-all-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-before@4.0.1:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1

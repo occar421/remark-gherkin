@@ -2,6 +2,7 @@ import type { Transform } from "mdast-util-from-markdown";
 import { visit } from "unist-util-visit";
 import { visitParents } from "unist-util-visit-parents";
 import { findAllAfter } from "unist-util-find-all-after";
+import { findBefore } from "unist-util-find-before";
 import {
   AND_KEYWORD,
   BACKGROUND_KEYWORD,
@@ -17,6 +18,7 @@ import {
   THEN_KEYWORD,
   WHEN_KEYWORD,
   GHERKIN_STEP_KEYWORD_TYPE,
+  GHERKIN_TAG_TYPE,
 } from "./constant.ts";
 
 const gherkinTransform: Transform = (tree) => {
@@ -46,6 +48,33 @@ const gherkinTransform: Transform = (tree) => {
           node.children.unshift({ type: GHERKIN_SEGMENT_KEYWORD_TYPE, value: keyword });
           break;
         }
+      }
+    }
+  });
+
+  visitParents(tree, GHERKIN_SEGMENT_KEYWORD_TYPE, (node, ancestors) => {
+    if (ancestors.length <= 1) {
+      return;
+    }
+    const heading = ancestors[ancestors.length - 1];
+    if (heading.type !== "heading") {
+      return;
+    }
+    const parent = ancestors[ancestors.length - 2];
+
+    const before = findBefore(parent, heading);
+    if (!before || before.type !== "paragraph") {
+      return;
+    }
+    const paragraph = before;
+
+    for (let i = 0; i < paragraph.children.length; i++) {
+      const child = paragraph.children[i];
+      if (child.type === "inlineCode" && child.value.startsWith("@")) {
+        paragraph.children[i] = {
+          type: GHERKIN_TAG_TYPE,
+          value: child.value,
+        };
       }
     }
   });
