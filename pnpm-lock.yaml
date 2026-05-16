@@ -9,6 +9,9 @@ catalogs:
     '@types/mdast':
       specifier: ^4.0.4
       version: 4.0.4
+    mdast:
+      specifier: ^3.0.0
+      version: 3.0.0
     mdast-util-from-markdown:
       specifier: ^2.0.3
       version: 2.0.3
@@ -21,6 +24,9 @@ catalogs:
     unified:
       specifier: ^11.0.5
       version: 11.0.5
+    unist-util-visit:
+      specifier: ^5.1.0
+      version: 5.1.0
     vite-plus:
       specifier: latest
       version: 0.1.21
@@ -45,7 +51,13 @@ importers:
       mdast-util-to-markdown:
         specifier: 'catalog:'
         version: 2.1.2
+      unist-util-visit:
+        specifier: 'catalog:'
+        version: 5.1.0
     devDependencies:
+      '@types/mdast':
+        specifier: 'catalog:'
+        version: 4.0.4
       '@types/node':
         specifier: ^25.6.2
         version: 25.8.0
@@ -55,6 +67,9 @@ importers:
       bumpp:
         specifier: ^11.1.0
         version: 11.1.0
+      mdast:
+        specifier: 'catalog:'
+        version: 3.0.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -907,6 +922,10 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
+  mdast@3.0.0:
+    resolution: {integrity: sha512-xySmf8g4fPKMeC07jXGz971EkLbWAJ83s4US2Tj9lEdnZ142UP5grN73H1Xd3HzrdbU5o9GYYP/y8F9ZSwLE9g==}
+    deprecated: '`mdast` was renamed to `remark`'
+
   micromark-core-commonmark@2.0.3:
     resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
 
@@ -1681,6 +1700,8 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.4
+
+  mdast@3.0.0: {}
 
   micromark-core-commonmark@2.0.3:
     dependencies:
