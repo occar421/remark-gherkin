@@ -18,6 +18,8 @@ catalog:
   micromark: ^4.0.2
   unist-util-visit: ^5.1.0
   mdast: ^3.0.0
+  unist-util-find-all-after: ^5.0.0
+  unist-util-visit-parents: ^6.0.2
 overrides:
   vite: "catalog:"
   vitest: "catalog:"

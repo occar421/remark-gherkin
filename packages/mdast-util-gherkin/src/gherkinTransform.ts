@@ -1,5 +1,7 @@
 import type { Transform } from "mdast-util-from-markdown";
 import { visit } from "unist-util-visit";
+import { visitParents } from "unist-util-visit-parents";
+import { findAllAfter } from "unist-util-find-all-after";
 import {
   AND_KEYWORD,
   BACKGROUND_KEYWORD,
@@ -71,21 +73,6 @@ const gherkinTransform: Transform = (tree) => {
         ]) {
           if (textNode.value.startsWith(`${keyword} `)) {
             firstChild.children.shift();
-
-            for (let i = 0; i < firstChild.children.length; i++) {
-              const child = firstChild.children[i];
-              if (
-                child.type === "html" &&
-                child.value.startsWith("<") &&
-                child.value.endsWith(">")
-              ) {
-                firstChild.children[i] = {
-                  type: GHERKIN_DELIMITED_PARAMETER_TYPE,
-                  ident: child.value.slice(1, -1), // "<foo>" -> "foo"
-                };
-              }
-            }
-
             firstChild.children.unshift({
               type: "text",
               value: textNode.value.slice(keyword.length + 1),
@@ -94,6 +81,29 @@ const gherkinTransform: Transform = (tree) => {
             break;
           }
         }
+      }
+    }
+  });
+
+  // Delimited Parameter
+  visitParents(tree, GHERKIN_STEP_KEYWORD_TYPE, (node, ancestors) => {
+    if (ancestors.length === 0) {
+      return;
+    }
+    const parent = ancestors[ancestors.length - 1];
+    if (parent.type !== "paragraph") {
+      return;
+    }
+    const siblings = findAllAfter(parent, node, "html");
+
+    for (let i = 0; i < siblings.length; i++) {
+      const sibling = siblings[i];
+      if (sibling.value.startsWith("<") && sibling.value.endsWith(">")) {
+        const index = parent.children.indexOf(sibling);
+        parent.children[index] = {
+          type: GHERKIN_DELIMITED_PARAMETER_TYPE,
+          ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
+        };
       }
     }
   });
