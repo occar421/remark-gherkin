@@ -1,17 +1,23 @@
-export const GHERKIN_TAG_TYPE = "gherkinTag" as const;
-export const GHERKIN_SEGMENT_KEYWORD_TYPE = "gherkinSegmentKeyword" as const;
-export const GHERKIN_STEP_KEYWORD_TYPE = "gherkinStepKeyword" as const;
-export const GHERKIN_DELIMITED_PARAMETER_TYPE = "gherkinDelimitedParameter" as const;
+export const Types = {
+  GHERKIN_TAG_TYPE: "gherkinTag",
+  GHERKIN_SEGMENT_KEYWORD_TYPE: "gherkinSegmentKeyword",
+  GHERKIN_STEP_KEYWORD_TYPE: "gherkinStepKeyword",
+  GHERKIN_DELIMITED_PARAMETER_TYPE: "gherkinDelimitedParameter",
+} as const;
 
-export const FEATURE_KEYWORD = "Feature:" as const;
-export const BACKGROUND_KEYWORD = "Background:" as const;
-export const RULE_KEYWORD = "Rule:" as const;
-export const SCENARIO_KEYWORD = "Scenario:" as const;
-export const SCENARIO_OUTLINE_KEYWORD = "Scenario Outline:" as const;
-export const EXAMPLE_KEYWORD = "Example:" as const;
+export const SegmentKeywords = {
+  FEATURE_KEYWORD: "Feature:",
+  BACKGROUND_KEYWORD: "Background:",
+  RULE_KEYWORD: "Rule:",
+  SCENARIO_KEYWORD: "Scenario:",
+  SCENARIO_OUTLINE_KEYWORD: "Scenario Outline:",
+  EXAMPLE_KEYWORD: "Example:",
+} as const;
 
-export const GIVEN_KEYWORD = "Given" as const;
-export const WHEN_KEYWORD = "When" as const;
-export const THEN_KEYWORD = "Then" as const;
-export const AND_KEYWORD = "And" as const;
-export const BUT_KEYWORD = "But" as const;
+export const StepKeywords = {
+  GIVEN_KEYWORD: "Given",
+  WHEN_KEYWORD: "When",
+  THEN_KEYWORD: "Then",
+  AND_KEYWORD: "And",
+  BUT_KEYWORD: "But",
+} as const;

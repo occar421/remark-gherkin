@@ -3,23 +3,7 @@ import { visit } from "unist-util-visit";
 import { visitParents } from "unist-util-visit-parents";
 import { findAllAfter } from "unist-util-find-all-after";
 import { findBefore } from "unist-util-find-before";
-import {
-  AND_KEYWORD,
-  BACKGROUND_KEYWORD,
-  BUT_KEYWORD,
-  EXAMPLE_KEYWORD,
-  FEATURE_KEYWORD,
-  GHERKIN_SEGMENT_KEYWORD_TYPE,
-  GHERKIN_DELIMITED_PARAMETER_TYPE,
-  GIVEN_KEYWORD,
-  RULE_KEYWORD,
-  SCENARIO_KEYWORD,
-  SCENARIO_OUTLINE_KEYWORD,
-  THEN_KEYWORD,
-  WHEN_KEYWORD,
-  GHERKIN_STEP_KEYWORD_TYPE,
-  GHERKIN_TAG_TYPE,
-} from "./constant.ts";
+import { Types, SegmentKeywords, StepKeywords } from "./constant.ts";
 
 const gherkinTransform: Transform = (tree) => {
   // Segment Keyword
@@ -30,14 +14,7 @@ const gherkinTransform: Transform = (tree) => {
 
     const firstChild = node.children[0];
     if (firstChild.type === "text") {
-      for (const keyword of [
-        FEATURE_KEYWORD,
-        BACKGROUND_KEYWORD,
-        RULE_KEYWORD,
-        SCENARIO_KEYWORD,
-        SCENARIO_OUTLINE_KEYWORD,
-        EXAMPLE_KEYWORD,
-      ]) {
+      for (const keyword of Object.values(SegmentKeywords)) {
         if (firstChild.value.startsWith(`${keyword} `)) {
           // prevent text directive `:color[]{}`
           node.children.shift(); // === firstChild
@@ -45,7 +22,7 @@ const gherkinTransform: Transform = (tree) => {
             type: "text",
             value: firstChild.value.slice(keyword.length + 1),
           });
-          node.children.unshift({ type: GHERKIN_SEGMENT_KEYWORD_TYPE, value: keyword });
+          node.children.unshift({ type: Types.GHERKIN_SEGMENT_KEYWORD_TYPE, value: keyword });
           break;
         }
       }
@@ -53,7 +30,7 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Tags
-  visitParents(tree, GHERKIN_SEGMENT_KEYWORD_TYPE, (node, ancestors) => {
+  visitParents(tree, Types.GHERKIN_SEGMENT_KEYWORD_TYPE, (node, ancestors) => {
     if (ancestors.length <= 1) {
       return;
     }
@@ -73,7 +50,7 @@ const gherkinTransform: Transform = (tree) => {
       const child = paragraph.children[i];
       if (child.type === "inlineCode" && child.value.startsWith("@")) {
         paragraph.children[i] = {
-          type: GHERKIN_TAG_TYPE,
+          type: Types.GHERKIN_TAG_TYPE,
           value: child.value,
         };
       }
@@ -94,20 +71,14 @@ const gherkinTransform: Transform = (tree) => {
 
       if (firstChild.children[0].type === "text") {
         const textNode = firstChild.children[0];
-        for (const keyword of [
-          GIVEN_KEYWORD,
-          WHEN_KEYWORD,
-          THEN_KEYWORD,
-          AND_KEYWORD,
-          BUT_KEYWORD,
-        ]) {
+        for (const keyword of Object.values(StepKeywords)) {
           if (textNode.value.startsWith(`${keyword} `)) {
             firstChild.children.shift();
             firstChild.children.unshift({
               type: "text",
               value: textNode.value.slice(keyword.length + 1),
             });
-            firstChild.children.unshift({ type: GHERKIN_STEP_KEYWORD_TYPE, value: keyword });
+            firstChild.children.unshift({ type: Types.GHERKIN_STEP_KEYWORD_TYPE, value: keyword });
             break;
           }
         }
@@ -116,7 +87,7 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Delimited Parameter
-  visitParents(tree, GHERKIN_STEP_KEYWORD_TYPE, (node, ancestors) => {
+  visitParents(tree, Types.GHERKIN_STEP_KEYWORD_TYPE, (node, ancestors) => {
     if (ancestors.length === 0) {
       return;
     }
@@ -131,7 +102,7 @@ const gherkinTransform: Transform = (tree) => {
       if (sibling.value.startsWith("<") && sibling.value.endsWith(">")) {
         const index = parent.children.indexOf(sibling);
         parent.children[index] = {
-          type: GHERKIN_DELIMITED_PARAMETER_TYPE,
+          type: Types.GHERKIN_DELIMITED_PARAMETER_TYPE,
           prefix: "<",
           ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
           suffix: ">",
