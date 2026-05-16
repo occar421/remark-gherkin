@@ -118,9 +118,20 @@ const gherkinTransform: Transform = (tree) => {
           if (textNode.value.startsWith(`${keyword} `)) {
             firstChild.children.shift();
 
+            const textPosition: Position | undefined = textNode.position && {
+              start: {
+                line: textNode.position.start.line,
+                column: textNode.position.start.column + keyword.length + 1,
+                offset:
+                  textNode.position.start.offset &&
+                  textNode.position.start.offset + keyword.length + 1,
+              },
+              end: textNode.position.end,
+            };
             firstChild.children.unshift({
               type: "text",
               value: textNode.value.slice(keyword.length + 1),
+              position: textPosition,
             });
 
             const keywordPosition: Position | undefined = textNode.position && {

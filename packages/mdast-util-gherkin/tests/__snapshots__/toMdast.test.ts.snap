@@ -362,6 +362,18 @@ not the ",
                   "value": "Given",
                 },
                 {
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 14,
+                      "offset": 297,
+                    },
+                    "start": {
+                      "column": 9,
+                      "line": 14,
+                      "offset": 287,
+                    },
+                  },
                   "type": "text",
                   "value": "there are ",
                 },
@@ -438,6 +450,18 @@ not the ",
                   "value": "When",
                 },
                 {
+                  "position": {
+                    "end": {
+                      "column": 14,
+                      "line": 15,
+                      "offset": 328,
+                    },
+                    "start": {
+                      "column": 8,
+                      "line": 15,
+                      "offset": 322,
+                    },
+                  },
                   "type": "text",
                   "value": "I eat ",
                 },
@@ -514,6 +538,18 @@ not the ",
                   "value": "Then",
                 },
                 {
+                  "position": {
+                    "end": {
+                      "column": 22,
+                      "line": 16,
+                      "offset": 365,
+                    },
+                    "start": {
+                      "column": 8,
+                      "line": 16,
+                      "offset": 351,
+                    },
+                  },
                   "type": "text",
                   "value": "I should have ",
                 },
