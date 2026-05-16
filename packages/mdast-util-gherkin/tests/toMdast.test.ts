@@ -37,26 +37,33 @@ suite("Markdown with Gherkin to mdast", () => {
       });
     });
 
-    suite.each(["Feature", "Background", "Rule", "Scenario", "Scenario Outline", "Example"])(
-      "%s",
-      (keyword) => {
-        test.each([1, 2, 3, 4, 5, 6])(
-          `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
-          (level) => {
-            const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
-            expect(tree.children).toHaveLength(1);
-            expect(tree.children[0]).toMatchObject({
-              type: "heading",
-              depth: level,
-              children: [
-                { type: "gherkinSegmentKeyword", value: `${keyword}:` },
-                { type: "text", value: "Hello" },
-              ],
-            });
-          },
-        );
-      },
-    );
+    suite.each([
+      "Feature",
+      "Background",
+      "Rule",
+      "Scenario",
+      "Scenario Outline",
+      "Example",
+      "Scenario Template",
+      "Examples",
+      "Scenarios",
+    ])("%s", (keyword) => {
+      test.each([1, 2, 3, 4, 5, 6])(
+        `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
+        (level) => {
+          const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
+          expect(tree.children).toHaveLength(1);
+          expect(tree.children[0]).toMatchObject({
+            type: "heading",
+            depth: level,
+            children: [
+              { type: "gherkinSegmentKeyword", value: `${keyword}:` },
+              { type: "text", value: "Hello" },
+            ],
+          });
+        },
+      );
+    });
 
     suite.each(["Given", "When", "Then", "And", "But"])("%s", (keyword) => {
       test.each(["*", "-"])(
