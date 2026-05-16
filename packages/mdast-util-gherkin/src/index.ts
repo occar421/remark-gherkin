@@ -73,13 +73,16 @@ const gherkinTransform: Transform = (tree) => {
 
       if (firstChild.children[0].type === "text") {
         const textNode = firstChild.children[0];
-        if (textNode.value.startsWith(`${GIVEN_KEYWORD} `)) {
-          firstChild.children.shift();
-          firstChild.children.unshift({
-            type: "text",
-            value: textNode.value.slice(GIVEN_KEYWORD.length + 1),
-          });
-          firstChild.children.unshift({ type: GHERKIN_KEYWORD_TYPE, value: GIVEN_KEYWORD });
+        for (const keyword of [GIVEN_KEYWORD]) {
+          if (textNode.value.startsWith(`${keyword} `)) {
+            firstChild.children.shift();
+            firstChild.children.unshift({
+              type: "text",
+              value: textNode.value.slice(keyword.length + 1),
+            });
+            firstChild.children.unshift({ type: GHERKIN_KEYWORD_TYPE, value: keyword });
+            break;
+          }
         }
       }
     }

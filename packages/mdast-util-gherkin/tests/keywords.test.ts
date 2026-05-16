@@ -57,7 +57,7 @@ suite("gherkin", () => {
       },
     );
 
-    suite("Given", () => {
+    suite.each(["Given"])("%s", () => {
       test.each(["*", "-"])(
         `"Given:" is parsed as GherkinKeyword in list item "%s"`,
         (bulletSign) => {
