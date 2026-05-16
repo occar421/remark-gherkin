@@ -87,10 +87,9 @@ suite("Markdown with Gherkin to mdast", () => {
         type: "root",
         children: [
           {
-            type: "paragraph",
+            type: "gherkinTagLine",
             children: [
               { type: "gherkinTag", value: "@important" },
-              { type: "text", value: " " },
               { type: "gherkinTag", value: "@essential" },
             ],
           },
@@ -107,7 +106,6 @@ suite("Markdown with Gherkin to mdast", () => {
 
       expect(str).toMatch(
         `${"`@important` `@essential`"}
-
 ### Scenario Outline: eating
 `,
       );

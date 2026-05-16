@@ -72,7 +72,7 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Tags
-  visitParents(tree, Types.GHERKIN_SEGMENT_KEYWORD_TYPE, (node, ancestors) => {
+  visitParents(tree, Types.GHERKIN_SEGMENT_KEYWORD_TYPE, (_node, ancestors) => {
     if (ancestors.length <= 1) {
       return;
     }
@@ -97,6 +97,32 @@ const gherkinTransform: Transform = (tree) => {
           position: child.position,
         };
       }
+    }
+  });
+
+  // Tag ine
+  visit(tree, "paragraph", (node) => {
+    const tagsOnly = node.children.every(
+      (child) =>
+        child.type === Types.GHERKIN_TAG_TYPE ||
+        (child.type === "text" && child.value.trim() === ""),
+    );
+    if (tagsOnly) {
+      visitParents(tree, node, (_node, ancestors) => {
+        if (ancestors.length === 0) {
+          return;
+        }
+        const parent = ancestors[ancestors.length - 1];
+        if (parent.type !== "root") {
+          return;
+        }
+        const index = parent.children.indexOf(node);
+        parent.children[index] = {
+          type: Types.GHERKIN_TAG_LINE_TYPE,
+          children: node.children.filter((child) => child.type === Types.GHERKIN_TAG_TYPE),
+          position: node.position,
+        };
+      });
     }
   });
 

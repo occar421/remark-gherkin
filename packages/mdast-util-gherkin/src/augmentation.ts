@@ -1,8 +1,11 @@
-import type { Literal, Node } from "mdast";
+import type { Literal, Node, Parent } from "mdast";
 import { Types } from "./constant.ts";
 
 export interface GherkinTagKeyword extends Literal {
   type: typeof Types.GHERKIN_TAG_TYPE;
+}
+export interface GherkinTagLineKeyword extends Parent {
+  type: typeof Types.GHERKIN_TAG_LINE_TYPE;
 }
 export interface GherkinSegmentKeyword extends Literal {
   type: typeof Types.GHERKIN_SEGMENT_KEYWORD_TYPE;
@@ -18,8 +21,18 @@ export interface GherkinDelimitedParameter extends Node {
 declare module "mdast" {
   interface PhrasingContentMap {
     gherkinTagKeyword: GherkinTagKeyword;
+    gherkinTagLineType: GherkinTagLineKeyword;
     gherkinSegmentKeyword: GherkinSegmentKeyword;
     gherkinStepKeyword: GherkinStepKeyword;
     gherkinDelimitedParameter: GherkinDelimitedParameter;
+  }
+
+  interface BlockContentMap {
+    gherkinTagLineType: GherkinTagLineKeyword;
+  }
+
+  interface RootContentMap {
+    gherkinTagType: GherkinTagKeyword;
+    gherkinTagLineType: GherkinTagLineKeyword;
   }
 }

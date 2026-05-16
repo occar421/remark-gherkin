@@ -125,10 +125,9 @@ ${"`@important` `@essential`"}
         expect(tree.children).toHaveLength(2);
 
         expect(tree.children[0]).toMatchObject({
-          type: "paragraph",
+          type: "gherkinTagLine",
           children: [
             { type: "gherkinTag", value: "@important" },
-            { type: "text", value: " " },
             { type: "gherkinTag", value: "@essential" },
           ],
         });
