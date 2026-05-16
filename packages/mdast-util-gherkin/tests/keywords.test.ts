@@ -7,7 +7,7 @@ suite("gherkin", () => {
     fromMarkdown(text, undefined, { mdastExtensions: [gherkinFromMarkdown()] });
 
   suite("keyword", () => {
-    suite("Feature", () => {
+    suite("No degradation", () => {
       test.each([1, 2, 3, 4, 5, 6])("Normal header should pass through in h%i", (level) => {
         const tree = getTree(`${"#".repeat(level)} Hello`);
         expect(tree.children).toHaveLength(1);
@@ -17,7 +17,9 @@ suite("gherkin", () => {
           children: [{ type: "text", value: "Hello" }],
         });
       });
+    });
 
+    suite("Feature", () => {
       test.each([1, 2, 3, 4, 5, 6])("`Feature:` is parsed as GherkinKeyword in h%i", (level) => {
         const tree = getTree(`${"#".repeat(level)} Feature: Hello`);
         expect(tree.children).toHaveLength(1);
