@@ -49,7 +49,7 @@ suite("Markdown with Gherkin to mdast", () => {
       "Scenarios",
     ])("%s", (keyword) => {
       test.each([1, 2, 3, 4, 5, 6])(
-        `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
+        `"${keyword}: ???" is parsed as Gherkin segment keyword in h%i`,
         (level) => {
           const tree = getTree(`${"#".repeat(level)} ${keyword}: Hello`);
           expect(tree.children).toHaveLength(1);
@@ -60,6 +60,21 @@ suite("Markdown with Gherkin to mdast", () => {
               { type: "gherkinSegmentKeyword", value: `${keyword}:` },
               { type: "text", value: "Hello" },
             ],
+          });
+        },
+      );
+    });
+
+    suite.each(["Examples", "Scenarios"])("%s with Table", (keyword) => {
+      test.each([1, 2, 3, 4, 5, 6])(
+        `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
+        (level) => {
+          const tree = getTree(`${"#".repeat(level)} ${keyword}:`);
+          expect(tree.children).toHaveLength(1);
+          expect(tree.children[0]).toMatchObject({
+            type: "heading",
+            depth: level,
+            children: [{ type: "gherkinSegmentKeyword", value: `${keyword}:` }],
           });
         },
       );

@@ -16,9 +16,24 @@ const gherkinTransform: Transform = (tree) => {
     const firstChild = node.children[0];
     if (firstChild.type === "text") {
       for (const keyword of Object.values(SegmentKeywords)) {
-        // prevent text directive `:color[]{}`
+        // e.g. ### Examples:\n
+        if (firstChild.value === keyword) {
+          node.children.shift(); // === firstChild
+
+          node.children.unshift({
+            type: Types.GHERKIN_SEGMENT_KEYWORD_TYPE,
+            value: keyword,
+            position: firstChild.position,
+          });
+          break;
+        }
+
+        // e.g. # Feature: ???
+        // require space to prevent text directive `:color[]{}`
         if (firstChild.value.startsWith(`${keyword} `)) {
           node.children.shift(); // === firstChild
+
+          const textValue = firstChild.value.slice(keyword.length + 1);
           const textPosition: Position | undefined = firstChild.position && {
             start: {
               line: firstChild.position.start.line,
@@ -31,7 +46,7 @@ const gherkinTransform: Transform = (tree) => {
           };
           node.children.unshift({
             type: "text",
-            value: firstChild.value.slice(keyword.length + 1),
+            value: textValue,
             position: textPosition,
           });
           const keywordPosition: Position | undefined = firstChild.position && {
