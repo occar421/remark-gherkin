@@ -1,6 +1,5 @@
 import { gherkin } from "micromark-extention-gherkin";
 import { gherkinFromMarkdown, gherkinToMarkdown } from "mdast-util-gherkin";
-import type { Root } from "mdast";
 import type { Processor } from "unified";
 
 declare module "unified" {
@@ -11,7 +10,7 @@ declare module "unified" {
   }
 }
 
-export default function remarkGherkin(this: Processor<Root>, options: {} = {}) {
+export default function remarkGherkin(this: Processor, options: {} = {}) {
   const data = this.data();
 
   const micromarkExtensions = data.micromarkExtensions || (data.micromarkExtensions = []);

@@ -24,6 +24,9 @@ catalog:
   unist: ^0.0.1
   "@types/unist": ^3.0.3
   unist-util-find-after: ^5.0.0
+  rehype-stringify: ^10.0.1
+  remark-parse: ^11.0.0
+  remark-rehype: ^11.1.2
 overrides:
   vite: "catalog:"
   vitest: "catalog:"
