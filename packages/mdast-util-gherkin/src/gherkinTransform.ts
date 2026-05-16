@@ -173,6 +173,7 @@ const gherkinTransform: Transform = (tree) => {
         parent.children[index] = {
           type: Types.GHERKIN_DELIMITED_PARAMETER_TYPE,
           ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
+          position: sibling.position,
         };
       }
     }

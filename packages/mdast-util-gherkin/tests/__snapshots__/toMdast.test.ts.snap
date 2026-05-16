@@ -379,6 +379,18 @@ not the ",
                 },
                 {
                   "ident": "start",
+                  "position": {
+                    "end": {
+                      "column": 26,
+                      "line": 14,
+                      "offset": 304,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 14,
+                      "offset": 297,
+                    },
+                  },
                   "type": "gherkinDelimitedParameter",
                 },
                 {
@@ -467,6 +479,18 @@ not the ",
                 },
                 {
                   "ident": "eat",
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 15,
+                      "offset": 333,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 15,
+                      "offset": 328,
+                    },
+                  },
                   "type": "gherkinDelimitedParameter",
                 },
                 {
@@ -555,6 +579,18 @@ not the ",
                 },
                 {
                   "ident": "left",
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 16,
+                      "offset": 371,
+                    },
+                    "start": {
+                      "column": 22,
+                      "line": 16,
+                      "offset": 365,
+                    },
+                  },
                   "type": "gherkinDelimitedParameter",
                 },
                 {
