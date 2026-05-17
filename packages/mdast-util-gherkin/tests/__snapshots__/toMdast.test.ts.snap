@@ -226,6 +226,11 @@ not the ",
     {
       "children": [
         {
+          "data": {
+            "gherkin": {
+              "type": "tag",
+            },
+          },
           "position": {
             "end": {
               "column": 13,
@@ -238,10 +243,31 @@ not the ",
               "offset": 222,
             },
           },
-          "type": "gherkinTag",
+          "type": "inlineCode",
           "value": "@important",
         },
         {
+          "position": {
+            "end": {
+              "column": 14,
+              "line": 10,
+              "offset": 235,
+            },
+            "start": {
+              "column": 13,
+              "line": 10,
+              "offset": 234,
+            },
+          },
+          "type": "text",
+          "value": " ",
+        },
+        {
+          "data": {
+            "gherkin": {
+              "type": "tag",
+            },
+          },
           "position": {
             "end": {
               "column": 26,
@@ -254,10 +280,15 @@ not the ",
               "offset": 235,
             },
           },
-          "type": "gherkinTag",
+          "type": "inlineCode",
           "value": "@essential",
         },
       ],
+      "data": {
+        "gherkin": {
+          "type": "tagLine",
+        },
+      },
       "position": {
         "end": {
           "column": 26,
@@ -270,7 +301,7 @@ not the ",
           "offset": 222,
         },
       },
-      "type": "gherkinTagLine",
+      "type": "paragraph",
     },
     {
       "children": [

@@ -4,7 +4,7 @@ import { visit } from "unist-util-visit";
 import { visitParents } from "unist-util-visit-parents";
 import { findAllAfter } from "unist-util-find-all-after";
 import { findBefore } from "unist-util-find-before";
-import { Types, SegmentKeywords, StepKeywords } from "./constant.ts";
+import { GherkinTypes, SegmentKeywords, StepKeywords } from "./constant.ts";
 
 const gherkinTransform: Transform = (tree) => {
   // Segment Keyword
@@ -21,7 +21,7 @@ const gherkinTransform: Transform = (tree) => {
           node.children.shift(); // === firstChild
 
           node.children.unshift({
-            type: Types.GHERKIN_SEGMENT_KEYWORD_TYPE,
+            type: GherkinTypes.SEGMENT_KEYWORD_TYPE,
             value: keyword,
             position: firstChild.position,
           });
@@ -61,7 +61,7 @@ const gherkinTransform: Transform = (tree) => {
             },
           };
           node.children.unshift({
-            type: Types.GHERKIN_SEGMENT_KEYWORD_TYPE,
+            type: GherkinTypes.SEGMENT_KEYWORD_TYPE,
             value: keyword,
             position: keywordPosition,
           });
@@ -72,7 +72,7 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Tags
-  visitParents(tree, Types.GHERKIN_SEGMENT_KEYWORD_TYPE, (_node, ancestors) => {
+  visitParents(tree, GherkinTypes.SEGMENT_KEYWORD_TYPE, (_node, ancestors) => {
     if (ancestors.length <= 1) {
       return;
     }
@@ -91,11 +91,7 @@ const gherkinTransform: Transform = (tree) => {
     for (let i = 0; i < paragraph.children.length; i++) {
       const child = paragraph.children[i];
       if (child.type === "inlineCode" && child.value.startsWith("@")) {
-        paragraph.children[i] = {
-          type: Types.GHERKIN_TAG_TYPE,
-          value: child.value,
-          position: child.position,
-        };
+        child.data = { ...child.data, gherkin: { type: GherkinTypes.TAG_TYPE } };
       }
     }
   });
@@ -104,26 +100,14 @@ const gherkinTransform: Transform = (tree) => {
   visit(tree, "paragraph", (node) => {
     const tagsOnly = node.children.every(
       (child) =>
-        child.type === Types.GHERKIN_TAG_TYPE ||
+        child.data?.gherkin?.type === GherkinTypes.TAG_TYPE ||
         (child.type === "text" && child.value.trim() === ""),
     );
-    if (tagsOnly) {
-      visitParents(tree, node, (_node, ancestors) => {
-        if (ancestors.length === 0) {
-          return;
-        }
-        const parent = ancestors[ancestors.length - 1];
-        if (parent.type !== "root") {
-          return;
-        }
-        const index = parent.children.indexOf(node);
-        parent.children[index] = {
-          type: Types.GHERKIN_TAG_LINE_TYPE,
-          children: node.children.filter((child) => child.type === Types.GHERKIN_TAG_TYPE),
-          position: node.position,
-        };
-      });
+    if (!tagsOnly) {
+      return;
     }
+
+    node.data = { ...node.data, gherkin: { type: GherkinTypes.TAG_LINE_TYPE } };
   });
 
   // Step Keyword
@@ -170,7 +154,7 @@ const gherkinTransform: Transform = (tree) => {
               },
             };
             firstChild.children.unshift({
-              type: Types.GHERKIN_STEP_KEYWORD_TYPE,
+              type: GherkinTypes.STEP_KEYWORD_TYPE,
               value: keyword,
               position: keywordPosition,
             });
@@ -182,7 +166,7 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Delimited Parameter
-  visitParents(tree, Types.GHERKIN_STEP_KEYWORD_TYPE, (node, ancestors) => {
+  visitParents(tree, GherkinTypes.STEP_KEYWORD_TYPE, (node, ancestors) => {
     if (ancestors.length === 0) {
       return;
     }
@@ -197,7 +181,7 @@ const gherkinTransform: Transform = (tree) => {
       if (sibling.value.startsWith("<") && sibling.value.endsWith(">")) {
         const index = parent.children.indexOf(sibling);
         parent.children[index] = {
-          type: Types.GHERKIN_DELIMITED_PARAMETER_TYPE,
+          type: GherkinTypes.DELIMITED_PARAMETER_TYPE,
           ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
           position: sibling.position,
         };

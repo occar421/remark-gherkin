@@ -1,38 +1,27 @@
-import type { Literal, Node, Parent } from "mdast";
-import { Types } from "./constant.ts";
+import type { Literal, Node } from "mdast";
+import { GherkinTypes } from "./constant.ts";
 
-export interface GherkinTagKeyword extends Literal {
-  type: typeof Types.GHERKIN_TAG_TYPE;
-}
-export interface GherkinTagLineKeyword extends Parent {
-  type: typeof Types.GHERKIN_TAG_LINE_TYPE;
-}
 export interface GherkinSegmentKeyword extends Literal {
-  type: typeof Types.GHERKIN_SEGMENT_KEYWORD_TYPE;
+  type: typeof GherkinTypes.SEGMENT_KEYWORD_TYPE;
 }
 export interface GherkinStepKeyword extends Literal {
-  type: typeof Types.GHERKIN_STEP_KEYWORD_TYPE;
+  type: typeof GherkinTypes.STEP_KEYWORD_TYPE;
 }
 export interface GherkinDelimitedParameter extends Node {
-  type: typeof Types.GHERKIN_DELIMITED_PARAMETER_TYPE;
+  type: typeof GherkinTypes.DELIMITED_PARAMETER_TYPE;
   ident: string;
 }
 
 declare module "mdast" {
   interface PhrasingContentMap {
-    gherkinTagKeyword: GherkinTagKeyword;
-    gherkinTagLineType: GherkinTagLineKeyword;
     gherkinSegmentKeyword: GherkinSegmentKeyword;
     gherkinStepKeyword: GherkinStepKeyword;
     gherkinDelimitedParameter: GherkinDelimitedParameter;
   }
 
-  interface BlockContentMap {
-    gherkinTagLineType: GherkinTagLineKeyword;
-  }
-
-  interface RootContentMap {
-    gherkinTagType: GherkinTagKeyword;
-    gherkinTagLineType: GherkinTagLineKeyword;
+  interface Data {
+    gherkin?: {
+      type?: (typeof GherkinTypes)[keyof typeof GherkinTypes];
+    };
   }
 }

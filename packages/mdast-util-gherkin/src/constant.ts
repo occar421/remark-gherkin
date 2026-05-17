@@ -1,9 +1,9 @@
-export const Types = {
-  GHERKIN_TAG_TYPE: "gherkinTag",
-  GHERKIN_TAG_LINE_TYPE: "gherkinTagLine",
-  GHERKIN_SEGMENT_KEYWORD_TYPE: "gherkinSegmentKeyword",
-  GHERKIN_STEP_KEYWORD_TYPE: "gherkinStepKeyword",
-  GHERKIN_DELIMITED_PARAMETER_TYPE: "gherkinDelimitedParameter",
+export const GherkinTypes = {
+  TAG_TYPE: "tag",
+  TAG_LINE_TYPE: "tagLine",
+  SEGMENT_KEYWORD_TYPE: "gherkinSegmentKeyword",
+  STEP_KEYWORD_TYPE: "gherkinStepKeyword",
+  DELIMITED_PARAMETER_TYPE: "gherkinDelimitedParameter",
 } as const;
 
 export const SegmentKeywords = {
