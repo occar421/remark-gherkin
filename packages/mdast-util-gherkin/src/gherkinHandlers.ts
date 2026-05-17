@@ -15,9 +15,6 @@ const handlers: Record<string, Handle> = {
   [GherkinTypes.STEP_KEYWORD_TYPE]: (node) => {
     return `${node.value} `;
   },
-  [GherkinTypes.DELIMITED_PARAMETER_TYPE]: (node) => {
-    return `<${node.ident}>`;
-  },
 };
 
 export default handlers;

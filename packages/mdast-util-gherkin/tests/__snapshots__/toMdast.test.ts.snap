@@ -393,7 +393,12 @@ not the ",
                   "value": "there are ",
                 },
                 {
-                  "ident": "start",
+                  "data": {
+                    "gherkin": {
+                      "ident": "start",
+                      "type": "delimitedParameter",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 26,
@@ -406,7 +411,8 @@ not the ",
                       "offset": 297,
                     },
                   },
-                  "type": "gherkinDelimitedParameter",
+                  "type": "html",
+                  "value": "<start>",
                 },
                 {
                   "position": {
@@ -493,7 +499,12 @@ not the ",
                   "value": "I eat ",
                 },
                 {
-                  "ident": "eat",
+                  "data": {
+                    "gherkin": {
+                      "ident": "eat",
+                      "type": "delimitedParameter",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 19,
@@ -506,7 +517,8 @@ not the ",
                       "offset": 328,
                     },
                   },
-                  "type": "gherkinDelimitedParameter",
+                  "type": "html",
+                  "value": "<eat>",
                 },
                 {
                   "position": {
@@ -593,7 +605,12 @@ not the ",
                   "value": "I should have ",
                 },
                 {
-                  "ident": "left",
+                  "data": {
+                    "gherkin": {
+                      "ident": "left",
+                      "type": "delimitedParameter",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 28,
@@ -606,7 +623,8 @@ not the ",
                       "offset": 365,
                     },
                   },
-                  "type": "gherkinDelimitedParameter",
+                  "type": "html",
+                  "value": "<left>",
                 },
                 {
                   "position": {

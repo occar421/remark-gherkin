@@ -3,7 +3,7 @@ export const GherkinTypes = {
   TAG_LINE_TYPE: "tagLine",
   SEGMENT_KEYWORD_TYPE: "gherkinSegmentKeyword",
   STEP_KEYWORD_TYPE: "gherkinStepKeyword",
-  DELIMITED_PARAMETER_TYPE: "gherkinDelimitedParameter",
+  DELIMITED_PARAMETER_TYPE: "delimitedParameter",
 } as const;
 
 export const SegmentKeywords = {

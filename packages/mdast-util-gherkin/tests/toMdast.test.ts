@@ -102,8 +102,14 @@ suite("Markdown with Gherkin to mdast", () => {
                       { type: "gherkinStepKeyword", value: keyword },
                       { type: "text", value: "there are " },
                       {
-                        type: "gherkinDelimitedParameter",
-                        ident: "start",
+                        type: "html",
+                        value: "<start>",
+                        data: {
+                          gherkin: {
+                            type: "delimitedParameter",
+                            ident: "start",
+                          },
+                        },
                       },
                       { type: "text", value: " cucumbers" },
                     ],

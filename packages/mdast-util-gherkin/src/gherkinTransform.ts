@@ -179,11 +179,12 @@ const gherkinTransform: Transform = (tree) => {
     for (let i = 0; i < siblings.length; i++) {
       const sibling = siblings[i];
       if (sibling.value.startsWith("<") && sibling.value.endsWith(">")) {
-        const index = parent.children.indexOf(sibling);
-        parent.children[index] = {
-          type: GherkinTypes.DELIMITED_PARAMETER_TYPE,
-          ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
-          position: sibling.position,
+        sibling.data = {
+          ...sibling.data,
+          gherkin: {
+            type: GherkinTypes.DELIMITED_PARAMETER_TYPE,
+            ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
+          },
         };
       }
     }
