@@ -9,7 +9,7 @@ suite("remark-gherkin", () => {
   const toHtml = unified()
     .use(remarkParse)
     .use(remarkGherkin)
-    .use(remarkRehype) // TODO make this plugin
+    .use(remarkRehype)
     .use(rehypeStringify);
 
   test("Should parse Gherkin", () => {
