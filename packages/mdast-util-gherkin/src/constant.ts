@@ -12,15 +12,12 @@ export const SyntaxTokens = {
 } as const;
 
 export const SegmentKeywords = {
-  FEATURE: ["Feature"],
+  FEATURE: ["Feature", "Business Need", "Ability"],
   RULE: ["Rule"],
-  EXAMPLE: ["Example"],
-  SCENARIO: ["Scenario"],
+  SCENARIO: ["Scenario", "Example"],
   BACKGROUND: ["Background"],
-  SCENARIO_OUTLINE: ["Scenario Outline"],
-  SCENARIO_TEMPLATE: ["Scenario Template"],
-  EXAMPLES: ["Examples"],
-  SCENARIOS: ["Scenarios"],
+  SCENARIO_OUTLINE: ["Scenario Outline", "Scenario Template"],
+  EXAMPLES: ["Examples", "Scenarios"],
 } as const;
 
 export const StepKeywords = {

@@ -39,11 +39,13 @@ suite("Markdown with Gherkin to mdast", () => {
 
     suite.each([
       "Feature",
+      "Business Need",
+      "Ability",
       "Background",
       "Rule",
       "Scenario",
-      "Scenario Outline",
       "Example",
+      "Scenario Outline",
       "Scenario Template",
       "Examples",
       "Scenarios",
