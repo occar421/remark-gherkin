@@ -8,7 +8,6 @@ not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
 ![xkcd](https://imgs.xkcd.com/comics/lunch_2x.png)
 
 `@important` `@essential`
-
 ### Scenario Outline: eating
 
 - Given there are <start> cucumbers
