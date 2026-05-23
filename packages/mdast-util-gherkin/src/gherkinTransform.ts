@@ -57,10 +57,12 @@ const gherkinTransform: Transform = (tree) => {
 
         // e.g. # Feature: ???
         // require space to prevent text directive `:color[]{}`
-        if (firstChild.value.startsWith(`${keyword} `)) {
+        const match = firstChild.value.slice(keyword.length).match(/^(\s+)/);
+        if (firstChild.value.startsWith(keyword) && match) {
           node.children.shift(); // === firstChild
 
-          const textValue = firstChild.value.slice(keyword.length + 1);
+          const separator = match[1];
+          const textValue = firstChild.value.slice(keyword.length + separator.length);
 
           const segmentKeywordPosition: Position | undefined = firstChild.position && {
             start: firstChild.position.start,
@@ -90,8 +92,9 @@ const gherkinTransform: Transform = (tree) => {
               start: delimiterPosition.end,
               end: {
                 ...delimiterPosition.end,
-                column: delimiterPosition.end.column + 1,
-                offset: delimiterPosition.end.offset && delimiterPosition.end.offset + 1,
+                column: delimiterPosition.end.column + separator.length,
+                offset:
+                  delimiterPosition.end.offset && delimiterPosition.end.offset + separator.length,
               },
             };
 
@@ -116,8 +119,9 @@ const gherkinTransform: Transform = (tree) => {
             },
             {
               type: "text",
-              value: " ",
+              value: separator,
               position: spacePosition,
+              data: { gherkin: { type: GherkinTypes.SEPARATOR } },
             },
             {
               type: "text",
@@ -172,6 +176,11 @@ const gherkinTransform: Transform = (tree) => {
     }
 
     node.data = { ...node.data, gherkin: { type: GherkinTypes.TAG_LINE } };
+    for (const child of node.children) {
+      if (child.type === "text" && child.value.trim() === "") {
+        child.data = { ...child.data, gherkin: { type: GherkinTypes.SEPARATOR } };
+      }
+    }
   });
 
   // Step Keyword
@@ -189,8 +198,11 @@ const gherkinTransform: Transform = (tree) => {
       if (firstChild.children[0].type === "text") {
         const textNode = firstChild.children[0];
         for (const keyword of Object.values(StepKeywords).flat()) {
-          if (textNode.value.startsWith(`${keyword} `)) {
+          const match = textNode.value.slice(keyword.length).match(/^(\s+)/);
+          if (textNode.value.startsWith(keyword) && match) {
             firstChild.children.shift();
+
+            const separator = match[1];
 
             const keywordPosition: Position | undefined = textNode.position && {
               start: textNode.position.start,
@@ -207,8 +219,9 @@ const gherkinTransform: Transform = (tree) => {
                 start: keywordPosition.end,
                 end: {
                   ...keywordPosition.end,
-                  column: keywordPosition.end.column + 1,
-                  offset: keywordPosition.end.offset && keywordPosition.end.offset + 1,
+                  column: keywordPosition.end.column + separator.length,
+                  offset:
+                    keywordPosition.end.offset && keywordPosition.end.offset + separator.length,
                 },
               };
 
@@ -227,12 +240,13 @@ const gherkinTransform: Transform = (tree) => {
               },
               {
                 type: "text",
-                value: " ",
+                value: separator,
                 position: spacePosition,
+                data: { gherkin: { type: GherkinTypes.SEPARATOR } },
               },
               {
                 type: "text",
-                value: textNode.value.slice(keyword.length + 1),
+                value: textNode.value.slice(keyword.length + separator.length),
                 position: textPosition,
               },
             );

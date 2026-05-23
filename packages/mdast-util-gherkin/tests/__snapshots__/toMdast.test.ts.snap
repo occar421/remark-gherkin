@@ -48,6 +48,11 @@ exports[`Markdown with Gherkin to mdast > Test with fixtures > mdgExample.featur
           "value": ":",
         },
         {
+          "data": {
+            "gherkin": {
+              "type": "separator",
+            },
+          },
           "position": {
             "end": {
               "column": 12,
@@ -225,6 +230,11 @@ not the ",
           "value": ":",
         },
         {
+          "data": {
+            "gherkin": {
+              "type": "separator",
+            },
+          },
           "position": {
             "end": {
               "column": 10,
@@ -331,6 +341,11 @@ not the ",
           "value": "@important",
         },
         {
+          "data": {
+            "gherkin": {
+              "type": "separator",
+            },
+          },
           "position": {
             "end": {
               "column": 14,
@@ -432,6 +447,11 @@ not the ",
           "value": ":",
         },
         {
+          "data": {
+            "gherkin": {
+              "type": "separator",
+            },
+          },
           "position": {
             "end": {
               "column": 23,
@@ -508,6 +528,11 @@ not the ",
                   "value": "Given",
                 },
                 {
+                  "data": {
+                    "gherkin": {
+                      "type": "separator",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 9,
@@ -635,6 +660,11 @@ not the ",
                   "value": "When",
                 },
                 {
+                  "data": {
+                    "gherkin": {
+                      "type": "separator",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 8,
@@ -762,6 +792,11 @@ not the ",
                   "value": "Then",
                 },
                 {
+                  "data": {
+                    "gherkin": {
+                      "type": "separator",
+                    },
+                  },
                   "position": {
                     "end": {
                       "column": 8,

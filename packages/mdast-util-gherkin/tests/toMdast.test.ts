@@ -61,7 +61,7 @@ suite("Markdown with Gherkin to mdast", () => {
             children: [
               { type: "text", value: `${keyword}`, data: { gherkin: { type: "segmentKeyword" } } },
               { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
-              { type: "text", value: " " },
+              { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
               { type: "text", value: "Hello" },
             ],
           });
@@ -107,7 +107,7 @@ suite("Markdown with Gherkin to mdast", () => {
                     type: "paragraph",
                     children: [
                       { type: "text", value: keyword, data: { gherkin: { type: "stepKeyword" } } },
-                      { type: "text", value: " " },
+                      { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
                       { type: "text", value: "there are " },
                       {
                         type: "html",
@@ -143,7 +143,7 @@ ${"`@important` `@essential`"}
           data: { gherkin: { type: "tagLine" } },
           children: [
             { type: "inlineCode", value: "@important", data: { gherkin: { type: "tag" } } },
-            { type: "text", value: " " },
+            { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
             { type: "inlineCode", value: "@essential", data: { gherkin: { type: "tag" } } },
           ],
         });

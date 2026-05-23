@@ -5,6 +5,7 @@ export const GherkinTypes = {
   SEGMENT_DELIMITER: "segmentDelimiter",
   STEP_KEYWORD: "stepKeyword",
   DELIMITED_PARAMETER: "delimitedParameter",
+  SEPARATOR: "separator",
 } as const;
 
 export const SyntaxTokens = {
