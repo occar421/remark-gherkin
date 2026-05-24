@@ -1,4 +1,4 @@
-import { GherkinTypes } from "./constant.ts";
+import type { GherkinTypes, SegmentKeywords, StepKeywords } from "./constant.ts";
 
 declare module "mdast" {
   interface HeadingData extends Data {
@@ -12,13 +12,18 @@ declare module "mdast" {
     };
   }
   interface TextData extends Data {
-    gherkin?: {
-      type:
-        | typeof GherkinTypes.SEGMENT_KEYWORD
-        | typeof GherkinTypes.SEGMENT_DELIMITER
-        | typeof GherkinTypes.STEP_KEYWORD
-        | typeof GherkinTypes.SEPARATOR;
-    };
+    gherkin?:
+      | {
+          type: typeof GherkinTypes.SEGMENT_KEYWORD;
+          keyword: keyof typeof SegmentKeywords;
+        }
+      | {
+          type: typeof GherkinTypes.STEP_KEYWORD;
+          keyword: keyof typeof StepKeywords;
+        }
+      | {
+          type: typeof GherkinTypes.SEGMENT_DELIMITER | typeof GherkinTypes.SEPARATOR;
+        };
   }
   interface InlineCodeData extends Data {
     gherkin?: {

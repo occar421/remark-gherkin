@@ -38,18 +38,18 @@ suite("Markdown with Gherkin to mdast", () => {
     });
 
     suite.each([
-      "Feature",
-      "Business Need",
-      "Ability",
-      "Background",
-      "Rule",
-      "Scenario",
-      "Example",
-      "Scenario Outline",
-      "Scenario Template",
-      "Examples",
-      "Scenarios",
-    ])("%s", (keyword) => {
+      ["Feature", "Feature"],
+      ["Business Need", "Feature"],
+      ["Ability", "Feature"],
+      ["Background", "Background"],
+      ["Rule", "Rule"],
+      ["Scenario", "Scenario"],
+      ["Example", "Scenario"],
+      ["Scenario Outline", "ScenarioOutline"],
+      ["Scenario Template", "ScenarioOutline"],
+      ["Examples", "Examples"],
+      ["Scenarios", "Examples"],
+    ] as const)("%s", (keyword, key) => {
       test.each([1, 2, 3, 4, 5, 6])(
         `"${keyword}: ???" is parsed as Gherkin segment keyword in h%i`,
         (level) => {
@@ -59,7 +59,11 @@ suite("Markdown with Gherkin to mdast", () => {
             type: "heading",
             depth: level,
             children: [
-              { type: "text", value: `${keyword}`, data: { gherkin: { type: "segmentKeyword" } } },
+              {
+                type: "text",
+                value: `${keyword}`,
+                data: { gherkin: { type: "segmentKeyword", keyword: key } },
+              },
               { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
               { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
               { type: "text", value: "Hello" },
@@ -70,7 +74,10 @@ suite("Markdown with Gherkin to mdast", () => {
       );
     });
 
-    suite.each(["Examples", "Scenarios"])("%s with Table", (keyword) => {
+    suite.each([
+      ["Examples", "Examples"],
+      ["Scenarios", "Examples"],
+    ] as const)("%s with Table", (keyword, key) => {
       test.each([1, 2, 3, 4, 5, 6])(
         `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
         (level) => {
@@ -80,7 +87,11 @@ suite("Markdown with Gherkin to mdast", () => {
             type: "heading",
             depth: level,
             children: [
-              { type: "text", value: `${keyword}`, data: { gherkin: { type: "segmentKeyword" } } },
+              {
+                type: "text",
+                value: `${keyword}`,
+                data: { gherkin: { type: "segmentKeyword", keyword: key } },
+              },
               { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
             ],
             data: { gherkin: { type: "segmentLine" } },
@@ -89,7 +100,7 @@ suite("Markdown with Gherkin to mdast", () => {
       );
     });
 
-    suite.each(["Given", "When", "Then", "And", "But"])("%s", (keyword) => {
+    suite.each(["Given", "When", "Then", "And", "But"] as const)("%s", (keyword) => {
       test.each(["*", "-"])(
         `"${keyword} " is parsed as Gherkin step keyword in list item "%s"`,
         (bulletSign) => {
@@ -108,7 +119,11 @@ suite("Markdown with Gherkin to mdast", () => {
                   {
                     type: "paragraph",
                     children: [
-                      { type: "text", value: keyword, data: { gherkin: { type: "stepKeyword" } } },
+                      {
+                        type: "text",
+                        value: keyword,
+                        data: { gherkin: { type: "stepKeyword", keyword: keyword } },
+                      },
                       { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
                       { type: "text", value: "there are " },
                       {
