@@ -42,17 +42,17 @@
   },
   "devDependencies": {
     "@types/mdast": "catalog:",
-    "@types/node": "^25.6.2",
-    "@typescript/native-preview": "7.0.0-dev.20260509.2",
-    "bumpp": "^11.1.0",
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
     "remark-gherkin": "workspace:*",
     "remark-parse": "catalog:",
-    "typescript": "^6.0.3",
+    "typescript": "catalog:",
     "unified": "catalog:",
-    "vite-plus": "^0.1.20"
+    "vite-plus": "catalog:"
   },
   "inlinedDependencies": {
-    "@types/mdast": "4.0.4",
-    "@types/unist": "3.0.3"
+    "@types/mdast": "catalog:",
+    "@types/unist": "catalog:"
   }
 }
