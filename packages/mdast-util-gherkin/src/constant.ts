@@ -14,18 +14,18 @@ export const SyntaxTokens = {
 } as const;
 
 export const SegmentKeywords = {
-  FEATURE: ["Feature", "Business Need", "Ability"],
-  RULE: ["Rule"],
-  SCENARIO: ["Scenario", "Example"],
-  BACKGROUND: ["Background"],
-  SCENARIO_OUTLINE: ["Scenario Outline", "Scenario Template"],
-  EXAMPLES: ["Examples", "Scenarios"],
+  Feature: ["Feature", "Business Need", "Ability"],
+  Rule: ["Rule"],
+  Scenario: ["Scenario", "Example"],
+  Background: ["Background"],
+  ScenarioOutline: ["Scenario Outline", "Scenario Template"],
+  Examples: ["Examples", "Scenarios"],
 } as const;
 
 export const StepKeywords = {
-  GIVEN: ["Given"],
-  WHEN: ["When"],
-  THEN: ["Then"],
-  AND: ["And"],
-  BUT: ["But"],
+  Given: ["Given"],
+  When: ["When"],
+  Then: ["Then"],
+  And: ["And"],
+  But: ["But"],
 } as const;
