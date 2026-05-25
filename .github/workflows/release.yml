@@ -19,7 +19,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      id-token: write
+      id-token: write # for OIDC
 
     steps:
       - name: Checkout Repo
@@ -35,6 +35,3 @@ jobs:
         with:
           publish: vp run release
           version: vp run version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
