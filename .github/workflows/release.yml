@@ -38,7 +38,6 @@ jobs:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
-      - run: npm install -g npm@11.15.0 # vite plus installs old version (v11.1.2) which lacks trusted publishers
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
