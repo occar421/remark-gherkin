@@ -12,7 +12,6 @@ const remarkLintGherkinNoTagsOnBackgrounds = lintRule<Root>(
         heading.data?.gherkin?.type === "segmentLine" &&
         heading.children.some(
           (child) =>
-            child.type === "text" &&
             child.data?.gherkin?.type === "segmentKeyword" &&
             child.data?.gherkin?.keyword === "Background",
         );
