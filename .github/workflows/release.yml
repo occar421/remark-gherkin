@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - uses: voidzero-dev/setup-vp@v1
         with:
           node-version: "lts"
@@ -35,6 +37,7 @@ jobs:
         with:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
