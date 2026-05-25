@@ -20,6 +20,7 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write # for OIDC
+      actions: read # for downloading artifacts
 
     steps:
       - name: Checkout Repo
@@ -29,6 +30,11 @@ jobs:
           node-version: "lts"
           cache: true
       - run: vp install
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: vp-build-artifact
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
