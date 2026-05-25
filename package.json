@@ -1,7 +1,14 @@
 {
-  "name": "unifiedjs-gherkin",
-  "version": "0.1.0",
   "private": true,
+  "bugs": {
+    "url": "https://github.com/occar421/unifiedjs-gherkin/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "MasuqaT <occar@hotmail.co.jp>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/occar421/unifiedjs-gherkin.git"
+  },
   "type": "module",
   "scripts": {
     "ready": "vp run -r ready",
