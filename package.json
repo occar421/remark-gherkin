@@ -13,8 +13,8 @@
   "scripts": {
     "ready": "vp run -r ready",
     "prepare": "vp config",
-    "release": "changeset publish",
-    "version": "changeset version"
+    "release": "pnpm changeset publish",
+    "version": "pnpm changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
