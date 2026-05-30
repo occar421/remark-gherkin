@@ -2,7 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/remark-lint-gherkin-no-tags-on-backgrounds.svg)](https://www.npmjs.com/package/remark-lint-gherkin-no-tags-on-backgrounds)
 
-[`remark-lint`](https://github.com/remarkjs/remark-lint) plugin to disallow tags on backgrounds in Gherkin files.
+[remark-lint](https://github.com/remarkjs/remark-lint) plugin to disallow tags on backgrounds in Gherkin files.
+This rule is ported from [gherkin-lint](https://github.com/gherkin-lint/gherkin-lint).
 
 ## Install
 

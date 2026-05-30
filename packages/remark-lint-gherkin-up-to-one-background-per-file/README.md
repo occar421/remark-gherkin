@@ -2,7 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/remark-lint-gherkin-up-to-one-background-per-file.svg)](https://www.npmjs.com/package/remark-lint-gherkin-up-to-one-background-per-file)
 
-[`remark-lint`](https://github.com/remarkjs/remark-lint) plugin to enforce up to one background per file in Gherkin files.
+[remark-lint](https://github.com/remarkjs/remark-lint) plugin to enforce up to one background per file in Gherkin files.
+This rule is ported from [gherkin-lint](https://github.com/gherkin-lint/gherkin-lint).
 
 ## Install
 

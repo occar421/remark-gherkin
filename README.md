@@ -6,10 +6,15 @@
 
 - [`remark-gherkin`](./packages/remark-gherkin): remark plugin.
 - [`mdast-util-gherkin`](./packages/mdast-util-gherkin): mdast utility.
-- `remark-lint-gherkin`: remark-lint plugin to disallow multiline steps in Gherkin files.
-  - [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint) equivalent
-    - `no-multiline-steps` is excluded because of the difference of feature files and markdown files.
-    - `file-name` and `indentation` are excluded because it should be handled by other remark-lint rules.
+- `remark-lint-gherkin`: remark-lint plugins. These rules are ported from [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint).
+  - [`remark-lint-gherkin-no-tags-on-backgrounds`](./packages/remark-lint-gherkin-no-tags-on-backgrounds): Disallow tags on Backgrounds.
+  - [`remark-lint-gherkin-one-feature-per-file`](./packages/remark-lint-gherkin-one-feature-per-file): Enforce one Feature per file.
+  - [`remark-lint-gherkin-up-to-one-background-per-file`](./packages/remark-lint-gherkin-up-to-one-background-per-file): Enforce at most one Background per file.
+  - [`remark-lint-gherkin-allowed-tags`](./packages/remark-lint-gherkin-allowed-tags): Disallow tags that are not in the allowed list.
+  - [`remark-lint-gherkin-max-scenarios-per-file`](./packages/remark-lint-gherkin-max-scenarios-per-file): Limit the number of scenarios per file.
+  - [`remark-lint-gherkin-name-length`](./packages/remark-lint-gherkin-name-length): Limit the length of Feature, Scenario, and Step names.
+  - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
+  - `file-name`, `indentation`, `new-line-at-eof` are omitted because they should be handled by other remark-lint rules.
 
 ## Development
 

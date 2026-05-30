@@ -48,11 +48,11 @@ vp install
 - Run the unit tests:
 
 ```bash
-vp test
+vp run -r test
 ```
 
 - Build the library:
 
 ```bash
-vp pack
+vp run -r build
 ```

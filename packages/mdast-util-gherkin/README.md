@@ -41,8 +41,10 @@ const tree = {
       children: [
         { type: "text", value: "Feature", data: { gherkin: { type: "segmentKeyword" } } },
         { type: "text", value: ":", data: { gherkin: { type: "segmentDelimiter" } } },
-        { type: "text", value: " Eating cucumbers" },
+        { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
+        { type: "text", value: "Eating cucumbers" },
       ],
+      data: { gherkin: { type: "segmentLine", segmentKeyword: "Feature" } },
     },
   ],
 };
@@ -84,11 +86,11 @@ vp install
 - Run the unit tests:
 
 ```bash
-vp test
+vp run -r test
 ```
 
 - Build the library:
 
 ```bash
-vp pack
+vp run -r build
 ```
