@@ -1,8 +1,8 @@
 {
-  "name": "remark-lint-gherkin-max-scenarios-per-file",
+  "name": "remark-lint-gherkin-name-length",
   "version": "0.1.0",
-  "description": "remark-lint plugin to enforce maximum scenarios per file in Gherkin files.",
-  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-max-scenarios-per-file#readme",
+  "description": "remark-lint plugin to enforce maximum name length of Gherkin elements.",
+  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-name-length#readme",
   "bugs": {
     "url": "https://github.com/occar421/unifiedjs-gherkin/issues"
   },
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/occar421/unifiedjs-gherkin.git",
-    "directory": "packages/remark-lint-gherkin-max-scenarios-per-file"
+    "directory": "packages/remark-lint-gherkin-name-length"
   },
   "files": [
     "dist"
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "mdast-util-gherkin": "workspace:*",
+    "mdast-util-to-string": "catalog:",
     "remark-lint": "catalog:",
     "unified-lint-rule": "catalog:",
     "unist-util-find-all-after": "catalog:",
@@ -52,7 +53,7 @@
     "vite-plus": "catalog:"
   },
   "inlinedDependencies": {
-    "@types/mdast": "4.0.4",
-    "@types/unist": "3.0.3"
+    "@types/mdast": "catalog:",
+    "@types/unist": "catalog:"
   }
 }
