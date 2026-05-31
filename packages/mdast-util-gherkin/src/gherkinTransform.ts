@@ -1,7 +1,6 @@
 import type { Position } from "unist";
 import type { Transform } from "mdast-util-from-markdown";
 import { visit } from "unist-util-visit";
-import { visitParents } from "unist-util-visit-parents";
 import { findAllAfter } from "unist-util-find-all-after";
 import { findBefore } from "unist-util-find-before";
 import { GherkinTypes, SegmentKeywords, StepKeywords, SyntaxTokens } from "./constant.ts";
@@ -157,15 +156,14 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Tags
-  visitParents(tree, "heading", (heading, ancestors) => {
+  visit(tree, "heading", (heading, _index, parent) => {
     if (heading.data?.gherkin?.type !== GherkinTypes.SEGMENT_LINE) {
       return;
     }
 
-    if (ancestors.length === 0) {
+    if (!parent) {
       return;
     }
-    const parent = ancestors[ancestors.length - 1];
 
     const before = findBefore(parent, heading);
     if (!before || before.type !== "paragraph") {
@@ -283,13 +281,12 @@ const gherkinTransform: Transform = (tree) => {
   });
 
   // Delimited Parameter
-  visitParents(tree, "text", (node, ancestors) => {
+  visit(tree, "text", (node, _index, parent) => {
     if (node.data?.gherkin?.type !== GherkinTypes.STEP_KEYWORD) {
       return;
     }
 
-    const parent = ancestors[ancestors.length - 1];
-    if (parent.type !== "paragraph") {
+    if (parent?.type !== "paragraph") {
       return;
     }
     const siblings = findAllAfter(parent, node, "html");

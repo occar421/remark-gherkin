@@ -21,7 +21,6 @@ catalog:
   unist-util-visit: ^5.1.0
   mdast: ^3.0.0
   unist-util-find-all-after: ^5.0.0
-  unist-util-visit-parents: ^6.0.2
   unist-util-find-before: ^4.0.1
   unist: ^0.0.1
   "@types/unist": ^3.0.3

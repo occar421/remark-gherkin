@@ -1,8 +1,8 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
-import { visitParents } from "unist-util-visit-parents";
+import { visit } from "unist-util-visit";
 import { findAllAfter } from "unist-util-find-all-after";
-import type { Root, Heading, Table, Node, Parent } from "mdast";
+import type { Root, Heading, Table } from "mdast";
 
 export interface Options {
   maxScenarios?: number;
@@ -19,7 +19,7 @@ const remarkLintGherkinMaxScenariosPerFile = lintRule<Root, Options>(
     const countOutlineExamples = options?.countOutlineExamples ?? true;
     let scenarioCount = 0;
 
-    visitParents(tree, "heading", (node: Heading, ancestors: Node[]) => {
+    visit(tree, "heading", (node: Heading, _index, parent) => {
       const gherkin = node.data?.gherkin;
       if (gherkin?.type !== "segmentLine") return;
 
@@ -33,7 +33,10 @@ const remarkLintGherkinMaxScenariosPerFile = lintRule<Root, Options>(
         return;
       }
 
-      const parent = ancestors[ancestors.length - 1] as Parent;
+      if (!parent) {
+        return;
+      }
+
       // Find Examples after this Scenario Outline
       const afterNodes = findAllAfter(parent, node);
       let examplesFound = false;

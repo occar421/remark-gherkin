@@ -1,6 +1,6 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
-import { visitParents } from "unist-util-visit-parents";
+import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
 import { getSegmentName, getStepName } from "mdast-util-gherkin";
 
@@ -22,7 +22,7 @@ const remarkLintGherkinNameLength = lintRule<Root, Options>(
       step: options?.Step ?? 70,
     };
 
-    visitParents(tree, (node) => {
+    visit(tree, (node) => {
       if (node.type === "heading" && node.data?.gherkin?.type === "segmentLine") {
         const heading = node;
         const segmentKeyword = node.data.gherkin.segmentKeyword;
