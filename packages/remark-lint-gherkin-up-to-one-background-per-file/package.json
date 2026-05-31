@@ -33,13 +33,13 @@
     "ready": "vp run check && vp run test && vp run build"
   },
   "dependencies": {
+    "@types/mdast": "catalog:",
     "mdast-util-gherkin": "workspace:*",
     "remark-lint": "catalog:",
     "unified-lint-rule": "catalog:",
     "unist-util-visit": "catalog:"
   },
   "devDependencies": {
-    "@types/mdast": "catalog:",
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
@@ -48,9 +48,5 @@
     "typescript": "catalog:",
     "unified": "catalog:",
     "vite-plus": "catalog:"
-  },
-  "inlinedDependencies": {
-    "@types/mdast": "catalog:",
-    "@types/unist": "catalog:"
   }
 }

@@ -33,6 +33,7 @@
     "ready": "vp run check && vp run test && vp run build"
   },
   "dependencies": {
+    "@types/mdast": "catalog:",
     "mdast-util-from-markdown": "catalog:",
     "mdast-util-to-markdown": "catalog:",
     "mdast-util-to-string": "catalog:",
@@ -42,16 +43,11 @@
     "unist-util-visit-parents": "catalog:"
   },
   "devDependencies": {
-    "@types/mdast": "catalog:",
     "@types/node": "catalog:",
     "@types/unist": "catalog:",
     "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
-  },
-  "inlinedDependencies": {
-    "@types/mdast": "4.0.4",
-    "@types/unist": "3.0.3"
   }
 }
