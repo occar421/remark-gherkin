@@ -32,3 +32,18 @@ vp create vite:library
 ```
 npx setup-npm-trusted-publish ??? --dry-run
 ```
+
+## Language Policy
+
+- All comments and markdown must be written in English.
+
+## Handling of README.md
+
+`README.md` is an important file for managing the project overview and the list of packages.
+
+### Update Timing
+
+- **When adding a new package**: Add a link and description for the new package in the `Packages` section.
+- **When renaming a package**: Update the relevant part in the `Packages` section.
+- **When the development flow changes**: Keep the steps in the `Development` section up to date.
+- **When the overall project policy changes**: Update the introductory description.
