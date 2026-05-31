@@ -13,6 +13,7 @@
   - [`remark-lint-gherkin-allowed-tags`](./packages/remark-lint-gherkin-allowed-tags): Disallow tags that are not in the allowed list.
   - [`remark-lint-gherkin-max-scenarios-per-file`](./packages/remark-lint-gherkin-max-scenarios-per-file): Limit the number of scenarios per file.
   - [`remark-lint-gherkin-name-length`](./packages/remark-lint-gherkin-name-length): Limit the length of Feature, Scenario, and Step names.
+  - [`remark-lint-gherkin-no-background-only-scenario`](./packages/remark-lint-gherkin-no-background-only-scenario): Disallow background when there is just one scenario.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof` are omitted because they should be handled by other remark-lint rules.
 
