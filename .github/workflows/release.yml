@@ -11,16 +11,17 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # for OIDC
+  actions: read # for downloading artifacts
+
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write # for OIDC
-      actions: read # for downloading artifacts
 
     steps:
       - name: Checkout Repo
