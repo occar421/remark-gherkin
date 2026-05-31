@@ -19,7 +19,7 @@
   - [`remark-lint-gherkin-no-dupe-scenario-names`](./packages/remark-lint-gherkin-no-dupe-scenario-names): Disallow duplicate scenario names.
   - [`remark-lint-gherkin-no-empty-background`](./packages/remark-lint-gherkin-no-empty-background): Disallow empty backgrounds.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
-  - `file-name`, `indentation`, `new-line-at-eof` are omitted because they should be handled by other remark-lint rules.
+  - `file-name`, `indentation`, `new-line-at-eof` and `no-empty-file` are omitted because they should be handled by other remark-lint rules.
 
 ## Development
 
