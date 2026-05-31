@@ -56,6 +56,29 @@ const out = toMarkdown(tree, {
 console.log(out);
 ```
 
+### Utilities
+
+```javascript
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { gherkinFromMarkdown, getSegmentName, getStepName } from "mdast-util-gherkin";
+import { visit } from "unist-util-visit";
+
+const doc = "# Feature: Eating cucumbers\n\n* Given there are 12 cucumbers";
+const tree = fromMarkdown(doc, {
+  mdastExtensions: [gherkinFromMarkdown()],
+});
+
+visit(tree, (node) => {
+  if (node.type === "heading") {
+    const name = getSegmentName(node);
+    if (name !== undefined) console.log("Segment:", name);
+  } else if (node.type === "listItem") {
+    const name = getStepName(node);
+    if (name !== undefined) console.log("Step:", name);
+  }
+});
+```
+
 ## API
 
 ### `gherkinFromMarkdown()`
@@ -65,6 +88,30 @@ Returns an extension for `mdast-util-from-markdown` to enable Gherkin support in
 ### `gherkinToMarkdown(options?)`
 
 Returns an extension for `mdast-util-to-markdown` to enable Gherkin support in markdown.
+
+### `getSegmentName(node)`
+
+Get the name of a Gherkin segment from a heading node.
+
+#### Parameters
+
+- `node` ([`Heading`](https://github.com/syntax-tree/mdast#heading)): Heading node.
+
+#### Returns
+
+Segment name (`string`) or `undefined` if the node is not a Gherkin segment line.
+
+### `getStepName(node)`
+
+Get the name of a Gherkin step from a list item node.
+
+#### Parameters
+
+- `node` ([`ListItem`](https://github.com/syntax-tree/mdast#listitem)): List item node.
+
+#### Returns
+
+Step name (`string`) or `undefined` if the node is not a Gherkin step line.
 
 ## Syntax
 
