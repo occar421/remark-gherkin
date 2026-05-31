@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-no-background-only-scenario",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to disallow background when there is just one scenario in Gherkin files.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-background-only-scenario#readme",
   "bugs": {
