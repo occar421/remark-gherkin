@@ -38,6 +38,10 @@ npx setup-npm-trusted-publish ??? --dry-run
 
 - All comments and markdown must be written in English.
 
+## Handling of AGENTS.md
+
+- DO NOT modify `AGENTS.md` unless explicitly instructed to do so.
+
 ## Handling of README.md
 
 `README.md` is an important file for managing the project overview and the list of packages.
