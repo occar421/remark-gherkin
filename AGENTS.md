@@ -19,6 +19,7 @@ Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.de
 
 - DO NOT use `prepublishOnly` script.
 - Only use `catalog:` or `workspaces:` version in `package.json`.
+- Initial package version should be `0.0.0`.
 
 ### Generate code
 
