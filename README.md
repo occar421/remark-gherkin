@@ -14,11 +14,12 @@
   - [`remark-lint-gherkin-max-scenarios-per-file`](./packages/remark-lint-gherkin-max-scenarios-per-file): Limit the number of scenarios per file.
   - [`remark-lint-gherkin-name-length`](./packages/remark-lint-gherkin-name-length): Limit the length of Feature, Scenario, and Step names.
   - [`remark-lint-gherkin-no-background-only-scenario`](./packages/remark-lint-gherkin-no-background-only-scenario): Disallow background when there is just one scenario.
-  - [`remark-lint-gherkin-no-duplicate-tags`](./packages/remark-lint-gherkin-no-duplicate-tags): Disallow duplicate tags.
   - [`remark-lint-gherkin-no-dupe-feature-names`](./packages/remark-lint-gherkin-no-dupe-feature-names): Disallow duplicate feature names.
   - [`remark-lint-gherkin-no-dupe-scenario-names`](./packages/remark-lint-gherkin-no-dupe-scenario-names): Disallow duplicate scenario names.
+  - [`remark-lint-gherkin-no-duplicate-tags`](./packages/remark-lint-gherkin-no-duplicate-tags): Disallow duplicate tags.
   - [`remark-lint-gherkin-no-empty-background`](./packages/remark-lint-gherkin-no-empty-background): Disallow empty backgrounds.
   - [`remark-lint-gherkin-no-examples-in-scenarios`](./packages/remark-lint-gherkin-no-examples-in-scenarios): Disallow Examples in Scenarios.
+  - [`remark-lint-gherkin-no-files-without-scenarios`](./packages/remark-lint-gherkin-no-files-without-scenarios): Disallow Gherkin files without scenarios.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof` and `no-empty-file` are omitted because they should be handled by other remark-lint rules.
 
