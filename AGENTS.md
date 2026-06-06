@@ -8,7 +8,6 @@ Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.de
 
 ## Review Checklist
 
-- [ ] Run `vp check` and fix all issues before finishing.
 - [ ] Run `vp install` after pulling remote changes and before getting started.
 - [ ] Run `vp check` and `vp test` to format, lint, type check and test changes.
 - [ ] Check if there are `vite.config.ts` tasks or `package.json` scripts necessary for validation, run via `vp run <script>`.
@@ -68,3 +67,10 @@ When creating a new package, the generated `README.md` must be immediately updat
 - **Development**: Standardized instructions for `vp install`, `vp test`, and `vp pack`.
 
 **CRITICAL**: DO NOT leave any placeholder text or template defaults (e.g., `TODO`, `Package description here`, or generic examples). All content must be specific to the package being created.
+
+## Definitions of Done
+
+- [ ] Run `vp check` and fix all issues before finishing.
+- [ ] Confirm that the package passes all automated tests.
+- [ ] Ensure all examples are accurate and relevant to the package's functionality.
+- [ ] README.md is up-to-date with the package's description.
