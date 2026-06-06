@@ -43,5 +43,5 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm publish -r --no-git-checks # vp run release
+          publish: vp run release
           version: vp run version
