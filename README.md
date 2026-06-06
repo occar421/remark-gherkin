@@ -21,7 +21,7 @@
   - [`remark-lint-gherkin-no-examples-in-scenarios`](./packages/remark-lint-gherkin-no-examples-in-scenarios): Disallow Examples in Scenarios.
   - [`remark-lint-gherkin-no-files-without-scenarios`](./packages/remark-lint-gherkin-no-files-without-scenarios): Disallow Gherkin files without scenarios.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
-  - `file-name`, `indentation`, `new-line-at-eof` and `no-empty-file` are omitted because they should be handled by other remark-lint rules.
+  - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, and `no-multiple-empty-lines` are omitted because they should be handled by other remark-lint rules.
 
 ## Development
 
