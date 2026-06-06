@@ -1,6 +1,7 @@
 import type { Position } from "unist";
 import type { Transform } from "mdast-util-from-markdown";
 import { visit } from "unist-util-visit";
+import { findAfter } from "unist-util-find-after";
 import { findAllAfter } from "unist-util-find-all-after";
 import { findBefore } from "unist-util-find-before";
 import { GherkinTypes, SegmentKeywords, StepKeywords, SyntaxTokens } from "./constant.ts";
@@ -171,10 +172,8 @@ const gherkinTransform: Transform = (tree) => {
     }
     const paragraph = before;
 
-    const isTagLine = paragraph.children.every(
-      (child) =>
-        (child.type === "inlineCode" && child.value.startsWith("@")) ||
-        (child.type === "text" && child.value.trim() === ""),
+    const isTagLine = paragraph.children.some(
+      (child) => child.type === "inlineCode" && child.value.startsWith("@"),
     );
 
     if (!isTagLine) {
@@ -186,7 +185,20 @@ const gherkinTransform: Transform = (tree) => {
     for (const child of paragraph.children) {
       if (child.type === "inlineCode" && child.value.startsWith("@")) {
         child.data = { ...child.data, gherkin: { type: GherkinTypes.TAG } };
-      } else if (child.type === "text" && child.value.trim() === "") {
+      }
+    }
+    for (const child of paragraph.children) {
+      if (child.type === "text" && child.value.trim() === "") {
+        const before = findBefore(paragraph, child);
+        if (!before || before.data?.gherkin?.type !== GherkinTypes.TAG) {
+          continue;
+        }
+
+        const after = findAfter(paragraph, child);
+        if (!after || after.data?.gherkin?.type !== GherkinTypes.TAG) {
+          continue;
+        }
+
         child.data = { ...child.data, gherkin: { type: GherkinTypes.SEPARATOR } };
       }
     }

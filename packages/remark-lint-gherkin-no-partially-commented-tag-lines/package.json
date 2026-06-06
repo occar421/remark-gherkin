@@ -1,8 +1,8 @@
 {
-  "name": "mdast-util-gherkin",
-  "version": "0.3.0",
-  "description": "mdast extension to parse and serialize Markdown with Gherkin (MDG).",
-  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/mdast-util-gherkin#readme",
+  "name": "remark-lint-gherkin-no-partially-commented-tag-lines",
+  "version": "0.0.0",
+  "description": "remark-lint plugin to disallow partially commented tag lines in Gherkin.",
+  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-partially-commented-tag-lines#readme",
   "bugs": {
     "url": "https://github.com/occar421/unifiedjs-gherkin/issues"
   },
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/occar421/unifiedjs-gherkin.git",
-    "directory": "packages/mdast-util-gherkin"
+    "directory": "packages/remark-lint-gherkin-no-partially-commented-tag-lines"
   },
   "files": [
     "dist"
@@ -34,20 +34,21 @@
   },
   "dependencies": {
     "@types/mdast": "catalog:",
-    "mdast-util-from-markdown": "catalog:",
-    "mdast-util-to-markdown": "catalog:",
+    "mdast-util-gherkin": "workspace:*",
     "mdast-util-to-string": "catalog:",
-    "unist-util-find-after": "catalog:",
-    "unist-util-find-all-after": "catalog:",
-    "unist-util-find-before": "catalog:",
+    "remark-lint": "catalog:",
+    "unified-lint-rule": "catalog:",
     "unist-util-visit": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@types/unist": "catalog:",
     "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
+    "remark-gfm": "catalog:",
+    "remark-gherkin": "workspace:*",
+    "remark-parse": "catalog:",
     "typescript": "catalog:",
+    "unified": "catalog:",
     "vite-plus": "catalog:"
   }
 }

@@ -20,6 +20,7 @@
   - [`remark-lint-gherkin-no-empty-background`](./packages/remark-lint-gherkin-no-empty-background): Disallow empty backgrounds.
   - [`remark-lint-gherkin-no-examples-in-scenarios`](./packages/remark-lint-gherkin-no-examples-in-scenarios): Disallow Examples in Scenarios.
   - [`remark-lint-gherkin-no-files-without-scenarios`](./packages/remark-lint-gherkin-no-files-without-scenarios): Disallow Gherkin files without scenarios.
+  - [`remark-lint-gherkin-no-partially-commented-tag-lines`](./packages/remark-lint-gherkin-no-partially-commented-tag-lines): Disallow partially commented tag lines.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, and `no-multiple-empty-lines` are omitted because they should be handled by other remark-lint rules.
 

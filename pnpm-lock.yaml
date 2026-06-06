@@ -57,6 +57,9 @@ catalogs:
     unified-lint-rule:
       specifier: ^3.0.0
       version: 3.0.1
+    unist-util-find-after:
+      specifier: ^5.0.0
+      version: 5.0.0
     unist-util-find-all-after:
       specifier: ^5.0.0
       version: 5.0.0
@@ -99,6 +102,9 @@ importers:
       mdast-util-to-string:
         specifier: 'catalog:'
         version: 4.0.0
+      unist-util-find-after:
+        specifier: 'catalog:'
+        version: 5.0.0
       unist-util-find-all-after:
         specifier: 'catalog:'
         version: 5.0.0
@@ -655,6 +661,55 @@ importers:
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
+      remark-gherkin:
+        specifier: workspace:*
+        version: link:../remark-gherkin
+      remark-parse:
+        specifier: 'catalog:'
+        version: 11.0.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      unified:
+        specifier: 'catalog:'
+        version: 11.0.5
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.1.24(@types/node@25.8.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@25.8.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
+
+  packages/remark-lint-gherkin-no-partially-commented-tag-lines:
+    dependencies:
+      '@types/mdast':
+        specifier: 'catalog:'
+        version: 4.0.4
+      mdast-util-gherkin:
+        specifier: workspace:*
+        version: link:../mdast-util-gherkin
+      mdast-util-to-string:
+        specifier: 'catalog:'
+        version: 4.0.0
+      remark-lint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      unified-lint-rule:
+        specifier: 'catalog:'
+        version: 3.0.1
+      unist-util-visit:
+        specifier: 'catalog:'
+        version: 5.1.0
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.8.0
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260527.2
+      bumpp:
+        specifier: 'catalog:'
+        version: 11.1.0
+      remark-gfm:
+        specifier: 'catalog:'
+        version: 4.0.1
       remark-gherkin:
         specifier: workspace:*
         version: link:../remark-gherkin
@@ -2280,6 +2335,9 @@ packages:
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
+  unist-util-find-after@5.0.0:
+    resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
+
   unist-util-find-all-after@5.0.0:
     resolution: {integrity: sha512-nGmOYvTSdGcI4RvrUNfe0mOsqqbbJOtqCQsppsY9KZjmv3nwM3YRgNBwFPdZ8Y+iv9Z/2PDjR9u6u+uK62XTTg==}
 
@@ -3880,6 +3938,11 @@ snapshots:
       is-plain-obj: 4.1.0
       trough: 2.2.0
       vfile: 6.0.3
+
+  unist-util-find-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
 
   unist-util-find-all-after@5.0.0:
     dependencies:
