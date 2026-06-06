@@ -35,7 +35,6 @@
   "dependencies": {
     "@types/mdast": "catalog:",
     "mdast-util-gherkin": "workspace:*",
-    "mdast-util-to-string": "catalog:",
     "remark-lint": "catalog:",
     "unified-lint-rule": "catalog:",
     "unist-util-visit": "catalog:"
