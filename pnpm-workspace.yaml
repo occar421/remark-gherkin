@@ -11,7 +11,7 @@ catalog:
   typescript: ^6.0.3
   vite: npm:@voidzero-dev/vite-plus-core@latest
   vitest: npm:@voidzero-dev/vite-plus-test@latest
-  vite-plus: latest
+  vite-plus: ^0.1.24
   mdast-util-from-markdown: ^2.0.3
   mdast-util-to-markdown: ^2.1.2
   unified: ^11.0.5
