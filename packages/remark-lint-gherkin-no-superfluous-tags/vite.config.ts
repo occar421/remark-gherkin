@@ -7,6 +7,14 @@ export default defineConfig({
     },
     exports: true,
   },
+  test: {
+    typecheck: {
+      enabled: true,
+    },
+    expect: {
+      requireAssertions: true,
+    },
+  },
   lint: {
     options: {
       typeAware: true,
