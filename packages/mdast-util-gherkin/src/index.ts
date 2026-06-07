@@ -16,4 +16,4 @@ export function gherkinToMarkdown(_options: {} = {}): ToMarkdownExtension {
   };
 }
 
-export * from "./util.ts";
+export * from "./util/index.ts";
