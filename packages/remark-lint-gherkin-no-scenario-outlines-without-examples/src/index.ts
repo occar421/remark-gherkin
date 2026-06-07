@@ -2,6 +2,7 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinNoScenarioOutlinesWithoutExamples = lintRule<Root>(
   {
@@ -9,12 +10,12 @@ const remarkLintGherkinNoScenarioOutlinesWithoutExamples = lintRule<Root>(
     url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-scenario-outlines-without-examples#readme",
   },
   (tree, file) => {
-    visit(tree, "heading", (node, index, parent) => {
+    visit(tree, testGherkinNode("segmentLine"), (node, index, parent) => {
       if (!parent || index === undefined) {
         return;
       }
 
-      if (node.data?.gherkin?.segmentKeyword !== "ScenarioOutline") {
+      if (node.data.gherkin.segmentKeyword !== "ScenarioOutline") {
         return;
       }
 
@@ -22,12 +23,11 @@ const remarkLintGherkinNoScenarioOutlinesWithoutExamples = lintRule<Root>(
       let hasExamples = false;
       for (let i = index + 1; i < parent.children.length; i++) {
         const nextNode = parent.children[i];
-        const nextGherkin = nextNode.data?.gherkin;
-        if (nextGherkin?.type !== "segmentLine") {
+        if (!testGherkinNode("segmentLine")(nextNode)) {
           continue;
         }
 
-        if (nextGherkin.segmentKeyword === "Examples") {
+        if (nextNode.data.gherkin.segmentKeyword === "Examples") {
           hasExamples = true;
         }
 

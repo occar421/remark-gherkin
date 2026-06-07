@@ -1,9 +1,10 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
-import type { Root, Heading } from "mdast";
+import type { Root, GherkinSegmentLine } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 interface ScenarioInfo {
-  node: Heading;
+  node: GherkinSegmentLine;
   tags: string[];
 }
 
@@ -26,36 +27,40 @@ const remarkLintGherkinNoHomogenousTags = lintRule<Root>(
     let pendingTags: string[] = [];
 
     for (const node of tree.children) {
-      if (node.type === "paragraph" && node.data?.gherkin?.type === "tagLine") {
+      if (testGherkinNode("tagLine")(node)) {
         const tags = node.children
-          .filter((x) => x.type === "inlineCode")
-          .filter((x) => x.data?.gherkin?.type === "tag")
-          .map((x) => x.value) as string[];
+          .filter(testGherkinNode("tag"))
+          .map((x) => x.data.gherkin.ident) as string[];
         if (tags.length > 0) {
           pendingTags = tags;
         }
         continue;
       }
 
-      if (node.type === "heading" && node.data?.gherkin?.type === "segmentLine") {
-        const segmentKeyword = node.data.gherkin.segmentKeyword;
-        if (segmentKeyword === "Rule") {
-          const ruleContainer: Container = { scenarios: [] };
-          ruleContainers.set(node, ruleContainer);
-          currentContainer = ruleContainer;
-          pendingTags = [];
-        } else if (segmentKeyword === "Scenario" || segmentKeyword === "ScenarioOutline") {
-          currentContainer.scenarios.push({ node: node, tags: pendingTags });
-          pendingTags = [];
-        } else if (segmentKeyword === "Feature") {
-          currentContainer = featureContainer;
-          pendingTags = [];
-        } else {
-          pendingTags = [];
+      if (testGherkinNode("segmentLine")(node)) {
+        switch (node.data.gherkin.segmentKeyword) {
+          case "Rule":
+            const ruleContainer: Container = { scenarios: [] };
+            ruleContainers.set(node, ruleContainer);
+            currentContainer = ruleContainer;
+            pendingTags = [];
+            continue;
+          case "Scenario":
+          case "ScenarioOutline":
+            currentContainer.scenarios.push({ node: node, tags: pendingTags });
+            pendingTags = [];
+            continue;
+          case "Feature":
+            currentContainer = featureContainer;
+            pendingTags = [];
+            continue;
+          default:
+            pendingTags = [];
+            continue;
         }
-      } else {
-        pendingTags = [];
       }
+
+      pendingTags = [];
     }
 
     checkHomogenous(file, featureContainer.scenarios);
@@ -82,7 +87,7 @@ const checkHomogenous = (file: VFile, scenarios: ScenarioInfo[]) => {
   for (const [tag, count] of tagCounts) {
     if (count === scenarios.length) {
       file.message(
-        `All scenarios have the tag "${tag}", it should be moved to the parent level`,
+        `All scenarios have the tag "@${tag}", it should be moved to the parent level`,
         scenarios[0].node,
       );
     }

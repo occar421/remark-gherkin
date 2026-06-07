@@ -1,8 +1,8 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import type { Root } from "mdast";
-import type { Heading } from "mdast";
+import type { GherkinSegmentLine, Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinNoBackgroundOnlyScenario = lintRule<Root>(
   {
@@ -10,21 +10,16 @@ const remarkLintGherkinNoBackgroundOnlyScenario = lintRule<Root>(
     url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-background-only-scenario#readme",
   },
   (tree, file) => {
-    let backgroundNode: Heading | undefined;
+    let backgroundNode: GherkinSegmentLine | undefined;
     let scenarioCount = 0;
 
-    visit(tree, "heading", (heading) => {
-      const gherkinData = heading.data?.gherkin;
-      if (gherkinData?.type !== "segmentLine") {
-        return;
-      }
-
-      for (const child of heading.children) {
-        if (child.data?.gherkin?.type === "segmentKeyword") {
-          const keyword = child.data?.gherkin.keyword;
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      for (const child of node.children) {
+        if (testGherkinNode("segmentKeyword")(child)) {
+          const keyword = child.data.gherkin.keyword;
 
           if (keyword === "Background") {
-            backgroundNode = heading;
+            backgroundNode = node;
           } else if (keyword === "Scenario" || keyword === "ScenarioOutline") {
             scenarioCount++;
           }

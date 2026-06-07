@@ -2,6 +2,7 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinUpToOneBackgroundPerFile = lintRule<Root>(
   {
@@ -11,19 +12,11 @@ const remarkLintGherkinUpToOneBackgroundPerFile = lintRule<Root>(
   (tree, file) => {
     let backgroundCount = 0;
 
-    visit(tree, "heading", (heading) => {
-      const isBackground =
-        heading.data?.gherkin?.type === "segmentLine" &&
-        heading.children.some(
-          (child) =>
-            child.data?.gherkin?.type === "segmentKeyword" &&
-            child.data?.gherkin?.keyword === "Background",
-        );
-
-      if (isBackground) {
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      if (node.data.gherkin.segmentKeyword === "Background") {
         backgroundCount++;
         if (backgroundCount > 1) {
-          file.message("Only one background is allowed per file", heading);
+          file.message("Only one background is allowed per file", node);
         }
       }
     });

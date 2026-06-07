@@ -464,9 +464,6 @@ importers:
       mdast-util-gherkin:
         specifier: workspace:*
         version: link:../mdast-util-gherkin
-      mdast-util-to-string:
-        specifier: 'catalog:'
-        version: 4.0.0
       remark-lint:
         specifier: 'catalog:'
         version: 10.0.1

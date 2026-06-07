@@ -2,7 +2,8 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { findAllAfter } from "unist-util-find-all-after";
-import type { Root, Heading, Table } from "mdast";
+import type { Root, Table } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 export interface Options {
   maxScenarios?: number;
@@ -19,14 +20,13 @@ const remarkLintGherkinMaxScenariosPerFile = lintRule<Root, Options>(
     const countOutlineExamples = options?.countOutlineExamples ?? true;
     let scenarioCount = 0;
 
-    visit(tree, "heading", (node: Heading, _index, parent) => {
-      const gherkin = node.data?.gherkin;
-      if (gherkin?.type !== "segmentLine") return;
+    visit(tree, testGherkinNode("segmentLine"), (node, _index, parent) => {
+      const keyword = node.data.gherkin.segmentKeyword;
 
-      if (gherkin.segmentKeyword === "Scenario") {
+      if (keyword === "Scenario") {
         scenarioCount++;
         return;
-      } else if (gherkin.segmentKeyword !== "ScenarioOutline") {
+      } else if (keyword !== "ScenarioOutline") {
         return;
       } else if (!countOutlineExamples) {
         scenarioCount++;
@@ -44,8 +44,8 @@ const remarkLintGherkinMaxScenariosPerFile = lintRule<Root, Options>(
       for (let i = 0; i < afterNodes.length; i++) {
         const afterNode = afterNodes[i];
         // Stop if we hit another Scenario or ScenarioOutline or Feature or Rule
-        if (afterNode.type === "heading" && afterNode.data?.gherkin?.type === "segmentLine") {
-          if (afterNode?.data?.gherkin?.segmentKeyword !== "Examples") {
+        if (testGherkinNode("segmentLine")(afterNode)) {
+          if (afterNode.data.gherkin.segmentKeyword !== "Examples") {
             break;
           }
           examplesFound = true;

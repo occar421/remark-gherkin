@@ -1,8 +1,8 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import type { Root } from "mdast";
-import { getSegmentName, getStepName } from "mdast-util-gherkin";
+import type { Node, Root } from "mdast";
+import { getSegmentName, getStepName, testGherkinNode } from "mdast-util-gherkin";
 
 export type RestrictedPatterns = {
   Global?: string[];
@@ -35,37 +35,35 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
       }
     }
 
-    visit(tree, (node) => {
-      let text: string | undefined;
-      let keyword: string | undefined;
+    const check = (node: Node, text: string, label: string) => {
+      const regexes = patternsMap.get(label);
+      const originalPatterns = options[label as keyof RestrictedPatterns];
+      if (!regexes || !originalPatterns) return;
 
-      if (node.type === "heading" && node.data?.gherkin?.type === "segmentLine") {
-        text = getSegmentName(node);
-        keyword = node.data.gherkin.segmentKeyword;
-      } else if (node.type === "listItem" && node.data?.gherkin?.type === "stepLine") {
-        text = getStepName(node);
-        keyword = "Step";
-      }
+      regexes.forEach((regex, index) => {
+        if (regex.test(text!)) {
+          file.message(
+            `Restricted pattern match found for ${label}: "${originalPatterns[index]}"`,
+            node,
+          );
+        }
+      });
+    };
 
-      if (!text || !keyword) return;
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      const text = getSegmentName(node);
+      if (!text) return;
 
-      const check = (label: string) => {
-        const regexes = patternsMap.get(label);
-        const originalPatterns = options[label as keyof RestrictedPatterns];
-        if (!regexes || !originalPatterns) return;
+      check(node, text, "Global");
+      check(node, text, node.data.gherkin.segmentKeyword);
+    });
 
-        regexes.forEach((regex, index) => {
-          if (regex.test(text!)) {
-            file.message(
-              `Restricted pattern match found for ${label}: "${originalPatterns[index]}"`,
-              node,
-            );
-          }
-        });
-      };
+    visit(tree, testGherkinNode("stepLine"), (node) => {
+      const text = getStepName(node);
+      if (!text) return;
 
-      check("Global");
-      check(keyword);
+      check(node, text, "Global");
+      check(node, text, "Step");
     });
   },
 );

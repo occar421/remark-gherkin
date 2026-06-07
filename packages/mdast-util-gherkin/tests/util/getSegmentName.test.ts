@@ -1,7 +1,7 @@
 import { expect, suite, test } from "vite-plus/test";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gherkinFromMarkdown, getSegmentName } from "../../src/index.ts";
-import type { Heading } from "mdast";
+import type { GherkinSegmentLine, Heading } from "mdast";
 
 suite("getSegmentName", () => {
   const getTree = (text: string) =>
@@ -9,13 +9,13 @@ suite("getSegmentName", () => {
 
   test("should return segment name from heading", () => {
     const tree = getTree("# Feature: Hello world");
-    const heading = tree.children[0] as Heading;
+    const heading = tree.children[0] as GherkinSegmentLine;
     expect(getSegmentName(heading)).toBe("Hello world");
   });
 
   test("should return segment name from heading without name", () => {
     const tree = getTree("# Examples:");
-    const heading = tree.children[0] as Heading;
+    const heading = tree.children[0] as GherkinSegmentLine;
     expect(getSegmentName(heading)).toBe("");
   });
 

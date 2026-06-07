@@ -1,6 +1,7 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinNoEmptyBackground = lintRule<Root>(
   {
@@ -10,12 +11,11 @@ const remarkLintGherkinNoEmptyBackground = lintRule<Root>(
   (tree, file) => {
     for (let i = 0; i < tree.children.length; i++) {
       const node = tree.children[i];
-      if (node.type !== "heading") {
+      if (!testGherkinNode("segmentLine")(node)) {
         continue;
       }
 
-      const gherkinData = node.data?.gherkin;
-      if (gherkinData?.type !== "segmentLine" || gherkinData.segmentKeyword !== "Background") {
+      if (node.data.gherkin.segmentKeyword !== "Background") {
         continue;
       }
 
@@ -23,7 +23,7 @@ const remarkLintGherkinNoEmptyBackground = lintRule<Root>(
       const isEmpty =
         !nextNode ||
         nextNode.type !== "list" ||
-        nextNode.children.every((item) => item.data?.gherkin?.type !== "stepLine");
+        nextNode.children.every((item) => !testGherkinNode("stepLine")(item));
 
       if (isEmpty) {
         file.message("Backgrounds must not be empty", node);

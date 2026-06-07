@@ -2,6 +2,7 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinOneFeaturePerFile = lintRule<Root>(
   {
@@ -11,19 +12,11 @@ const remarkLintGherkinOneFeaturePerFile = lintRule<Root>(
   (tree, file) => {
     let featureCount = 0;
 
-    visit(tree, "heading", (heading) => {
-      const isFeature =
-        heading.data?.gherkin?.type === "segmentLine" &&
-        heading.children.some(
-          (child) =>
-            child.data?.gherkin?.type === "segmentKeyword" &&
-            child.data?.gherkin?.keyword === "Feature",
-        );
-
-      if (isFeature) {
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      if (node.data.gherkin.segmentKeyword === "Feature") {
         featureCount++;
         if (featureCount > 1) {
-          file.message("Only one feature is allowed per file", heading);
+          file.message("Only one feature is allowed per file", node);
         }
       }
     });

@@ -1,7 +1,7 @@
-import type { Heading } from "mdast";
+import type { GherkinSegmentLine, Heading } from "mdast";
 import { findAllAfter } from "unist-util-find-all-after";
 import { toString } from "mdast-util-to-string";
-import { GherkinTypes } from "../constant.ts";
+import { testGherkinNode } from "./testGherkinNode.ts";
 
 /**
  * Get the name of a Gherkin segment from a heading node.
@@ -11,12 +11,12 @@ import { GherkinTypes } from "../constant.ts";
  * @returns
  *   Segment name or `undefined` if the node is not a Gherkin segment line.
  */
-export function getSegmentName(node: Heading): string | undefined {
-  if (node.data?.gherkin?.type !== GherkinTypes.SEGMENT_LINE) {
+export function getSegmentName(node: Heading | GherkinSegmentLine): string | undefined {
+  if (!testGherkinNode("segmentLine")(node)) {
     return undefined;
   }
 
-  const separator = node.children.find((child) => child.data?.gherkin?.type === "separator");
+  const separator = node.children.find(testGherkinNode("separator"));
   if (!separator) {
     return "";
   }

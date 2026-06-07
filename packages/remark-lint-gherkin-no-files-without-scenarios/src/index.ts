@@ -2,6 +2,7 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinNoFilesWithoutScenarios = lintRule<Root>(
   {
@@ -12,14 +13,8 @@ const remarkLintGherkinNoFilesWithoutScenarios = lintRule<Root>(
     let scenarioCount = 0;
     let featureFound = false;
 
-    visit(tree, "heading", (heading) => {
-      if (heading.data?.gherkin?.type !== "segmentLine") {
-        return;
-      }
-
-      const segmentKeyword = heading.data.gherkin.segmentKeyword;
-
-      switch (segmentKeyword) {
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      switch (node.data.gherkin.segmentKeyword) {
         case "Feature":
           featureFound = true;
           return;

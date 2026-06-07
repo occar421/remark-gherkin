@@ -1,7 +1,7 @@
-import type { ListItem } from "mdast";
+import type { GherkinStepLine, ListItem } from "mdast";
 import { findAllAfter } from "unist-util-find-all-after";
 import { toString } from "mdast-util-to-string";
-import { GherkinTypes } from "../constant.ts";
+import { testGherkinNode } from "./testGherkinNode.ts";
 
 /**
  * Get the name of a Gherkin step from a list item node.
@@ -11,8 +11,8 @@ import { GherkinTypes } from "../constant.ts";
  * @returns
  *   Step name or `undefined` if the node is not a Gherkin step line.
  */
-export function getStepName(node: ListItem): string | undefined {
-  if (node.data?.gherkin?.type !== GherkinTypes.STEP_LINE) {
+export function getStepName(node: ListItem | GherkinStepLine): string | undefined {
+  if (!testGherkinNode("stepLine")(node)) {
     return undefined;
   }
 
@@ -21,7 +21,7 @@ export function getStepName(node: ListItem): string | undefined {
     return undefined;
   }
 
-  const separator = paragraph.children.find((child) => child.data?.gherkin?.type === "separator");
+  const separator = paragraph.children.find(testGherkinNode("separator"));
   if (!separator) {
     return "";
   }

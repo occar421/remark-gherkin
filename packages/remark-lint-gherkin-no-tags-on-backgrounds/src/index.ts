@@ -3,6 +3,7 @@ import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { findBefore } from "unist-util-find-before";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinNoTagsOnBackgrounds = lintRule<Root>(
   {
@@ -10,25 +11,14 @@ const remarkLintGherkinNoTagsOnBackgrounds = lintRule<Root>(
     url: "https://github.com/remarkjs/remark-lint/tree/main/packages/remark-lint-gherkin-no-tags-on-backgrounds#readme",
   },
   (tree, file) => {
-    visit(tree, "heading", (heading) => {
-      const isBackground =
-        heading.data?.gherkin?.type === "segmentLine" &&
-        heading.children.some(
-          (child) =>
-            child.data?.gherkin?.type === "segmentKeyword" &&
-            child.data?.gherkin?.keyword === "Background",
-        );
-      if (!isBackground) {
+    visit(tree, testGherkinNode("segmentLine"), (node) => {
+      if (node.data.gherkin.segmentKeyword !== "Background") {
         return;
       }
 
-      const paragraph = findBefore(tree, heading);
-      if (paragraph?.type !== "paragraph") {
-        return;
-      }
-
-      if (paragraph.data?.gherkin?.type === "tagLine") {
-        file.message("Tags on backgrounds are not allowed", paragraph);
+      const nodeJustBefore = findBefore(tree, node);
+      if (nodeJustBefore && testGherkinNode("tagLine")(nodeJustBefore)) {
+        file.message("Tags on backgrounds are not allowed", nodeJustBefore);
       }
     });
   },

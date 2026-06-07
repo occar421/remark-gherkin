@@ -1,7 +1,7 @@
 import { expect, suite, test } from "vite-plus/test";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gherkinFromMarkdown, getStepName } from "../../src/index.ts";
-import type { ListItem } from "mdast";
+import type { GherkinStepLine, ListItem } from "mdast";
 
 suite("getStepName", () => {
   const getTree = (text: string) =>
@@ -10,7 +10,7 @@ suite("getStepName", () => {
   test("should return step name from list item", () => {
     const tree = getTree("* Given there are <start> cucumbers");
     const list = tree.children[0] as any;
-    const listItem = list.children[0] as ListItem;
+    const listItem = list.children[0] as GherkinStepLine;
     expect(getStepName(listItem)).toBe("there are <start> cucumbers");
   });
 

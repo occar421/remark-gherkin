@@ -2,6 +2,7 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
+import { testGherkinNode } from "mdast-util-gherkin";
 
 export type Options = {
   tags?: string[];
@@ -22,16 +23,12 @@ const remarkLintGherkinAllowedTags = lintRule<Root, Options>(
 
     const regexps = patterns.map((p) => new RegExp(p));
 
-    visit(tree, "inlineCode", (inlineCode) => {
-      if (inlineCode.data?.gherkin?.type !== "tag") {
-        return;
-      }
+    visit(tree, testGherkinNode("tag"), (node) => {
+      const tagValue = `@${node.data.gherkin.ident}`;
 
-      const tag = inlineCode.value;
-
-      const isAllowed = tags.includes(tag) || regexps.some((re) => re.test(tag));
+      const isAllowed = tags.includes(tagValue) || regexps.some((re) => re.test(tagValue));
       if (!isAllowed) {
-        file.message(`Tag \`${tag}\` is not allowed`, inlineCode);
+        file.message(`Tag \`${tagValue}\` is not allowed`, node);
       }
     });
   },
