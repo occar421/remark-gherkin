@@ -129,9 +129,17 @@ suite("Markdown with Gherkin to mdast", () => {
             type: "paragraph",
             data: { gherkin: { type: "tagLine" } },
             children: [
-              { type: "inlineCode", value: "@important", data: { gherkin: { type: "tag" } } },
+              {
+                type: "inlineCode",
+                value: "@important",
+                data: { gherkin: { type: "tag", ident: "important" } },
+              },
               { type: "text", value: " " },
-              { type: "inlineCode", value: "@essential", data: { gherkin: { type: "tag" } } },
+              {
+                type: "inlineCode",
+                value: "@essential",
+                data: { gherkin: { type: "tag", ident: "essential" } },
+              },
             ],
           },
           {

@@ -336,6 +336,7 @@ not the ",
         {
           "data": {
             "gherkin": {
+              "ident": "important",
               "type": "tag",
             },
           },
@@ -378,6 +379,7 @@ not the ",
         {
           "data": {
             "gherkin": {
+              "ident": "essential",
               "type": "tag",
             },
           },

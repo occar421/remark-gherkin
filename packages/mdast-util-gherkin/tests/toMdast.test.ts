@@ -160,9 +160,17 @@ ${"`@important` `@essential`"}
           type: "paragraph",
           data: { gherkin: { type: "tagLine" } },
           children: [
-            { type: "inlineCode", value: "@important", data: { gherkin: { type: "tag" } } },
+            {
+              type: "inlineCode",
+              value: "@important",
+              data: { gherkin: { type: "tag", ident: "important" } },
+            },
             { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
-            { type: "inlineCode", value: "@essential", data: { gherkin: { type: "tag" } } },
+            {
+              type: "inlineCode",
+              value: "@essential",
+              data: { gherkin: { type: "tag", ident: "essential" } },
+            },
           ],
         });
         expect(tree.children[1]).toMatchObject({

@@ -184,7 +184,10 @@ const gherkinTransform: Transform = (tree) => {
 
     for (const child of paragraph.children) {
       if (child.type === "inlineCode" && child.value.startsWith("@")) {
-        child.data = { ...child.data, gherkin: { type: GherkinTypes.TAG } };
+        child.data = {
+          ...child.data,
+          gherkin: { type: GherkinTypes.TAG, ident: child.value.slice(1) },
+        };
       }
     }
     for (const child of paragraph.children) {
