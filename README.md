@@ -26,7 +26,7 @@
   - [`remark-lint-gherkin-no-scenario-outlines-without-examples`](./packages/remark-lint-gherkin-no-scenario-outlines-without-examples): Disallow Scenario Outlines without Examples.
   - [`remark-lint-gherkin-no-superfluous-tags`](./packages/remark-lint-gherkin-no-superfluous-tags): Disallow superfluous tags.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
-  - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, and `no-multiple-empty-lines` are omitted because they should be handled by other remark-lint rules.
+  - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, `no-multiple-empty-lines`, and `no-trailing-spaces` are omitted because they should be handled by other remark-lint rules.
 
 ## Development
 
