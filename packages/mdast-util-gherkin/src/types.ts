@@ -12,6 +12,7 @@ import type {
   GherkinExamplesTable,
   GherkinExampleParameter,
   GherkinExampleArgument,
+  GherkinDocString,
 } from "mdast";
 
 declare module "mdast" {
@@ -158,6 +159,18 @@ declare module "mdast" {
     gherkin?: GherkinStepLine["data"]["gherkin"];
   }
 
+  interface GherkinDocString extends Code {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.DOC_STRING;
+      };
+    };
+  }
+
+  interface CodeData extends Data {
+    gherkin?: GherkinDocString["data"]["gherkin"];
+  }
+
   interface Data {
     gherkin?: GherkinNodes["data"]["gherkin"];
   }
@@ -175,4 +188,5 @@ export type GherkinNodes =
   | GherkinSeparator
   | GherkinTag
   | GherkinDelimitedParameter
-  | GherkinStepLine;
+  | GherkinStepLine
+  | GherkinDocString;

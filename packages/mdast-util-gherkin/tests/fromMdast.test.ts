@@ -149,7 +149,7 @@ suite("Markdown with Gherkin to mdast", () => {
                       },
                     },
                   },
-                  { type: "text", value: " " },
+                  { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
                   { type: "text", value: "there are " },
                   {
                     type: "html",
@@ -164,6 +164,56 @@ suite("Markdown with Gherkin to mdast", () => {
         ],
       });
       expect(str).toMatch(`* ${keyword} there are <start> cucumbers`);
+    });
+
+    test(`Can serialize doc string with "${keyword}"`, () => {
+      const str = markdownOfTree({
+        type: "list",
+        ordered: false,
+        spread: false,
+        children: [
+          {
+            type: "listItem",
+            spread: false,
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    type: "text",
+                    value: keyword,
+                    data: {
+                      gherkin: {
+                        type: "stepKeyword",
+                        keyword: keyword,
+                      },
+                    },
+                  },
+                  { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
+                  { type: "text", value: "there are 3 cucumbers" },
+                ],
+              },
+              {
+                type: "code",
+                value:
+                  "Some Title, Eh?\n===============\nHere is the first paragraph of my blog post. Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.",
+                data: { gherkin: { type: "docString" } },
+              },
+            ],
+          },
+        ],
+      });
+      expect(str).toMatch(
+        `* ${keyword} there are 3 cucumbers
+
+  ${"```"}
+  Some Title, Eh?
+  ===============
+  Here is the first paragraph of my blog post. Lorem ipsum dolor sit amet,
+  consectetur adipiscing elit.
+  ${"```"}
+`,
+      );
     });
   });
 

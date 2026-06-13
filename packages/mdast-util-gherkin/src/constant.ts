@@ -9,6 +9,7 @@ export const GherkinTypes = {
   EXAMPLE_ARGUMENT: "exampleArgument",
   STEP_LINE: "stepLine",
   STEP_KEYWORD: "stepKeyword",
+  DOC_STRING: "docString",
   DELIMITED_PARAMETER: "delimitedParameter",
   SEPARATOR: "separator",
 } as const;

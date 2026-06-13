@@ -194,6 +194,38 @@ ${"#".repeat(level)} ${keyword}:
           });
         },
       );
+
+      test(`"${keyword}" can handle doc strings`, () => {
+        const tree = getTree(`
+* ${keyword} a blog post named "Random" with Markdown body
+  ${"```"}
+  Some Title, Eh?
+  ===============
+  Here is the first paragraph of my blog post. Lorem ipsum dolor sit amet,
+  consectetur adipiscing elit.
+  ${"```"}
+`);
+
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toMatchObject({
+          type: "list",
+          children: [
+            {
+              type: "listItem",
+              children: [
+                {
+                  type: "paragraph",
+                },
+                {
+                  type: "code",
+                  data: { gherkin: { type: "docString" } },
+                },
+              ],
+              data: { gherkin: { type: "stepLine", stepKeyword: keyword } },
+            },
+          ],
+        });
+      });
     });
 
     suite("Tags", () => {

@@ -297,6 +297,15 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Doc String
+  visit(tree, testGherkinNode("stepLine"), (stepLine) => {
+    for (const child of stepLine.children) {
+      if (child.type === "code") {
+        child.data = { ...child.data, gherkin: { type: GherkinTypes.DOC_STRING } };
+      }
+    }
+  });
+
   // Delimited Parameter
   visit(tree, "text", (node, _index, parent) => {
     if (node.data?.gherkin?.type !== GherkinTypes.STEP_KEYWORD) {
