@@ -1,11 +1,11 @@
-import { GherkinTypes } from "./constant.ts";
 import type { Join } from "mdast-util-to-markdown";
+import { testGherkinNode } from "./util/index.ts";
 
-const tagJoin: Join = (left, right) => {
-  if (left.data?.gherkin?.type === GherkinTypes.TAG_LINE && right.type === "heading") {
+const gherkinTagJoin: Join = (left, right) => {
+  if (testGherkinNode("tagLine")(left) && testGherkinNode("segmentLine")(right)) {
     return 0;
   }
   return true;
 };
 
-export default [tagJoin];
+export default [gherkinTagJoin];
