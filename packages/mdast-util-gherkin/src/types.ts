@@ -13,6 +13,9 @@ import type {
   GherkinExampleParameter,
   GherkinExampleArgument,
   GherkinDocString,
+  GherkinDataTable,
+  GherkinDataParameter,
+  GherkinDataArgument,
 } from "mdast";
 
 declare module "mdast" {
@@ -25,20 +28,12 @@ declare module "mdast" {
     };
   }
 
-  interface HeadingData extends Data {
-    gherkin?: GherkinSegmentLine["data"]["gherkin"];
-  }
-
   interface GherkinExamplesTable extends Table {
     data: {
       gherkin: {
         type: typeof GherkinTypes.EXAMPLES_TABLE;
       };
     };
-  }
-
-  interface TableData extends Data {
-    gherkin?: GherkinExamplesTable["data"]["gherkin"];
   }
 
   interface GherkinExampleParameter extends TableCell {
@@ -59,22 +54,12 @@ declare module "mdast" {
     };
   }
 
-  interface TableCellData extends Data {
-    gherkin?:
-      | GherkinExampleParameter["data"]["gherkin"]
-      | GherkinExampleArgument["data"]["gherkin"];
-  }
-
   interface GherkinTagLine extends Paragraph {
     data: {
       gherkin: {
         type: typeof GherkinTypes.TAG_LINE;
       };
     };
-  }
-
-  interface ParagraphData extends Data {
-    gherkin?: GherkinTagLine["data"]["gherkin"];
   }
 
   interface GherkinSegmentKeyword extends Text {
@@ -111,15 +96,6 @@ declare module "mdast" {
     };
   }
 
-  interface TextData extends Data {
-    gherkin?: (
-      | GherkinSegmentKeyword
-      | GherkinStepKeyword
-      | GherkinSegmentDelimiter
-      | GherkinSeparator
-    )["data"]["gherkin"];
-  }
-
   interface GherkinTag extends InlineCode {
     data: {
       gherkin: {
@@ -127,10 +103,6 @@ declare module "mdast" {
         ident: string;
       };
     };
-  }
-
-  interface InlineCodeData extends Data {
-    gherkin?: GherkinTag["data"]["gherkin"];
   }
 
   interface GherkinDelimitedParameter extends Html {
@@ -142,10 +114,6 @@ declare module "mdast" {
     };
   }
 
-  interface HtmlData extends Data {
-    gherkin?: GherkinDelimitedParameter["data"]["gherkin"];
-  }
-
   interface GherkinStepLine extends ListItem {
     data: {
       gherkin: {
@@ -155,16 +123,79 @@ declare module "mdast" {
     };
   }
 
-  interface ListItemData extends Data {
-    gherkin?: GherkinStepLine["data"]["gherkin"];
-  }
-
   interface GherkinDocString extends Code {
     data: {
       gherkin: {
         type: typeof GherkinTypes.DOC_STRING;
       };
     };
+  }
+
+  interface GherkinDataTable extends Table {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.DATA_TABLE;
+      };
+    };
+  }
+
+  interface GherkinDataParameter extends TableCell {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.DATA_PARAMETER;
+        ident: string;
+      };
+    };
+  }
+
+  interface GherkinDataArgument extends TableCell {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.DATA_ARGUMENT;
+        parameterIdent: string;
+      };
+    };
+  }
+
+  interface HeadingData extends Data {
+    gherkin?: GherkinSegmentLine["data"]["gherkin"];
+  }
+
+  interface TableData extends Data {
+    gherkin?: GherkinExamplesTable["data"]["gherkin"] | GherkinDataTable["data"]["gherkin"];
+  }
+
+  interface TableCellData extends Data {
+    gherkin?:
+      | GherkinExampleParameter["data"]["gherkin"]
+      | GherkinExampleArgument["data"]["gherkin"]
+      | GherkinDataParameter["data"]["gherkin"]
+      | GherkinDataArgument["data"]["gherkin"];
+  }
+
+  interface ParagraphData extends Data {
+    gherkin?: GherkinTagLine["data"]["gherkin"];
+  }
+
+  interface TextData extends Data {
+    gherkin?: (
+      | GherkinSegmentKeyword
+      | GherkinStepKeyword
+      | GherkinSegmentDelimiter
+      | GherkinSeparator
+    )["data"]["gherkin"];
+  }
+
+  interface InlineCodeData extends Data {
+    gherkin?: GherkinTag["data"]["gherkin"];
+  }
+
+  interface HtmlData extends Data {
+    gherkin?: GherkinDelimitedParameter["data"]["gherkin"];
+  }
+
+  interface ListItemData extends Data {
+    gherkin?: GherkinStepLine["data"]["gherkin"];
   }
 
   interface CodeData extends Data {
@@ -189,4 +220,7 @@ export type GherkinNodes =
   | GherkinTag
   | GherkinDelimitedParameter
   | GherkinStepLine
-  | GherkinDocString;
+  | GherkinDocString
+  | GherkinDataTable
+  | GherkinDataParameter
+  | GherkinDataArgument;

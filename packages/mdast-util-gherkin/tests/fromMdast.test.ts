@@ -215,6 +215,83 @@ suite("Markdown with Gherkin to mdast", () => {
 `,
       );
     });
+
+    test(`Can serialize doc string with "${keyword}"`, () => {
+      const str = markdownOfTree({
+        type: "list",
+        ordered: false,
+        spread: false,
+        children: [
+          {
+            type: "listItem",
+            spread: false,
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    type: "text",
+                    value: keyword,
+                    data: {
+                      gherkin: {
+                        type: "stepKeyword",
+                        keyword: keyword,
+                      },
+                    },
+                  },
+                  { type: "text", value: " ", data: { gherkin: { type: "separator" } } },
+                  { type: "text", value: "there are 3 cucumbers" },
+                ],
+              },
+              {
+                type: "table",
+                children: [
+                  {
+                    type: "tableRow",
+                    children: [
+                      {
+                        type: "tableCell",
+                        children: [{ type: "text", value: "a" }],
+                        data: { gherkin: { type: "dataParameter", ident: "a" } },
+                      },
+                      {
+                        type: "tableCell",
+                        children: [{ type: "text", value: "b" }],
+                        data: { gherkin: { type: "dataParameter", ident: "b" } },
+                      },
+                    ],
+                  },
+                  {
+                    type: "tableRow",
+                    children: [
+                      {
+                        type: "tableCell",
+                        children: [{ type: "text", value: "1" }],
+                        data: { gherkin: { type: "dataArgument", parameterIdent: "a" } },
+                      },
+                      {
+                        type: "tableCell",
+                        children: [{ type: "text", value: "2" }],
+                        data: { gherkin: { type: "dataArgument", parameterIdent: "b" } },
+                      },
+                    ],
+                  },
+                ],
+                data: { gherkin: { type: "dataTable" } },
+              },
+            ],
+          },
+        ],
+      });
+      expect(str).toMatch(
+        `* ${keyword} there are 3 cucumbers
+
+  | a | b |
+  | - | - |
+  | 1 | 2 |
+`,
+      );
+    });
   });
 
   suite("Tags", () => {

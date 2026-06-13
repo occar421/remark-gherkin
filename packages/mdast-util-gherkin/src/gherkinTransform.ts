@@ -158,6 +158,59 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Examples Table
+  visit(tree, "table", (table, _index, parent) => {
+    if (!parent) {
+      return;
+    }
+
+    const examplesSegment = findBefore(parent, table);
+
+    if (
+      !examplesSegment ||
+      !testGherkinNode("segmentLine")(examplesSegment) ||
+      examplesSegment.data.gherkin.segmentKeyword !== "Examples"
+    ) {
+      return;
+    }
+
+    table.data = { ...table.data, gherkin: { type: GherkinTypes.EXAMPLES_TABLE } };
+
+    const parameters = [];
+
+    const headerRow = table.children[0];
+    for (const headerCell of headerRow.children) {
+      const ident = toString(headerCell);
+      parameters.push(ident);
+
+      headerCell.data = {
+        ...headerCell.data,
+        gherkin: {
+          type: GherkinTypes.EXAMPLE_PARAMETER,
+          ident,
+        },
+      };
+    }
+
+    if (table.children.length <= 1) {
+      return;
+    }
+
+    for (let i = 1 /* skips header */; i < table.children.length; i++) {
+      const row = table.children[i];
+      for (let j = 0; j < row.children.length; j++) {
+        const cell = row.children[j];
+        cell.data = {
+          ...cell.data,
+          gherkin: {
+            type: GherkinTypes.EXAMPLE_ARGUMENT,
+            parameterIdent: parameters[j],
+          },
+        };
+      }
+    }
+  });
+
   // Tags
   visit(tree, "heading", (heading, _index, parent) => {
     if (heading.data?.gherkin?.type !== GherkinTypes.SEGMENT_LINE) {
@@ -306,6 +359,49 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Data Table
+  visit(tree, testGherkinNode("stepLine"), (stepLine) => {
+    for (const table of stepLine.children) {
+      if (table.type === "table") {
+        table.data = { ...table.data, gherkin: { type: GherkinTypes.DATA_TABLE } };
+
+        const parameters = [];
+
+        const headerRow = table.children[0];
+        for (const headerCell of headerRow.children) {
+          const ident = toString(headerCell);
+          parameters.push(ident);
+
+          headerCell.data = {
+            ...headerCell.data,
+            gherkin: {
+              type: GherkinTypes.DATA_PARAMETER,
+              ident,
+            },
+          };
+        }
+
+        if (table.children.length <= 1) {
+          return;
+        }
+
+        for (let i = 1 /* skips header */; i < table.children.length; i++) {
+          const row = table.children[i];
+          for (let j = 0; j < row.children.length; j++) {
+            const cell = row.children[j];
+            cell.data = {
+              ...cell.data,
+              gherkin: {
+                type: GherkinTypes.DATA_ARGUMENT,
+                parameterIdent: parameters[j],
+              },
+            };
+          }
+        }
+      }
+    }
+  });
+
   // Delimited Parameter
   visit(tree, "text", (node, _index, parent) => {
     if (node.data?.gherkin?.type !== GherkinTypes.STEP_KEYWORD) {
@@ -325,59 +421,6 @@ const gherkinTransform: Transform = (tree) => {
           gherkin: {
             type: GherkinTypes.DELIMITED_PARAMETER,
             ident: sibling.value.slice(1, -1), // "<foo>" -> "foo"
-          },
-        };
-      }
-    }
-  });
-
-  // Examples Table
-  visit(tree, "table", (table, _index, parent) => {
-    if (!parent) {
-      return;
-    }
-
-    const examplesSegment = findBefore(parent, table);
-
-    if (
-      !examplesSegment ||
-      !testGherkinNode("segmentLine")(examplesSegment) ||
-      examplesSegment.data.gherkin.segmentKeyword !== "Examples"
-    ) {
-      return;
-    }
-
-    table.data = { ...table.data, gherkin: { type: GherkinTypes.EXAMPLES_TABLE } };
-
-    const parameters = [];
-
-    const headerRow = table.children[0];
-    for (const headerCell of headerRow.children) {
-      const ident = toString(headerCell);
-      parameters.push(ident);
-
-      headerCell.data = {
-        ...headerCell.data,
-        gherkin: {
-          type: GherkinTypes.EXAMPLE_PARAMETER,
-          ident,
-        },
-      };
-    }
-
-    if (table.children.length <= 1) {
-      return;
-    }
-
-    for (let i = 1 /* skips header */; i < table.children.length; i++) {
-      const row = table.children[i];
-      for (let j = 0; j < row.children.length; j++) {
-        const cell = row.children[j];
-        cell.data = {
-          ...cell.data,
-          gherkin: {
-            type: GherkinTypes.EXAMPLE_ARGUMENT,
-            parameterIdent: parameters[j],
           },
         };
       }

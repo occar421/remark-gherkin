@@ -226,6 +226,68 @@ ${"#".repeat(level)} ${keyword}:
           ],
         });
       });
+
+      test(`"${keyword}" can handle data tables`, () => {
+        const tree = getTree(`
+* ${keyword} the following users exist:
+  | a | b |
+  | - | - |
+  | 1 | 2 |
+`);
+
+        expect(tree.children).toHaveLength(1);
+        expect(tree.children[0]).toMatchObject({
+          type: "list",
+          children: [
+            {
+              type: "listItem",
+              children: [
+                {
+                  type: "paragraph",
+                },
+                {
+                  type: "table",
+                  children: [
+                    {
+                      // header row
+                      type: "tableRow",
+                      children: [
+                        {
+                          type: "tableCell",
+                          children: [{ type: "text", value: "a" }],
+                          data: { gherkin: { type: "dataParameter", ident: "a" } },
+                        },
+                        {
+                          type: "tableCell",
+                          children: [{ type: "text", value: "b" }],
+                          data: { gherkin: { type: "dataParameter", ident: "b" } },
+                        },
+                      ],
+                    },
+                    {
+                      type: "tableRow",
+                      children: [
+                        {
+                          type: "tableCell",
+                          children: [{ type: "text", value: "1" }],
+                          data: { gherkin: { type: "dataArgument", parameterIdent: "a" } },
+                        },
+                        {
+                          type: "tableCell",
+                          children: [{ type: "text", value: "2" }],
+                          data: { gherkin: { type: "dataArgument", parameterIdent: "b" } },
+                        },
+                      ],
+                    },
+                  ],
+                  data: { gherkin: { type: "dataTable" } },
+                },
+              ],
+              data: { gherkin: { type: "stepLine", stepKeyword: keyword } },
+            },
+          ],
+        });
+      });
     });
 
     suite("Tags", () => {
