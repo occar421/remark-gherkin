@@ -72,6 +72,9 @@ catalogs:
     unist-util-find-before:
       specifier: ^4.0.1
       version: 4.0.1
+    unist-util-find-between:
+      specifier: ^1.2.2
+      version: 1.2.2
     unist-util-visit:
       specifier: ^5.1.0
       version: 5.1.0
@@ -1019,6 +1022,61 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
+      unist-util-visit:
+        specifier: 'catalog:'
+        version: 5.1.0
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.8.0
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260527.2
+      bumpp:
+        specifier: 'catalog:'
+        version: 11.1.0
+      remark-gfm:
+        specifier: 'catalog:'
+        version: 4.0.1
+      remark-gherkin:
+        specifier: workspace:*
+        version: link:../remark-gherkin
+      remark-parse:
+        specifier: 'catalog:'
+        version: 11.0.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      unified:
+        specifier: 'catalog:'
+        version: 11.0.5
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.1.24(@types/node@25.8.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@25.8.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
+
+  packages/remark-lint-gherkin-no-unused-variables:
+    dependencies:
+      '@types/mdast':
+        specifier: 'catalog:'
+        version: 4.0.4
+      mdast-util-gherkin:
+        specifier: workspace:*
+        version: link:../mdast-util-gherkin
+      mdast-util-to-string:
+        specifier: 'catalog:'
+        version: 4.0.0
+      remark-lint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      unified-lint-rule:
+        specifier: 'catalog:'
+        version: 3.0.1
+      unist-util-find-after:
+        specifier: 'catalog:'
+        version: 5.0.0
+      unist-util-find-between:
+        specifier: 'catalog:'
+        version: 1.2.2
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -2623,6 +2681,9 @@ packages:
 
   unist-util-find-before@4.0.1:
     resolution: {integrity: sha512-hfpCNqPbCOseOjHU8oBkRXM8gDQ++Ua3dN7sDYz7VJ+1alt+yd/I+ECZDhv1aqpJ1x47AHbzP/xA0jWf4omAIw==}
+
+  unist-util-find-between@1.2.2:
+    resolution: {integrity: sha512-fhZ9EYTO/6mEFMIy2kH0dJJAyAo8KIz7u6SPBxGvNFe9DrivUyCeaSDO5djxcI3aI0jLaW7kVe0P0GrVIzPtDA==}
 
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
@@ -4230,6 +4291,11 @@ snapshots:
       unist-util-is: 6.0.1
 
   unist-util-find-before@4.0.1:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-between@1.2.2:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1

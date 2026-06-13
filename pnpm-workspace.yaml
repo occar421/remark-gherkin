@@ -22,6 +22,7 @@ catalog:
   mdast: ^3.0.0
   unist-util-find-all-after: ^5.0.0
   unist-util-find-before: ^4.0.1
+  unist-util-find-between: ^1.2.2
   unist: ^0.0.1
   "@types/unist": ^3.0.3
   unist-util-find-after: ^5.0.0
