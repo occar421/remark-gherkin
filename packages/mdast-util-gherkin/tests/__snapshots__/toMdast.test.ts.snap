@@ -1027,47 +1027,440 @@ not the ",
       "type": "heading",
     },
     {
+      "align": [
+        null,
+        null,
+        null,
+      ],
       "children": [
         {
+          "children": [
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 10,
+                      "line": 19,
+                      "offset": 407,
+                    },
+                    "start": {
+                      "column": 5,
+                      "line": 19,
+                      "offset": 402,
+                    },
+                  },
+                  "type": "text",
+                  "value": "start",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "ident": "start",
+                  "type": "exampleParameter",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 19,
+                  "offset": 408,
+                },
+                "start": {
+                  "column": 3,
+                  "line": 19,
+                  "offset": 400,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 19,
+                      "offset": 413,
+                    },
+                    "start": {
+                      "column": 13,
+                      "line": 19,
+                      "offset": 410,
+                    },
+                  },
+                  "type": "text",
+                  "value": "eat",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "ident": "eat",
+                  "type": "exampleParameter",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 19,
+                  "offset": 414,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 19,
+                  "offset": 408,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 23,
+                      "line": 19,
+                      "offset": 420,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 19,
+                      "offset": 416,
+                    },
+                  },
+                  "type": "text",
+                  "value": "left",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "ident": "left",
+                  "type": "exampleParameter",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 19,
+                  "offset": 422,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 19,
+                  "offset": 414,
+                },
+              },
+              "type": "tableCell",
+            },
+          ],
           "position": {
             "end": {
-              "column": 23,
-              "line": 22,
-              "offset": 489,
+              "column": 25,
+              "line": 19,
+              "offset": 422,
             },
             "start": {
-              "column": 1,
+              "column": 3,
               "line": 19,
-              "offset": 398,
+              "offset": 400,
             },
           },
-          "type": "text",
-          "value": "| start | eat | left |
-| ----- | --- | ---- |
-| 12    | 5   | 7    |
-| 20    | 5   | 15   |",
+          "type": "tableRow",
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 7,
+                      "line": 21,
+                      "offset": 454,
+                    },
+                    "start": {
+                      "column": 5,
+                      "line": 21,
+                      "offset": 452,
+                    },
+                  },
+                  "type": "text",
+                  "value": "12",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "start",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 21,
+                  "offset": 458,
+                },
+                "start": {
+                  "column": 3,
+                  "line": 21,
+                  "offset": 450,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 14,
+                      "line": 21,
+                      "offset": 461,
+                    },
+                    "start": {
+                      "column": 13,
+                      "line": 21,
+                      "offset": 460,
+                    },
+                  },
+                  "type": "text",
+                  "value": "5",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "eat",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 21,
+                  "offset": 464,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 21,
+                  "offset": 458,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 20,
+                      "line": 21,
+                      "offset": 467,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 21,
+                      "offset": 466,
+                    },
+                  },
+                  "type": "text",
+                  "value": "7",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "left",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 21,
+                  "offset": 472,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 21,
+                  "offset": 464,
+                },
+              },
+              "type": "tableCell",
+            },
+          ],
+          "position": {
+            "end": {
+              "column": 25,
+              "line": 21,
+              "offset": 472,
+            },
+            "start": {
+              "column": 3,
+              "line": 21,
+              "offset": 450,
+            },
+          },
+          "type": "tableRow",
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 7,
+                      "line": 22,
+                      "offset": 479,
+                    },
+                    "start": {
+                      "column": 5,
+                      "line": 22,
+                      "offset": 477,
+                    },
+                  },
+                  "type": "text",
+                  "value": "20",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "start",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 22,
+                  "offset": 483,
+                },
+                "start": {
+                  "column": 3,
+                  "line": 22,
+                  "offset": 475,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 14,
+                      "line": 22,
+                      "offset": 486,
+                    },
+                    "start": {
+                      "column": 13,
+                      "line": 22,
+                      "offset": 485,
+                    },
+                  },
+                  "type": "text",
+                  "value": "5",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "eat",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 22,
+                  "offset": 489,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 22,
+                  "offset": 483,
+                },
+              },
+              "type": "tableCell",
+            },
+            {
+              "children": [
+                {
+                  "position": {
+                    "end": {
+                      "column": 21,
+                      "line": 22,
+                      "offset": 493,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 22,
+                      "offset": 491,
+                    },
+                  },
+                  "type": "text",
+                  "value": "15",
+                },
+              ],
+              "data": {
+                "gherkin": {
+                  "parameterIdent": "left",
+                  "type": "exampleArgument",
+                },
+              },
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 22,
+                  "offset": 497,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 22,
+                  "offset": 489,
+                },
+              },
+              "type": "tableCell",
+            },
+          ],
+          "position": {
+            "end": {
+              "column": 25,
+              "line": 22,
+              "offset": 497,
+            },
+            "start": {
+              "column": 3,
+              "line": 22,
+              "offset": 475,
+            },
+          },
+          "type": "tableRow",
         },
       ],
-      "position": {
-        "end": {
-          "column": 23,
-          "line": 22,
-          "offset": 489,
-        },
-        "start": {
-          "column": 1,
-          "line": 19,
-          "offset": 398,
+      "data": {
+        "gherkin": {
+          "type": "examplesTable",
         },
       },
-      "type": "paragraph",
+      "position": {
+        "end": {
+          "column": 25,
+          "line": 22,
+          "offset": 497,
+        },
+        "start": {
+          "column": 3,
+          "line": 19,
+          "offset": 400,
+        },
+      },
+      "type": "table",
     },
   ],
   "position": {
     "end": {
       "column": 1,
       "line": 23,
-      "offset": 490,
+      "offset": 498,
     },
     "start": {
       "column": 1,

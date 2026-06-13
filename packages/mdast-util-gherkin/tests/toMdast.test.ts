@@ -2,10 +2,16 @@ import { expect, suite, test } from "vite-plus/test";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gherkinFromMarkdown } from "../src/index.ts";
 import { readFileSync } from "fs";
+import { gfmTable } from "micromark-extension-gfm-table";
+import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
+import type { Table } from "mdast";
 
 suite("Markdown with Gherkin to mdast", () => {
   const getTree = (text: string, _options: {} = {}) =>
-    fromMarkdown(text, undefined, { mdastExtensions: [gherkinFromMarkdown()] });
+    fromMarkdown(text, undefined, {
+      extensions: [gfmTable()],
+      mdastExtensions: [gfmTableFromMarkdown(), gherkinFromMarkdown()],
+    });
 
   suite("keyword", () => {
     suite("No degradation", () => {
@@ -81,8 +87,14 @@ suite("Markdown with Gherkin to mdast", () => {
       test.each([1, 2, 3, 4, 5, 6])(
         `"${keyword}:" is parsed as Gherkin segment keyword in h%i`,
         (level) => {
-          const tree = getTree(`${"#".repeat(level)} ${keyword}:`);
-          expect(tree.children).toHaveLength(1);
+          const tree = getTree(`
+${"#".repeat(level)} ${keyword}:
+
+  | a | b |
+  | - | - |
+  | 1 | 2 |
+`);
+          expect(tree.children).toHaveLength(2);
           expect(tree.children[0]).toMatchObject({
             type: "heading",
             depth: level,
@@ -95,6 +107,42 @@ suite("Markdown with Gherkin to mdast", () => {
               { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
             ],
             data: { gherkin: { type: "segmentLine", segmentKeyword: key } },
+          });
+          expect(tree.children[1]).toMatchObject({
+            type: "table",
+            data: { gherkin: { type: "examplesTable" } },
+          });
+          // header
+          expect((tree.children[1] as Table).children[0]).toMatchObject({
+            type: "tableRow",
+            children: [
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "a" }],
+                data: { gherkin: { type: "exampleParameter", ident: "a" } },
+              },
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "b" }],
+                data: { gherkin: { type: "exampleParameter", ident: "b" } },
+              },
+            ],
+          });
+          // rows
+          expect((tree.children[1] as Table).children[1]).toMatchObject({
+            type: "tableRow",
+            children: [
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "1" }],
+                data: { gherkin: { type: "exampleArgument", parameterIdent: "a" } },
+              },
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "2" }],
+                data: { gherkin: { type: "exampleArgument", parameterIdent: "b" } },
+              },
+            ],
           });
         },
       );

@@ -47,6 +47,8 @@
     "@types/unist": "catalog:",
     "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
+    "mdast-util-gfm-table": "catalog:",
+    "micromark-extension-gfm-table": "catalog:",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   }

@@ -9,6 +9,9 @@ import type {
   GherkinStepLine,
   GherkinTag,
   GherkinTagLine,
+  GherkinExamplesTable,
+  GherkinExampleParameter,
+  GherkinExampleArgument,
 } from "mdast";
 
 declare module "mdast" {
@@ -23,6 +26,42 @@ declare module "mdast" {
 
   interface HeadingData extends Data {
     gherkin?: GherkinSegmentLine["data"]["gherkin"];
+  }
+
+  interface GherkinExamplesTable extends Table {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.EXAMPLES_TABLE;
+      };
+    };
+  }
+
+  interface TableData extends Data {
+    gherkin?: GherkinExamplesTable["data"]["gherkin"];
+  }
+
+  interface GherkinExampleParameter extends TableCell {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.EXAMPLE_PARAMETER;
+        ident: string;
+      };
+    };
+  }
+
+  interface GherkinExampleArgument extends TableCell {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.EXAMPLE_ARGUMENT;
+        parameterIdent: string;
+      };
+    };
+  }
+
+  interface TableCellData extends Data {
+    gherkin?:
+      | GherkinExampleParameter["data"]["gherkin"]
+      | GherkinExampleArgument["data"]["gherkin"];
   }
 
   interface GherkinTagLine extends Paragraph {
@@ -128,6 +167,9 @@ export type GherkinNodes =
   | GherkinSegmentLine
   | GherkinTagLine
   | GherkinSegmentKeyword
+  | GherkinExamplesTable
+  | GherkinExampleParameter
+  | GherkinExampleArgument
   | GherkinStepKeyword
   | GherkinSegmentDelimiter
   | GherkinSeparator
