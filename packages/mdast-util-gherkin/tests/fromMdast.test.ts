@@ -2,10 +2,11 @@ import { expect, suite, test } from "vite-plus/test";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gherkinToMarkdown } from "../src/index.ts";
 import type { Nodes } from "mdast";
+import { gfmTableToMarkdown } from "mdast-util-gfm-table";
 
 suite("Markdown with Gherkin to mdast", () => {
   const markdownOfTree = (nodes: Nodes, _options: {} = {}) =>
-    toMarkdown(nodes, { bullet: "*", extensions: [gherkinToMarkdown()] });
+    toMarkdown(nodes, { bullet: "*", extensions: [gfmTableToMarkdown(), gherkinToMarkdown()] });
 
   suite("keyword", () => {
     suite.each([
@@ -56,24 +57,70 @@ suite("Markdown with Gherkin to mdast", () => {
       `Can serialize it to "${keyword}:" from Gherkin segment keyword in h%i`,
       (level) => {
         const str = markdownOfTree({
-          type: "heading",
-          depth: level,
+          type: "root",
           children: [
             {
-              type: "text",
-              value: `${keyword}`,
-              data: {
-                gherkin: {
-                  type: "segmentKeyword",
-                  keyword: key,
+              type: "heading",
+              depth: level,
+              children: [
+                {
+                  type: "text",
+                  value: `${keyword}`,
+                  data: {
+                    gherkin: {
+                      type: "segmentKeyword",
+                      keyword: key,
+                    },
+                  },
                 },
-              },
+                { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
+              ],
+              data: { gherkin: { type: "segmentLine", segmentKeyword: key } },
             },
-            { type: "text", value: `:`, data: { gherkin: { type: "segmentDelimiter" } } },
+            {
+              type: "table",
+              data: { gherkin: { type: "examplesTable" } },
+              children: [
+                {
+                  type: "tableRow",
+                  children: [
+                    {
+                      type: "tableCell",
+                      children: [{ type: "text", value: "a" }],
+                      data: { gherkin: { type: "exampleParameter", ident: "a" } },
+                    },
+                    {
+                      type: "tableCell",
+                      children: [{ type: "text", value: "b" }],
+                      data: { gherkin: { type: "exampleParameter", ident: "b" } },
+                    },
+                  ],
+                },
+                {
+                  type: "tableRow",
+                  children: [
+                    {
+                      type: "tableCell",
+                      children: [{ type: "text", value: "1" }],
+                      data: { gherkin: { type: "exampleArgument", parameterIdent: "a" } },
+                    },
+                    {
+                      type: "tableCell",
+                      children: [{ type: "text", value: "2" }],
+                      data: { gherkin: { type: "exampleArgument", parameterIdent: "b" } },
+                    },
+                  ],
+                },
+              ],
+            },
           ],
-          data: { gherkin: { type: "segmentLine", segmentKeyword: key } },
         });
-        expect(str).toMatch(`${"#".repeat(level)} ${keyword}:`);
+        expect(str).toMatch(`${"#".repeat(level)} ${keyword}:
+
+| a | b |
+| - | - |
+| 1 | 2 |
+`);
       },
     );
   });
