@@ -29,6 +29,7 @@
   - [`remark-lint-gherkin-no-unnamed-scenarios`](./packages/remark-lint-gherkin-no-unnamed-scenarios): Disallow empty Scenario and Scenario Outline names.
   - [`remark-lint-gherkin-no-unused-variables`](./packages/remark-lint-gherkin-no-unused-variables): Disallows unused variables in scenario outlines.
   - [`remark-lint-gherkin-one-space-between-tags`](./packages/remark-lint-gherkin-one-space-between-tags): Ensure exactly one space between tags.
+  - [`remark-lint-gherkin-required-tags`](./packages/remark-lint-gherkin-required-tags): Require tags/patterns of tags on Scenarios.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, `no-multiple-empty-lines`, and `no-trailing-spaces` are omitted because they should be handled by other remark-lint rules.
 
