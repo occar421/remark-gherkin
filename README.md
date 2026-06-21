@@ -37,6 +37,7 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
     - [`remark-lint-gherkin-only-one-when`](./packages/remark-lint-gherkin-only-one-when): Enforce that only one When step is used per scenario.
     - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
     - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, `no-multiple-empty-lines`, and `no-trailing-spaces` are omitted because they should be handled by other remark-lint rules.
+  - [`remark-preset-lint-gherkin-lint`](./packages/remark-preset-lint-gherkin-lint): Preset including all [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint) rules.
 
 ## Development
 

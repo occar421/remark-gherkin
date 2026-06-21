@@ -1507,6 +1507,112 @@ importers:
         specifier: 'catalog:'
         version: 0.2.1(@types/node@26.0.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@26.0.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
 
+  packages/remark-preset-lint-gherkin-lint:
+    dependencies:
+      remark-lint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      remark-lint-gherkin-allowed-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-allowed-tags
+      remark-lint-gherkin-keywords-in-logical-order:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-keywords-in-logical-order
+      remark-lint-gherkin-max-scenarios-per-file:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-max-scenarios-per-file
+      remark-lint-gherkin-name-length:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-name-length
+      remark-lint-gherkin-no-background-only-scenario:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-background-only-scenario
+      remark-lint-gherkin-no-dupe-feature-names:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-dupe-feature-names
+      remark-lint-gherkin-no-dupe-scenario-names:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-dupe-scenario-names
+      remark-lint-gherkin-no-duplicate-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-duplicate-tags
+      remark-lint-gherkin-no-empty-background:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-empty-background
+      remark-lint-gherkin-no-examples-in-scenarios:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-examples-in-scenarios
+      remark-lint-gherkin-no-files-without-scenarios:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-files-without-scenarios
+      remark-lint-gherkin-no-partially-commented-tag-lines:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-partially-commented-tag-lines
+      remark-lint-gherkin-no-restricted-patterns:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-restricted-patterns
+      remark-lint-gherkin-no-restricted-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-restricted-tags
+      remark-lint-gherkin-no-scenario-outlines-without-examples:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-scenario-outlines-without-examples
+      remark-lint-gherkin-no-superfluous-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-superfluous-tags
+      remark-lint-gherkin-no-tags-on-backgrounds:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-tags-on-backgrounds
+      remark-lint-gherkin-no-unnamed-features:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-unnamed-features
+      remark-lint-gherkin-no-unnamed-scenarios:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-unnamed-scenarios
+      remark-lint-gherkin-no-unused-variables:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-no-unused-variables
+      remark-lint-gherkin-one-feature-per-file:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-one-feature-per-file
+      remark-lint-gherkin-one-space-between-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-one-space-between-tags
+      remark-lint-gherkin-only-one-when:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-only-one-when
+      remark-lint-gherkin-required-tags:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-required-tags
+      remark-lint-gherkin-scenario-size:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-scenario-size
+      remark-lint-gherkin-up-to-one-background-per-file:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-up-to-one-background-per-file
+      remark-lint-gherkin-use-and:
+        specifier: workspace:*
+        version: link:../remark-lint-gherkin-use-and
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.0.0
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260621.1
+      bumpp:
+        specifier: 'catalog:'
+        version: 11.1.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      unified:
+        specifier: 'catalog:'
+        version: 11.0.5
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.2.1(@types/node@26.0.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@26.0.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
+
 packages:
 
   '@babel/code-frame@7.29.7':

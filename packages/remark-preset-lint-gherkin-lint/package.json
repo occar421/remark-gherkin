@@ -1,0 +1,73 @@
+{
+  "name": "remark-preset-lint-gherkin-lint",
+  "version": "0.0.0",
+  "description": "remark-lint preset for Gherkin lint rules.",
+  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-preset-lint-gherkin-lint#readme",
+  "bugs": {
+    "url": "https://github.com/occar421/unifiedjs-gherkin/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "MasuqaT <occar@hotmail.co.jp>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/occar421/unifiedjs-gherkin.git",
+    "directory": "packages/remark-preset-lint-gherkin-lint"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "check": "vp check",
+    "ready": "vp run check && vp run test && vp run build"
+  },
+  "dependencies": {
+    "remark-lint": "catalog:",
+    "remark-lint-gherkin-allowed-tags": "workspace:*",
+    "remark-lint-gherkin-keywords-in-logical-order": "workspace:*",
+    "remark-lint-gherkin-max-scenarios-per-file": "workspace:*",
+    "remark-lint-gherkin-name-length": "workspace:*",
+    "remark-lint-gherkin-no-background-only-scenario": "workspace:*",
+    "remark-lint-gherkin-no-dupe-feature-names": "workspace:*",
+    "remark-lint-gherkin-no-dupe-scenario-names": "workspace:*",
+    "remark-lint-gherkin-no-duplicate-tags": "workspace:*",
+    "remark-lint-gherkin-no-empty-background": "workspace:*",
+    "remark-lint-gherkin-no-examples-in-scenarios": "workspace:*",
+    "remark-lint-gherkin-no-files-without-scenarios": "workspace:*",
+    "remark-lint-gherkin-no-partially-commented-tag-lines": "workspace:*",
+    "remark-lint-gherkin-no-restricted-patterns": "workspace:*",
+    "remark-lint-gherkin-no-restricted-tags": "workspace:*",
+    "remark-lint-gherkin-no-scenario-outlines-without-examples": "workspace:*",
+    "remark-lint-gherkin-no-superfluous-tags": "workspace:*",
+    "remark-lint-gherkin-no-tags-on-backgrounds": "workspace:*",
+    "remark-lint-gherkin-no-unnamed-features": "workspace:*",
+    "remark-lint-gherkin-no-unnamed-scenarios": "workspace:*",
+    "remark-lint-gherkin-no-unused-variables": "workspace:*",
+    "remark-lint-gherkin-one-feature-per-file": "workspace:*",
+    "remark-lint-gherkin-one-space-between-tags": "workspace:*",
+    "remark-lint-gherkin-only-one-when": "workspace:*",
+    "remark-lint-gherkin-required-tags": "workspace:*",
+    "remark-lint-gherkin-scenario-size": "workspace:*",
+    "remark-lint-gherkin-up-to-one-background-per-file": "workspace:*",
+    "remark-lint-gherkin-use-and": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "unified": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
