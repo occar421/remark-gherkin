@@ -33,6 +33,7 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
   - [`remark-lint-gherkin-scenario-size`](./packages/remark-lint-gherkin-scenario-size): Enforce maximum step count of Gherkin scenarios and backgrounds.
   - [`remark-lint-gherkin-use-and`](./packages/remark-lint-gherkin-use-and): Enforce using And instead of repeated keywords in Gherkin scenarios.
   - [`remark-lint-gherkin-keywords-in-logical-order`](./packages/remark-lint-gherkin-keywords-in-logical-order): Enforce that Given, When and Then appear in logical sequence in Gherkin scenarios.
+  - [`remark-lint-gherkin-only-one-when`](./packages/remark-lint-gherkin-only-one-when): Enforce that only one When step is used per scenario.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, `no-multiple-empty-lines`, and `no-trailing-spaces` are omitted because they should be handled by other remark-lint rules.
 
