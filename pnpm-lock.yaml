@@ -229,6 +229,61 @@ importers:
         specifier: 'catalog:'
         version: 0.1.24(@types/node@25.8.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@25.8.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
 
+  packages/remark-lint-gherkin-keywords-in-logical-order:
+    dependencies:
+      '@types/mdast':
+        specifier: 'catalog:'
+        version: 4.0.4
+      mdast-util-gherkin:
+        specifier: workspace:*
+        version: link:../mdast-util-gherkin
+      remark-lint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      unified-lint-rule:
+        specifier: 'catalog:'
+        version: 3.0.1
+      unist-util-find-after:
+        specifier: 'catalog:'
+        version: 5.0.0
+      unist-util-find-all-after:
+        specifier: 'catalog:'
+        version: 5.0.0
+      unist-util-find-between:
+        specifier: 'catalog:'
+        version: 1.2.2
+      unist-util-visit:
+        specifier: 'catalog:'
+        version: 5.1.0
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.8.0
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260527.2
+      bumpp:
+        specifier: 'catalog:'
+        version: 11.1.0
+      remark-gfm:
+        specifier: 'catalog:'
+        version: 4.0.1
+      remark-gherkin:
+        specifier: workspace:*
+        version: link:../remark-gherkin
+      remark-parse:
+        specifier: 'catalog:'
+        version: 11.0.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      unified:
+        specifier: 'catalog:'
+        version: 11.0.5
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.1.24(@types/node@25.8.0)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.13(@types/node@25.8.0)(jiti@2.7.0)(yaml@2.9.0))(yaml@2.9.0)
+
   packages/remark-lint-gherkin-max-scenarios-per-file:
     dependencies:
       '@types/mdast':
