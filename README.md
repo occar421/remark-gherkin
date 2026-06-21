@@ -31,6 +31,7 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
   - [`remark-lint-gherkin-one-space-between-tags`](./packages/remark-lint-gherkin-one-space-between-tags): Ensure exactly one space between tags.
   - [`remark-lint-gherkin-required-tags`](./packages/remark-lint-gherkin-required-tags): Require tags/patterns of tags on Scenarios.
   - [`remark-lint-gherkin-scenario-size`](./packages/remark-lint-gherkin-scenario-size): Enforce maximum step count of Gherkin scenarios and backgrounds.
+  - [`remark-lint-gherkin-use-and`](./packages/remark-lint-gherkin-use-and): Enforce using And instead of repeated keywords in Gherkin scenarios.
   - `no-multiline-steps` is omitted because of the difference between feature files and markdown files.
   - `file-name`, `indentation`, `new-line-at-eof`, `no-empty-file`, `no-multiple-empty-lines`, and `no-trailing-spaces` are omitted because they should be handled by other remark-lint rules.
 
