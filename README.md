@@ -1,6 +1,6 @@
-# Unified.js Gherkin
+# remark-gherkin
 
-[unified](https://github.com/unifiedjs/unified) packages to support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/main/MARKDOWN_WITH_GHERKIN.md) in [remark](https://github.com/remarkjs/remark).
+Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/main/MARKDOWN_WITH_GHERKIN.md) in [remark](https://github.com/remarkjs/remark).
 
 ## Packages
 
