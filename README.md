@@ -21,6 +21,7 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
     - [`remark-lint-gherkin-no-empty-background`](./packages/remark-lint-gherkin-no-empty-background): Disallow empty backgrounds.
     - [`remark-lint-gherkin-no-examples-in-scenarios`](./packages/remark-lint-gherkin-no-examples-in-scenarios): Disallow Examples in Scenarios.
     - [`remark-lint-gherkin-no-files-without-scenarios`](./packages/remark-lint-gherkin-no-files-without-scenarios): Disallow Gherkin files without scenarios.
+    - [`remark-lint-gherkin-no-homogenous-tags`](./packages/remark-lint-gherkin-no-homogenous-tags): Disallow homogenous tags.
     - [`remark-lint-gherkin-no-partially-commented-tag-lines`](./packages/remark-lint-gherkin-no-partially-commented-tag-lines): Disallow partially commented tag lines.
     - [`remark-lint-gherkin-no-restricted-patterns`](./packages/remark-lint-gherkin-no-restricted-patterns): Disallow restricted patterns.
     - [`remark-lint-gherkin-no-restricted-tags`](./packages/remark-lint-gherkin-no-restricted-tags): Disallow restricted tags.

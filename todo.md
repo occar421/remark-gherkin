@@ -18,8 +18,6 @@
 
 オリジナルの `gherkin-lint` に存在する以下のルールが、`remark-lint-gherkin` パッケージとしてリストに含まれていない、あるいは意図的に除外されています。
 
-- **`no-homogenous-tags`**
-  - **現状**: パッケージ自体は `packages/remark-lint-gherkin-no-homogenous-tags` として存在していますが、ルートの `README.md` のパッケージ一覧に記載が漏れています。
 - **`file-name`**
   - **現状**: Markdown ファイル内の Gherkin セクションを対象とする性質上、ファイル名自体のチェックは他の `remark-lint` ルールに委ねる方針で除外されています（READMEに明記あり）。
 - **`indentation`**
@@ -40,5 +38,4 @@
 主な修正・改善推奨ポイントは以下の通りです：
 
 1. `no-dupe-scenario-names` にスコープ選択オプション（`in-feature` / `anywhere`）を追加する。
-2. ルート `README.md` に `remark-lint-gherkin-no-homogenous-tags` を追加する。
-3. `allowed-tags` 等のオプション型を、より柔軟な入力（配列直接指定など）に対応させる。
+2. `allowed-tags` 等のオプション型を、より柔軟な入力（配列直接指定など）に対応させる。
