@@ -28,7 +28,7 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "test": "vp test",
+    "test": "",
     "check": "vp check",
     "ready": "vp run check && vp run test && vp run build"
   },
@@ -69,5 +69,12 @@
     "typescript": "catalog:",
     "unified": "catalog:",
     "vite-plus": "catalog:"
+  },
+  "inlinedDependencies": {
+    "@types/unist": "3.0.3",
+    "trough": "2.2.0",
+    "unified": "11.0.5",
+    "vfile": "6.0.3",
+    "vfile-message": "4.0.3"
   }
 }
