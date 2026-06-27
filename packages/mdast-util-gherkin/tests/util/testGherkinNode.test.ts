@@ -11,6 +11,7 @@ import type {
   GherkinStepKeyword,
   GherkinSegmentDelimiter,
   GherkinSeparator,
+  GherkinDescription,
   Paragraph,
 } from "mdast";
 
@@ -148,5 +149,18 @@ suite("testGherkinNode", () => {
     const tree = getTree("# Feature: Hello");
     const segmentLine = tree.children[0];
     expect(testGherkinNode("stepLine")(segmentLine)).toBe(false);
+  });
+
+  test("description", () => {
+    const tree = getTree("# Feature: Hello\n\nDescription paragraph");
+    // child 0: segmentLine
+    // child 1: description paragraph
+    const description = tree.children[1];
+    if (testGherkinNode("description")(description)) {
+      expectTypeOf(description).toEqualTypeOf<GherkinDescription>();
+      expect(description.data.gherkin.type).toBe("description");
+    } else {
+      expect.fail("Should be description");
+    }
   });
 });

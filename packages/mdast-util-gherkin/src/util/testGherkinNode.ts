@@ -5,7 +5,11 @@ import type { GherkinNodes } from "../types.ts";
 type GherkinKeywords = (typeof GherkinTypes)[keyof typeof GherkinTypes];
 
 type GherkinNodeMap = {
-  [K in GherkinKeywords]: Extract<GherkinNodes, { data: { gherkin: { type: K } } }>;
+  [K in GherkinKeywords]: GherkinNodes extends infer N
+    ? N extends { data: { gherkin: { type: K } } }
+      ? N
+      : never
+    : never;
 };
 
 /**
