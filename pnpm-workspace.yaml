@@ -10,7 +10,6 @@ catalog:
   bumpp: 11.1.0
   typescript: 6.0.3
   vite: npm:@voidzero-dev/vite-plus-core@latest
-  vitest: npm:@voidzero-dev/vite-plus-test@latest
   vite-plus: 0.2.1
   mdast-util-from-markdown: 2.0.3
   mdast-util-to-markdown: 2.1.2
@@ -36,14 +35,11 @@ catalog:
   "@changesets/cli": 2.31.0
 overrides:
   vite: "catalog:"
-  vitest: "catalog:"
 peerDependencyRules:
   allowAny:
     - vite
-    - vitest
   allowedVersions:
     vite: "*"
-    vitest: "*"
 minimumReleaseAgeExclude:
   - "@typescript/native-preview-darwin-arm64@7.0.0-dev.20260627.2"
   - "@typescript/native-preview-darwin-x64@7.0.0-dev.20260627.2"
