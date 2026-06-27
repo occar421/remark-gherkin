@@ -56,6 +56,20 @@ console.error(reporter(file));
 ## Scenario: Scenario 2
 ```
 
+## Options
+
+This rule supports one option, a string: `"in-feature"` or `"anywhere-in-file"` (default).
+
+- `"anywhere-in-file"`: Reports duplicate scenario names anywhere in the file. "anywhere" cannot be achieved as remark-lint processor.
+- `"in-feature"`: Reports duplicate scenario names only within the same Feature.
+
+```javascript
+import remarkLintGherkinNoDupeScenarioNames from "remark-lint-gherkin-no-dupe-scenario-names";
+
+// Using in-feature option
+const processor = unified().use(remarkLintGherkinNoDupeScenarioNames, "in-feature");
+```
+
 ## Development
 
 - Install dependencies:

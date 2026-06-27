@@ -3,6 +3,7 @@ import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import type { Node, Root } from "mdast";
 import { getSegmentName, getStepName, testGherkinNode } from "mdast-util-gherkin";
+import { toString } from "mdast-util-to-string";
 
 export type RestrictedPatterns = {
   Global?: string[];
@@ -13,6 +14,7 @@ export type RestrictedPatterns = {
   ScenarioOutline?: string[];
   Examples?: string[];
   Step?: string[];
+  Description?: string[];
 };
 
 const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>(
@@ -64,6 +66,15 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
 
       check(node, text, "Global");
       check(node, text, "Step");
+    });
+
+    visit(tree, testGherkinNode("description"), (node) => {
+      console.log(node);
+      const text = toString(node);
+      if (!text) return;
+
+      check(node, text, "Global");
+      check(node, text, "Description");
     });
   },
 );

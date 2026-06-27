@@ -87,8 +87,9 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
 * Given <val>
 
 ### Examples: some data
-| val |
-| 1   |
+  | val |
+  | --- |
+  | 1   |
 `);
     expect(file.messages).toHaveLength(2);
     expect(file.messages.some((m) => m.message.includes('ScenarioOutline: "template"'))).toBe(true);
@@ -136,5 +137,23 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
     // If it's excluded, it SHOULD match.
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Step: "^a step$"');
+  });
+
+  test("Should report when restricted pattern is found in Description", () => {
+    const processor = getProcessor({ Description: ["restricted"] });
+    const file = processor.processSync(`
+# Feature: Feature 1
+This is a restricted description.
+
+## Scenario: Scenario 1
+This also has restricted content.
+`);
+    expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].message).toBe(
+      'Restricted pattern match found for Description: "restricted"',
+    );
+    expect(file.messages[1].message).toBe(
+      'Restricted pattern match found for Description: "restricted"',
+    );
   });
 });

@@ -27,6 +27,7 @@ const file = await unified()
   .use(remarkLintGherkinNoRestrictedPatterns, {
     Step: ["restricted word"],
     Global: ["forbidden"],
+    Description: ["todo"],
   })
   .use(remarkStringify)
   .process("# Feature: Title\n* Given a restricted word");
