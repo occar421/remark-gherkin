@@ -178,6 +178,11 @@ not the ",
           "value": ".",
         },
       ],
+      "data": {
+        "gherkin": {
+          "type": "description",
+        },
+      },
       "position": {
         "end": {
           "column": 70,
@@ -317,6 +322,11 @@ not the ",
           "url": "https://imgs.xkcd.com/comics/lunch_2x.png",
         },
       ],
+      "data": {
+        "gherkin": {
+          "type": "description",
+        },
+      },
       "position": {
         "end": {
           "column": 51,
@@ -942,6 +952,11 @@ not the ",
           "type": "listItem",
         },
       ],
+      "data": {
+        "gherkin": {
+          "type": "description",
+        },
+      },
       "ordered": false,
       "position": {
         "end": {

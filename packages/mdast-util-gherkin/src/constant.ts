@@ -15,6 +15,7 @@ export const GherkinTypes = {
   DATA_ARGUMENT: "dataArgument",
   DELIMITED_PARAMETER: "delimitedParameter",
   SEPARATOR: "separator",
+  DESCRIPTION: "description",
 } as const;
 
 export const SyntaxTokens = {

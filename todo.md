@@ -12,4 +12,4 @@
 
 - **`no-restricted-patterns`**
   - **オリジナル**: `Description`（説明文）内のパターンマッチもチェック対象となります。
-  - **現状**: `mdast-util-gherkin` の制約により、名前（Name）やステップ（Step）のチェックは行っていますが、説明文（Description）のパース結果へのアクセスが不十分な場合、チェックが漏れている可能性があります。
+  - **現状**: `mdast-util-gherkin` の対応により、説明文（Description）にも `gherkin.type: "description"` が付与されるようになりました。これにより、説明文内のチェックも可能になります。

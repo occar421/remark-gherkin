@@ -427,6 +427,29 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Description
+  visit(tree, testGherkinNode("segmentLine"), (node, _index, parent) => {
+    if (!parent || parent.type !== "root") {
+      return;
+    }
+
+    const siblings = findAllAfter(parent, node);
+
+    for (const sibling of siblings) {
+      if (testGherkinNode("docString")(sibling)) {
+        continue;
+      }
+      if (testGherkinNode()(sibling)) {
+        break;
+      }
+
+      sibling.data = {
+        ...sibling.data,
+        gherkin: { type: GherkinTypes.DESCRIPTION },
+      };
+    }
+  });
+
   return tree;
 };
 
