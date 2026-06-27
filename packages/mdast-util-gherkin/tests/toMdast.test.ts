@@ -191,6 +191,7 @@ ${"#".repeat(level)} ${keyword}:
                 data: { gherkin: { type: "stepLine", stepKeyword: keyword } },
               },
             ],
+            data: { gherkin: { type: "steps" } },
           });
         },
       );
@@ -286,6 +287,7 @@ ${"#".repeat(level)} ${keyword}:
               data: { gherkin: { type: "stepLine", stepKeyword: keyword } },
             },
           ],
+          data: { gherkin: { type: "steps" } },
         });
       });
     });

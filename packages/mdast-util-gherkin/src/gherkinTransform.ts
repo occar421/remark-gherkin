@@ -350,6 +350,13 @@ const gherkinTransform: Transform = (tree) => {
     }
   });
 
+  // Steps
+  visit(tree, testGherkinNode("stepLine"), (_steps, _index, parent) => {
+    if (parent?.type === "list") {
+      parent.data = { ...parent.data, gherkin: { type: GherkinTypes.STEPS } };
+    }
+  });
+
   // Doc String
   visit(tree, testGherkinNode("stepLine"), (stepLine) => {
     for (const child of stepLine.children) {

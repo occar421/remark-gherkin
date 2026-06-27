@@ -162,6 +162,7 @@ suite("Markdown with Gherkin to mdast", () => {
             ],
           },
         ],
+        data: { gherkin: { type: "steps" } },
       });
       expect(str).toMatch(`* ${keyword} there are <start> cucumbers`);
     });
@@ -202,6 +203,7 @@ suite("Markdown with Gherkin to mdast", () => {
             ],
           },
         ],
+        data: { gherkin: { type: "steps" } },
       });
       expect(str).toMatch(
         `* ${keyword} there are 3 cucumbers
@@ -282,6 +284,7 @@ suite("Markdown with Gherkin to mdast", () => {
             ],
           },
         ],
+        data: { gherkin: { type: "steps" } },
       });
       expect(str).toMatch(
         `* ${keyword} there are 3 cucumbers

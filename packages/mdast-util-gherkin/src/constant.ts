@@ -7,6 +7,7 @@ export const GherkinTypes = {
   EXAMPLES_TABLE: "examplesTable",
   EXAMPLE_PARAMETER: "exampleParameter",
   EXAMPLE_ARGUMENT: "exampleArgument",
+  STEPS: "steps",
   STEP_LINE: "stepLine",
   STEP_KEYWORD: "stepKeyword",
   DOC_STRING: "docString",

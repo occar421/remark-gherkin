@@ -17,6 +17,7 @@ import type {
   GherkinDataParameter,
   GherkinDataArgument,
   GherkinDescription,
+  GherkinSteps,
 } from "mdast";
 
 declare module "mdast" {
@@ -111,6 +112,14 @@ declare module "mdast" {
       gherkin: {
         type: typeof GherkinTypes.DELIMITED_PARAMETER;
         ident: string;
+      };
+    };
+  }
+
+  interface GherkinSteps extends List {
+    data: {
+      gherkin: {
+        type: typeof GherkinTypes.STEPS;
       };
     };
   }
@@ -283,7 +292,7 @@ declare module "mdast" {
 
   // oxlint-disable-next-line no-unused-vars
   interface ListData extends Data {
-    gherkin?: GherkinDescriptionList["data"]["gherkin"];
+    gherkin?: GherkinSteps["data"]["gherkin"] | GherkinDescriptionList["data"]["gherkin"];
   }
 
   // oxlint-disable-next-line no-unused-vars
@@ -318,6 +327,7 @@ export type GherkinNodes =
   | GherkinExamplesTable
   | GherkinExampleParameter
   | GherkinExampleArgument
+  | GherkinSteps
   | GherkinStepKeyword
   | GherkinSegmentDelimiter
   | GherkinSeparator
