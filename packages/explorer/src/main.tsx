@@ -1,9 +1,7 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { Editor } from "@monaco-editor/react";
 import type { OnMount } from "@monaco-editor/react";
-import { JsonView, defaultStyles } from "react-json-view-lite";
-import "react-json-view-lite/dist/index.css";
 import "./style.css";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -85,17 +83,139 @@ function filterNode(
   return node;
 }
 
-const customDarkTheme = {
-  container: "json-view-container",
-  label: "json-view-label",
-  stringValue: "json-view-string",
-  numberValue: "json-view-number",
-  booleanValue: "json-view-boolean",
-  nullValue: "json-view-null",
-  punctuation: "json-view-punctuation",
-  collapseIcon: "json-view-collapse",
-  expandIcon: "json-view-expand",
-};
+function findPathAt(
+  node: any,
+  line: number,
+  column: number,
+  currentPath: string[] = [],
+): string[] | null {
+  if (!node || typeof node !== "object") return null;
+
+  if (node.position) {
+    const { start, end } = node.position;
+    if (
+      line < start.line ||
+      line > end.line ||
+      (line === start.line && column < start.column) ||
+      (line === end.line && column > end.column)
+    ) {
+      return null;
+    }
+  }
+
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i++) {
+      const p = findPathAt(node[i], line, column, [...currentPath, String(i)]);
+      if (p) return p;
+    }
+  } else {
+    for (const key in node) {
+      if (key === "position") continue;
+      const p = findPathAt(node[key], line, column, [...currentPath, key]);
+      if (p) return p;
+    }
+  }
+
+  return node.position ? currentPath : null;
+}
+
+function JsonItem({
+  label,
+  value,
+  path,
+  activePath,
+}: {
+  label: string;
+  value: any;
+  path: string[];
+  activePath: string[] | null;
+}) {
+  const [collapsed, setCollapsed] = useState(false);
+  const isObject = value !== null && typeof value === "object";
+  const pathStr = path.join(".");
+  const activePathStr = activePath?.join(".");
+  const isExact = activePathStr === pathStr;
+  const isParent = activePathStr?.startsWith(pathStr + ".");
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isExact && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isExact]);
+
+  useEffect(() => {
+    if (isParent && collapsed) {
+      setCollapsed(false);
+    }
+  }, [isParent, collapsed]);
+
+  const toggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCollapsed(!collapsed);
+  };
+
+  if (!isObject) {
+    let typeClass = "json-view-number";
+    if (typeof value === "string") typeClass = "json-view-string";
+    if (typeof value === "boolean") typeClass = "json-view-boolean";
+    if (value === null) typeClass = "json-view-null";
+
+    return (
+      <div className={`json-view-item ${isExact ? "json-view-active" : ""}`} ref={ref}>
+        <span className="json-view-label" onClick={() => setCollapsed(!collapsed)}>
+          {label}
+        </span>
+        <span className="json-view-punctuation">:</span>
+        <span className={`json-view-value ${typeClass}`}>{JSON.stringify(value)}</span>
+      </div>
+    );
+  }
+
+  const isArray = Array.isArray(value);
+  const keys = Object.keys(value);
+
+  return (
+    <div className={`json-view-item ${isExact ? "json-view-active" : ""}`} ref={ref}>
+      <div className="json-view-collapsible" onClick={toggle}>
+        <span className="json-view-toggle">{collapsed ? "▶" : "▼"}</span>
+        <span className="json-view-label">{label}</span>
+        <span className="json-view-punctuation">: </span>
+        <span className="json-view-punctuation">{isArray ? "[" : "{"}</span>
+        {collapsed && (
+          <span className="json-view-punctuation">{isArray ? " ... ]" : " ... }"}</span>
+        )}
+      </div>
+      {!collapsed && (
+        <>
+          <div className="json-view-children">
+            {keys.map((key) => (
+              <JsonItem
+                key={key}
+                label={key}
+                value={value[key]}
+                path={[...path, key]}
+                activePath={activePath}
+              />
+            ))}
+          </div>
+          <div className="json-view-punctuation" style={{ marginLeft: "7px" }}>
+            {isArray ? "]" : "}"}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function JsonViewer({ data, activePath }: { data: any; activePath: string[] | null }) {
+  return (
+    <div className="json-view-container">
+      <JsonItem label="root" value={data} path={["root"]} activePath={activePath} />
+    </div>
+  );
+}
 
 function App() {
   const [content, setContent] = useState(initialContent);
@@ -106,18 +226,14 @@ function App() {
   const [hideType, setHideType] = useState(false);
   const [autofocus, setAutofocus] = useState(true);
   const [editor, setEditor] = useState<any>(null);
+  const [activePath, setActivePath] = useState<string[] | null>(null);
 
   const handleEditorDidMount: OnMount = (e) => {
     setEditor(e);
+    e.focus();
   };
 
-  useEffect(() => {
-    if (autofocus && editor) {
-      editor.focus();
-    }
-  }, [autofocus, editor]);
-
-  const { ast, timing } = useMemo(() => {
+  const { fullAst, ast, timing } = useMemo(() => {
     const start = performance.now();
     try {
       const tree = processor.parse(content);
@@ -128,11 +244,24 @@ function App() {
         hideType,
       });
       const end = performance.now();
-      return { ast: filtered, timing: Math.round(end - start) };
+      return { fullAst: tree, ast: filtered, timing: Math.round(end - start) };
     } catch (err) {
-      return { ast: { error: String(err) }, timing: 0 };
+      return { fullAst: null, ast: { error: String(err) }, timing: 0 };
     }
   }, [content, hideLocation, hideMethods, hideEmpty, hideType]);
+
+  useEffect(() => {
+    if (!editor || !autofocus || !fullAst) return;
+
+    const disposable = editor.onDidChangeCursorPosition((e: any) => {
+      const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
+      if (path) {
+        setActivePath(["root", ...path]);
+      }
+    });
+
+    return () => disposable.dispose();
+  }, [editor, autofocus, fullAst]);
 
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -210,13 +339,9 @@ function App() {
             }}
           />
         </div>
-        <div className="ast-pane">
+        <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
           {tab === "json" ? (
-            <JsonView
-              data={{ root: ast }}
-              shouldExpandNode={() => true}
-              style={isDark ? customDarkTheme : defaultStyles}
-            />
+            <JsonViewer data={ast} activePath={activePath} />
           ) : (
             <div style={{ padding: 20, color: "var(--text)" }}>
               Tree view is not implemented yet.
