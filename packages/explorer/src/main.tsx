@@ -31,9 +31,9 @@ not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
   |    20 |   5 |   15 |
 `;
 
-const processor = unified().use(remarkParse).use(remarkGherkin);
+export const processor = unified().use(remarkParse).use(remarkGherkin);
 
-function filterNode(
+export function filterNode(
   node: any,
   options: {
     hideLocation: boolean;
@@ -83,7 +83,7 @@ function filterNode(
   return node;
 }
 
-function findPathAt(
+export function findPathAt(
   node: any,
   line: number,
   column: number,
@@ -353,10 +353,12 @@ function App() {
   );
 }
 
-const container = document.getElementById("root")!;
-const root = createRoot(container);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+if (typeof document !== "undefined") {
+  const container = document.getElementById("root")!;
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+}

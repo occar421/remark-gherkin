@@ -25,6 +25,7 @@ vp dev
 
 ```bash
 vp install
+vp test
 vp dev
 vp build
 ```
