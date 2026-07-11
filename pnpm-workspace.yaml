@@ -21,6 +21,7 @@ catalog:
   unist-util-find-all-after: 5.0.0
   unist-util-find-before: 4.0.1
   unist-util-find-between: 1.2.2
+  unist-util-find-until: 0.1.0
   "@types/unist": 3.0.3
   unist-util-find-after: 5.0.0
   mdast-util-to-string: 4.0.0
@@ -49,3 +50,4 @@ minimumReleaseAgeExclude:
   - "@typescript/native-preview-win32-arm64@7.0.0-dev.20260627.2"
   - "@typescript/native-preview-win32-x64@7.0.0-dev.20260627.2"
   - "@typescript/native-preview@7.0.0-dev.20260627.2"
+  - unist-util-find-until@0.1.0

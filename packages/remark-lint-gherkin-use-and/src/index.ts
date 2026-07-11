@@ -1,9 +1,7 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import { findAfter } from "unist-util-find-after";
-import { findBetween } from "unist-util-find-between";
-import { findAllAfter } from "unist-util-find-all-after";
+import { findAfterUntil } from "unist-util-find-until";
 import type { Root } from "mdast";
 import { testGherkinNode } from "mdast-util-gherkin";
 
@@ -27,10 +25,7 @@ const remarkLintGherkinUseAnd = lintRule<Root>(
         return;
       }
 
-      const nextSegmentLine = findAfter(parent, segmentLine, testGherkinNode("segmentLine"));
-      const targetNodes = nextSegmentLine
-        ? findBetween(parent, segmentLine, nextSegmentLine)
-        : findAllAfter(parent, segmentLine);
+      const targetNodes = findAfterUntil(parent, segmentLine, testGherkinNode("segmentLine"));
 
       let previousKeyword: string | undefined = undefined;
       for (const node of targetNodes) {

@@ -75,6 +75,9 @@ catalogs:
     unist-util-find-between:
       specifier: 1.2.2
       version: 1.2.2
+    unist-util-find-until:
+      specifier: 0.1.0
+      version: 0.1.0
     unist-util-visit:
       specifier: 5.1.0
       version: 5.1.0
@@ -242,15 +245,9 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
-      unist-util-find-after:
+      unist-util-find-until:
         specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-all-after:
-        specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-between:
-        specifier: 'catalog:'
-        version: 1.2.2
+        version: 0.1.0
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -1272,15 +1269,9 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
-      unist-util-find-after:
+      unist-util-find-until:
         specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-all-after:
-        specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-between:
-        specifier: 'catalog:'
-        version: 1.2.2
+        version: 0.1.0
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -1370,15 +1361,9 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
-      unist-util-find-after:
+      unist-util-find-until:
         specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-all-after:
-        specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-between:
-        specifier: 'catalog:'
-        version: 1.2.2
+        version: 0.1.0
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -1468,15 +1453,9 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
-      unist-util-find-after:
+      unist-util-find-until:
         specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-all-after:
-        specifier: 'catalog:'
-        version: 5.0.0
-      unist-util-find-between:
-        specifier: 'catalog:'
-        version: 1.2.2
+        version: 0.1.0
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0
@@ -3189,6 +3168,9 @@ packages:
 
   unist-util-find-between@1.2.2:
     resolution: {integrity: sha512-fhZ9EYTO/6mEFMIy2kH0dJJAyAo8KIz7u6SPBxGvNFe9DrivUyCeaSDO5djxcI3aI0jLaW7kVe0P0GrVIzPtDA==}
+
+  unist-util-find-until@0.1.0:
+    resolution: {integrity: sha512-q3GdpEIlxb9iaVFx668wHLdm8oEBN0gUPNSpaXBKipl+uDwYCv/SBzsZEF1Os4ox5KWD2/6Cg0p/GI/7XgP6Kw==}
 
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
@@ -4952,6 +4934,11 @@ snapshots:
       unist-util-is: 6.0.1
 
   unist-util-find-between@1.2.2:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-until@0.1.0:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
