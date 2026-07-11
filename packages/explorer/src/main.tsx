@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>Gherkin AST Explorer</h1>
+        <h1>Remark Gherkin AST Explorer</h1>
       </header>
       <main>
         <div className="editor-pane">
