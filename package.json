@@ -17,6 +17,15 @@
     "version": "changeset version",
     "bump-interactive": "changeset"
   },
+  "dependencies": {
+    "@monaco-editor/react": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "explorer": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-json-view-lite": "catalog:"
+  },
   "devDependencies": {
     "@changesets/cli": "catalog:",
     "vite": "catalog:",

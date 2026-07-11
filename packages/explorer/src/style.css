@@ -152,7 +152,7 @@ code {
   }
 }
 
-#app {
+#root {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -170,7 +170,7 @@ header {
 }
 
 header h1 {
-  font-size: 24px;
+  font-size: 20px;
   margin: 0;
   letter-spacing: normal;
 }
@@ -181,53 +181,26 @@ main {
   overflow: hidden;
 }
 
-.editor-container,
-.ast-container {
+.editor-pane {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.editor-container {
   border-right: 1px solid var(--border);
 }
 
-#editor {
+.ast-pane {
   flex: 1;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  border: none;
-  resize: none;
-  font-family: var(--mono);
-  font-size: 14px;
   background: var(--bg);
-  color: var(--text-h);
-  outline: none;
-  line-height: 1.5;
-}
-
-.ast-container {
-  background: var(--code-bg);
   overflow: auto;
-}
-
-#ast-output {
-  margin: 0;
-  padding: 20px;
-  font-family: var(--mono);
-  font-size: 13px;
-  text-align: left;
-  white-space: pre-wrap;
-  color: var(--text-h);
+  padding: 10px;
 }
 
 @media (max-width: 768px) {
   main {
     flex-direction: column;
   }
-  .editor-container {
+  .editor-pane {
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
