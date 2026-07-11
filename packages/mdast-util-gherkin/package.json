@@ -50,6 +50,7 @@
     "mdast-util-gfm-table": "catalog:",
     "micromark-extension-gfm-table": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   }
 }

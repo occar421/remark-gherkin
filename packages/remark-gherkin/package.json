@@ -45,6 +45,7 @@
     "remark-parse": "catalog:",
     "remark-rehype": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   }
 }

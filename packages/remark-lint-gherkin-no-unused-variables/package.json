@@ -51,6 +51,7 @@
     "remark-parse": "catalog:",
     "typescript": "catalog:",
     "unified": "catalog:",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   }
 }
