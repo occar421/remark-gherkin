@@ -16,7 +16,7 @@ suite("remark-gherkin", () => {
     const html = toHtml
       .processSync("# Feature: Test Feature\n## Scenario: Test Scenario\n- Given a test step")
       .toString();
-    console.log(html);
+
     expect(html).toContain("<h1>Feature: Test Feature</h1>");
     expect(html).toContain("<h2>Scenario: Test Scenario</h2>");
     expect(html).toContain("<li>Given a test step</li>");
