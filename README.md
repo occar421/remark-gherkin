@@ -6,6 +6,7 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
 
 - [`remark-gherkin`](./packages/remark-gherkin): remark plugin.
 - [`mdast-util-gherkin`](./packages/mdast-util-gherkin): mdast utility.
+- [`explorer`](./packages/explorer): AST Explorer for Gherkin.
 - `remark-lint-gherkin`: remark-lint plugins.
   - These rules are ported from [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint).
     - [`remark-lint-gherkin-no-tags-on-backgrounds`](./packages/remark-lint-gherkin-no-tags-on-backgrounds): Disallow tags on Backgrounds.

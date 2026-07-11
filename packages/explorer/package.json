@@ -1,0 +1,21 @@
+{
+  "name": "explorer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "mdast-util-gherkin": "workspace:*",
+    "remark-gherkin": "workspace:*",
+    "remark-parse": "catalog:",
+    "typescript": "catalog:",
+    "unified": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
