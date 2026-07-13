@@ -1,5 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 
+export function getItemLabel(label: string, value: any): string {
+  if (
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    typeof value.type === "string"
+  ) {
+    const gherkinType = value.data?.gherkin?.type;
+    return gherkinType ? `${value.type} (${gherkinType})` : value.type;
+  }
+
+  return label;
+}
+
 export function JsonItem({ label, value, path, activePath, onHover }: any) {
   const [collapsed, setCollapsed] = useState(true);
   const isObject = value !== null && typeof value === "object";
@@ -55,7 +69,7 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
         >
           {collapsed ? "+" : "-"}
         </span>
-        <span className="json-view-label">{label}</span>
+        <span className="json-view-label">{getItemLabel(label, value)}</span>
         <span className="json-view-punctuation">
           : {isArray ? "[" : "{"}
           {collapsed && (isArray ? " ... ]" : " ... }")}
@@ -67,7 +81,7 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
             {Object.keys(value).map((key) => (
               <JsonItem
                 key={key}
-                label={key}
+                label={getItemLabel(key, value[key])}
                 value={value[key]}
                 path={[...path, key]}
                 activePath={activePath}

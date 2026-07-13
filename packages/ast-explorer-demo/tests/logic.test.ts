@@ -6,6 +6,7 @@ import {
   getNodeAtPath,
   getPositionAtPath,
 } from "../src/ast-utils.js";
+import { getItemLabel } from "../src/JsonItem.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World
@@ -59,5 +60,13 @@ describe("logic", () => {
     const textPath = [...path!, "title", "value"];
 
     expect(getPositionAtPath(tree, textPath)).toEqual(tree.children[0].position);
+  });
+
+  test("getItemLabel should use node types for object items", () => {
+    expect(getItemLabel("0", { type: "heading" })).toBe("heading");
+    expect(getItemLabel("0", { type: "heading", data: { gherkin: { type: "segmentLine" } } })).toBe(
+      "heading (segmentLine)",
+    );
+    expect(getItemLabel("0", "value")).toBe("0");
   });
 });
