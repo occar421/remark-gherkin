@@ -1,8 +1,6 @@
-# explorer
+# AST Explorer Demo
 
-[![npm version](https://img.shields.io/npm/v/explorer.svg)](https://www.npmjs.com/package/explorer)
-
-Gherkin AST Explorer inspired by [AST Explorer](https://astexplorer.net/).
+Markdown with Gherkin AST Explorer inspired by [AST Explorer](https://astexplorer.net/).
 It provides a live preview of the Gherkin AST using `remark-gherkin`.
 
 ## Use
