@@ -331,60 +331,25 @@ function App() {
 
   return (
     <div className="app-container">
-      <header>
-        <div className="header-top">
-          <div className="tabs">
-            <div className={`tab ${tab === "tree" ? "active" : ""}`} onClick={() => setTab("tree")}>
-              Tree
-            </div>
-            <div className={`tab ${tab === "json" ? "active" : ""}`} onClick={() => setTab("json")}>
-              JSON
-            </div>
-          </div>
-          <div className="header-right">{timing}ms</div>
-        </div>
-        <div className="header-bottom">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={autofocus}
-              onChange={(e) => setAutofocus(e.target.checked)}
-            />
-            Autofocus
-          </label>
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={hideMethods}
-              onChange={(e) => setHideMethods(e.target.checked)}
-            />
-            Hide methods
-          </label>
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={hideEmpty}
-              onChange={(e) => setHideEmpty(e.target.checked)}
-            />
-            Hide empty keys
-          </label>
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={hideLocation}
-              onChange={(e) => setHideLocation(e.target.checked)}
-            />
-            Hide location data
-          </label>
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={hideType}
-              onChange={(e) => setHideType(e.target.checked)}
-            />
-            Hide type keys
-          </label>
-        </div>
+      <header className="app-header">
+        <a className="app-title" href="/" aria-label="AST Explorer home">
+          AST Explorer Demo for Markdown with Gherkin
+        </a>
+        <nav className="app-actions" aria-label="Application links">
+          <button className="settings-button" type="button" disabled title="Settings coming soon">
+            <span aria-hidden="true">⚙</span>
+            Settings
+          </button>
+          <a
+            className="repository-link"
+            href="https://github.com/occar421/unifiedjs-gherkin"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span aria-hidden="true">↗</span>
+            Repository
+          </a>
+        </nav>
       </header>
       <main>
         <div className="editor-pane">
@@ -403,14 +368,77 @@ function App() {
             }}
           />
         </div>
-        <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
-          {tab === "json" ? (
-            <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
-          ) : (
-            <div style={{ padding: 20, color: "var(--text)" }}>
-              Tree view is not implemented yet.
+        <div className="ast-pane-container">
+          <header>
+            <div className="header-top">
+              <div className="tabs">
+                <div
+                  className={`tab ${tab === "tree" ? "active" : ""}`}
+                  onClick={() => setTab("tree")}
+                >
+                  Tree
+                </div>
+                <div
+                  className={`tab ${tab === "json" ? "active" : ""}`}
+                  onClick={() => setTab("json")}
+                >
+                  JSON
+                </div>
+              </div>
+              <div className="header-right">{timing}ms</div>
             </div>
-          )}
+            <div className="header-bottom">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={autofocus}
+                  onChange={(e) => setAutofocus(e.target.checked)}
+                />
+                Autofocus
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={hideMethods}
+                  onChange={(e) => setHideMethods(e.target.checked)}
+                />
+                Hide methods
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={hideEmpty}
+                  onChange={(e) => setHideEmpty(e.target.checked)}
+                />
+                Hide empty keys
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={hideLocation}
+                  onChange={(e) => setHideLocation(e.target.checked)}
+                />
+                Hide location data
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={hideType}
+                  onChange={(e) => setHideType(e.target.checked)}
+                />
+                Hide type keys
+              </label>
+            </div>
+          </header>
+          <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
+            {tab === "json" ? (
+              <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
+            ) : (
+              <div style={{ padding: 20, color: "var(--text)" }}>
+                Tree view is not implemented yet.
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </div>
