@@ -231,25 +231,6 @@ header {
   border-bottom: 1px solid var(--border);
 }
 
-.tabs {
-  display: flex;
-}
-
-.tab {
-  padding: 10px 20px;
-  font-size: 14px;
-  color: var(--text);
-  cursor: pointer;
-  border-right: 1px solid var(--border);
-  transition: background 0.2s;
-}
-
-.tab.active {
-  background: var(--accent-bg);
-  color: var(--text-h);
-  font-weight: bold;
-}
-
 .header-right {
   padding: 0 20px;
   font-size: 12px;

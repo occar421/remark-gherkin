@@ -29,8 +29,7 @@ not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
 `;
 
 export function App() {
-  const [content, setContent] = useState(initialContent),
-    [tab, setTab] = useState<"tree" | "json">("json");
+  const [content, setContent] = useState(initialContent);
   const [hideLocation, setHideLocation] = useState(true),
     [hideMethods, setHideMethods] = useState(true),
     [hideEmpty, setHideEmpty] = useState(true),
@@ -39,17 +38,15 @@ export function App() {
   const [editor, setEditor] = useState<any>(null),
     [activePath, setActivePath] = useState<string[] | null>(null);
   const decorationRef = useRef<any>(null);
-  const { fullAst, ast, timing } = useMemo(() => {
-    const start = performance.now();
+  const { fullAst, ast } = useMemo(() => {
     try {
       const tree = processor.parse(content);
       return {
         fullAst: tree,
         ast: filterNode(tree, { hideLocation, hideMethods, hideEmpty, hideType }),
-        timing: Math.round(performance.now() - start),
       };
     } catch (err) {
-      return { fullAst: null, ast: { error: String(err) }, timing: 0 };
+      return { fullAst: null, ast: { error: String(err) } };
     }
   }, [content, hideLocation, hideMethods, hideEmpty, hideType]);
   const handleEditorDidMount: OnMount = (e) => {
@@ -122,23 +119,6 @@ export function App() {
         </div>
         <div className="ast-pane-container">
           <header>
-            <div className="header-top">
-              <div className="tabs">
-                <div
-                  className={`tab ${tab === "tree" ? "active" : ""}`}
-                  onClick={() => setTab("tree")}
-                >
-                  Tree
-                </div>
-                <div
-                  className={`tab ${tab === "json" ? "active" : ""}`}
-                  onClick={() => setTab("json")}
-                >
-                  JSON
-                </div>
-              </div>
-              <div className="header-right">{timing}ms</div>
-            </div>
             <div className="header-bottom">
               {[
                 ["Autofocus", autofocus, setAutofocus],
@@ -159,13 +139,7 @@ export function App() {
             </div>
           </header>
           <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
-            {tab === "json" ? (
-              <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
-            ) : (
-              <div style={{ padding: 20, color: "var(--text)" }}>
-                Tree view is not implemented yet.
-              </div>
-            )}
+            <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
           </div>
         </div>
       </main>
