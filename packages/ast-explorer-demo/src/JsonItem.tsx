@@ -15,7 +15,9 @@ export function getItemLabel(label: string, value: any): string {
 }
 
 export function JsonItem({ label, value, path, activePath, onHover }: any) {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(
+    path.length !== 1 && path[path.length - 1] !== "children",
+  );
   const isObject = value !== null && typeof value === "object";
   const pathStr = path.join(".");
   const activePathStr = activePath?.join(".");
