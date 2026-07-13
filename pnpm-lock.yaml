@@ -147,6 +147,9 @@ importers:
       mdast-util-gherkin:
         specifier: workspace:*
         version: link:../mdast-util-gherkin
+      remark-gfm:
+        specifier: 'catalog:'
+        version: 4.0.1
       remark-gherkin:
         specifier: workspace:*
         version: link:../remark-gherkin

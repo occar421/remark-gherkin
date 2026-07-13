@@ -13,6 +13,7 @@
     "@monaco-editor/react": "catalog:",
     "@types/node": "catalog:",
     "mdast-util-gherkin": "workspace:*",
+    "remark-gfm": "catalog:",
     "remark-gherkin": "workspace:*",
     "remark-parse": "catalog:",
     "typescript": "catalog:",

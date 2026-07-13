@@ -1,8 +1,9 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
 import remarkGherkin from "remark-gherkin";
 
-export const processor = unified().use(remarkParse).use(remarkGherkin);
+export const processor = unified().use(remarkParse).use(remarkGfm).use(remarkGherkin);
 
 export function filterNode(
   node: any,
