@@ -10,6 +10,7 @@
     "test": "vp test"
   },
   "devDependencies": {
+    "@monaco-editor/react": "catalog:",
     "@types/node": "catalog:",
     "mdast-util-gherkin": "workspace:*",
     "remark-gherkin": "workspace:*",

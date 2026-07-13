@@ -40,7 +40,6 @@ catalog:
   "@types/react-dom": ^19.2.3
   "@monaco-editor/react": ^4.7.0
   react-json-view-lite: ^2.5.0
-  explorer: ^0.0.5
 overrides:
   vite: "catalog:"
 peerDependencyRules:
