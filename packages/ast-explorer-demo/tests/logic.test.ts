@@ -5,7 +5,7 @@ import {
   findPathAt,
   getNodeAtPath,
   getPositionAtPath,
-} from "../src/main.js";
+} from "../src/ast-utils.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World
