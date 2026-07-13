@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export function JsonItem({ label, value, path, activePath, onHover }: any) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const isObject = value !== null && typeof value === "object";
   const pathStr = path.join(".");
   const activePathStr = activePath?.join(".");
