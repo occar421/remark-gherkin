@@ -326,8 +326,15 @@ main {
   cursor: pointer;
   user-select: none;
   font-size: 10px;
-  color: var(--text);
   text-align: center;
+}
+
+.json-view-collapse {
+  color: #f43f5e;
+}
+
+.json-view-expand {
+  color: #10b981;
 }
 
 .json-view-label {

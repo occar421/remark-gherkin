@@ -50,7 +50,11 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
           setCollapsed(!collapsed);
         }}
       >
-        <span className="json-view-toggle">{collapsed ? "▶" : "▼"}</span>
+        <span
+          className={`json-view-toggle ${collapsed ? "json-view-expand" : "json-view-collapse"}`}
+        >
+          {collapsed ? "+" : "-"}
+        </span>
         <span className="json-view-label">{label}</span>
         <span className="json-view-punctuation">
           : {isArray ? "[" : "{"}
