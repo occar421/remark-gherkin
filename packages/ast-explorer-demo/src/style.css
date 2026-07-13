@@ -336,3 +336,8 @@ main {
     border-bottom: 1px solid var(--border);
   }
 }
+
+.ast-source-highlight {
+  background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-bottom: 2px solid var(--accent);
+}

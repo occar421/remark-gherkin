@@ -119,16 +119,35 @@ export function findPathAt(
   return node.position ? currentPath : null;
 }
 
+export function getNodeAtPath(node: any, path: string[]): any {
+  let current = node;
+  for (const part of path) {
+    if (current === null || current === undefined) return null;
+    current = current[part];
+  }
+  return current;
+}
+
+export function getPositionAtPath(node: any, path: string[]): any {
+  for (let length = path.length; length >= 0; length--) {
+    const candidate = getNodeAtPath(node, path.slice(0, length));
+    if (candidate?.position) return candidate.position;
+  }
+  return null;
+}
+
 function JsonItem({
   label,
   value,
   path,
   activePath,
+  onHover,
 }: {
   label: string;
   value: any;
   path: string[];
   activePath: string[] | null;
+  onHover: (path: string[] | null) => void;
 }) {
   const [collapsed, setCollapsed] = useState(false);
   const isObject = value !== null && typeof value === "object";
@@ -163,7 +182,12 @@ function JsonItem({
     if (value === null) typeClass = "json-view-null";
 
     return (
-      <div className={`json-view-item ${isExact ? "json-view-active" : ""}`} ref={ref}>
+      <div
+        className={`json-view-item ${isExact ? "json-view-active" : ""}`}
+        ref={ref}
+        onMouseEnter={() => onHover(path)}
+        onMouseLeave={() => onHover(null)}
+      >
         <span className="json-view-label" onClick={() => setCollapsed(!collapsed)}>
           {label}
         </span>
@@ -177,7 +201,12 @@ function JsonItem({
   const keys = Object.keys(value);
 
   return (
-    <div className={`json-view-item ${isExact ? "json-view-active" : ""}`} ref={ref}>
+    <div
+      className={`json-view-item ${isExact ? "json-view-active" : ""}`}
+      ref={ref}
+      onMouseEnter={() => onHover(path)}
+      onMouseLeave={() => onHover(null)}
+    >
       <div className="json-view-collapsible" onClick={toggle}>
         <span className="json-view-toggle">{collapsed ? "▶" : "▼"}</span>
         <span className="json-view-label">{label}</span>
@@ -197,6 +226,7 @@ function JsonItem({
                 value={value[key]}
                 path={[...path, key]}
                 activePath={activePath}
+                onHover={onHover}
               />
             ))}
           </div>
@@ -209,10 +239,24 @@ function JsonItem({
   );
 }
 
-function JsonViewer({ data, activePath }: { data: any; activePath: string[] | null }) {
+function JsonViewer({
+  data,
+  activePath,
+  onHover,
+}: {
+  data: any;
+  activePath: string[] | null;
+  onHover: (path: string[] | null) => void;
+}) {
   return (
     <div className="json-view-container">
-      <JsonItem label="root" value={data} path={["root"]} activePath={activePath} />
+      <JsonItem
+        label="root"
+        value={data}
+        path={["root"]}
+        activePath={activePath}
+        onHover={onHover}
+      />
     </div>
   );
 }
@@ -227,6 +271,7 @@ function App() {
   const [autofocus, setAutofocus] = useState(true);
   const [editor, setEditor] = useState<any>(null);
   const [activePath, setActivePath] = useState<string[] | null>(null);
+  const decorationRef = useRef<any>(null);
 
   const handleEditorDidMount: OnMount = (e) => {
     setEditor(e);
@@ -262,6 +307,25 @@ function App() {
 
     return () => disposable.dispose();
   }, [editor, autofocus, fullAst]);
+
+  const handleTreeHover = (path: string[] | null) => {
+    if (!editor) return;
+    const position = path ? getPositionAtPath(fullAst, path.slice(1)) : null;
+    decorationRef.current?.clear();
+    decorationRef.current = position
+      ? editor.createDecorationsCollection([
+          {
+            range: {
+              startLineNumber: position.start.line,
+              startColumn: position.start.column,
+              endLineNumber: position.end.line,
+              endColumn: position.end.column,
+            },
+            options: { inlineClassName: "ast-source-highlight" },
+          },
+        ])
+      : null;
+  };
 
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -341,7 +405,7 @@ function App() {
         </div>
         <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
           {tab === "json" ? (
-            <JsonViewer data={ast} activePath={activePath} />
+            <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
           ) : (
             <div style={{ padding: 20, color: "var(--text)" }}>
               Tree view is not implemented yet.

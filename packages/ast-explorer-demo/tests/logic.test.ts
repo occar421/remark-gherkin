@@ -1,5 +1,11 @@
 import { expect, test, describe } from "vite-plus/test";
-import { processor, filterNode, findPathAt } from "../src/main.js";
+import {
+  processor,
+  filterNode,
+  findPathAt,
+  getNodeAtPath,
+  getPositionAtPath,
+} from "../src/main.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World
@@ -39,5 +45,19 @@ describe("logic", () => {
     expect(path).toBeDefined();
     expect(path).toContain("children");
     expect(path).toContain("0");
+  });
+
+  test("getNodeAtPath should return the node at an AST path", () => {
+    const tree = processor.parse(gherkin);
+    const path = findPathAt(tree, 1, 1);
+    expect(getNodeAtPath(tree, path!)).toBe(tree.children[0]);
+  });
+
+  test("getPositionAtPath should use the nearest positioned ancestor", () => {
+    const tree = processor.parse(gherkin);
+    const path = findPathAt(tree, 1, 1);
+    const textPath = [...path!, "title", "value"];
+
+    expect(getPositionAtPath(tree, textPath)).toEqual(tree.children[0].position);
   });
 });
