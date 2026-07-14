@@ -40,15 +40,19 @@ jobs:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
-      - run: vp install
-      - name: Verify artifact
+      - name: Verify artifact 1
         run: |
           echo "=== dist ==="
-          find packages -maxdepth 3 -type f | sort
+          find . -maxdepth 4 -type f | sort
 
           echo
-          echo "=== node_modules ==="
-          ls -l node_modules/remark-gherkin
+          echo "=== package ==="
+          cat packages/remark-gherkin/package.json
+      - run: vp install
+      - name: Verify artifact 2
+        run: |
+          echo "=== dist ==="
+          find . -maxdepth 4 -type f | sort
 
           echo
           echo "=== package ==="
