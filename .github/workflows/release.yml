@@ -32,13 +32,13 @@ jobs:
         with:
           node-version: "lts"
           cache: true
-      - run: vp install
       - name: Download Build Artifacts
         uses: actions/download-artifact@v8
         with:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
+      - run: vp install
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1

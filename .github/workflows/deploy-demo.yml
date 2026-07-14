@@ -34,13 +34,13 @@ jobs:
         with:
           node-version: "lts"
           cache: true
-      - run: vp install
       - name: Download Build Artifacts
         uses: actions/download-artifact@v8
         with:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
+      - run: vp install
       - name: Build demo
         run: vp run --filter ast-explorer-demo ready
         env:
