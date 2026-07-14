@@ -38,18 +38,11 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: vp-build-artifact
+          path: packages
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
-      - name: Verify artifact 1
-        run: |
-          echo "=== dist ==="
-          find . -maxdepth 4 -type f | sort
-
-          echo
-          echo "=== package ==="
-          cat packages/remark-gherkin/package.json
       - run: vp install
-      - name: Verify artifact 2
+      - name: Verify artifact
         run: |
           echo "=== dist ==="
           find . -maxdepth 4 -type f | sort

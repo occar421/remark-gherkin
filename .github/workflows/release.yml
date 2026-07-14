@@ -36,6 +36,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: vp-build-artifact
+          path: packages
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - run: vp install
