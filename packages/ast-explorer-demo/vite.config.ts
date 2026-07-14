@@ -16,9 +16,11 @@ export default defineConfig(({ mode }) => {
         requireAssertions: true,
       },
     },
-    lint: { options: { typeAware: true, typeCheck: true } },
-    run: {
-      cache: true,
+    lint: {
+      options: {
+        typeAware: true,
+        typeCheck: true,
+      },
     },
   };
 });
