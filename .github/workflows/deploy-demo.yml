@@ -41,6 +41,18 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - run: vp install
+      - name: Verify artifact
+        run: |
+          echo "=== dist ==="
+          find packages -maxdepth 3 -type f | sort
+
+          echo
+          echo "=== node_modules ==="
+          ls -l node_modules/remark-gherkin
+
+          echo
+          echo "=== package ==="
+          cat packages/remark-gherkin/package.json
       - name: Build demo
         run: vp run --filter ast-explorer-demo ready
         env:
