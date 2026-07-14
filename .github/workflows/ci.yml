@@ -13,8 +13,6 @@ jobs:
           cache: true
       - run: vp install
       - run: vp run ready
-        env:
-          VITE_DEMO_BASE_URL: "/remark-gherkin/"
       - uses: actions/upload-artifact@v7
         with:
           name: vp-build-artifact

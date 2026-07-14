@@ -41,6 +41,10 @@ jobs:
           name: vp-build-artifact
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
+      - name: Build demo
+        run: vp run --filter ast-explorer-demo ready
+        env:
+          VITE_DEMO_BASE_URL: "/remark-gherkin/"
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
