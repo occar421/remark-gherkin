@@ -47,7 +47,7 @@ jobs:
           path: packages/ast-explorer-demo/dist
   deploy:
     needs: prep
-    name: Preparation of Deploy Demo
+    name: Deploy Demo
     runs-on: ubuntu-latest
 
     steps:

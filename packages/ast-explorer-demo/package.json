@@ -4,10 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vp dev",
     "build": "tsc && vp build",
+    "dev": "vp dev",
+    "test": "vp test",
     "preview": "vp preview",
-    "test": "vp test"
+    "check": "vp check",
+    "ready": "vp run check && vp run test && vp run build"
   },
   "devDependencies": {
     "@monaco-editor/react": "catalog:",
