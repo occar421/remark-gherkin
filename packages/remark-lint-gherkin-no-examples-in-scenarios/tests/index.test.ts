@@ -25,6 +25,10 @@ suite("remark-lint-gherkin-no-examples-in-scenarios", () => {
       "Examples are only allowed in Scenario Outlines, not in Scenarios",
     );
     expect(file.messages[0].ruleId).toBe("gherkin-no-examples-in-scenarios");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 60 },
+      end: { line: 6, column: 14, offset: 73 },
+    });
   });
 
   test("Should not report when Examples are in Scenario Outline", () => {
@@ -56,5 +60,9 @@ suite("remark-lint-gherkin-no-examples-in-scenarios", () => {
     expect(file.messages[0].message).toBe(
       "Examples are only allowed in Scenario Outlines, not in Scenarios",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 60 },
+      end: { line: 6, column: 15, offset: 74 },
+    });
   });
 });
