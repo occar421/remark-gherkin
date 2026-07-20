@@ -34,6 +34,10 @@ suite("remark-lint-gherkin-no-partially-commented-tag-lines", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tag lines must not be partially commented.");
     expect(file.messages[0].ruleId).toBe("gherkin-no-partially-commented-tag-lines");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 9, offset: 9 },
+      end: { line: 2, column: 25, offset: 25 },
+    });
   });
 
   test("Should report when tag line has comment at the end", () => {
@@ -44,6 +48,10 @@ suite("remark-lint-gherkin-no-partially-commented-tag-lines", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tag lines must not be partially commented.");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 9, offset: 9 },
+      end: { line: 2, column: 25, offset: 25 },
+    });
   });
 
   test("Should not report when '#' is inside a tag", () => {
