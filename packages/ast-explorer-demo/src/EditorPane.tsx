@@ -4,13 +4,14 @@ import "./EditorPane.css";
 
 type EditorPaneProps = {
   content: string;
-  isDark: boolean;
   onChange: (value: string | undefined) => void;
   onMount: OnMount;
   onReset: () => void;
 };
 
-export function EditorPane({ content, isDark, onChange, onMount, onReset }: EditorPaneProps) {
+export function EditorPane({ content, onChange, onMount, onReset }: EditorPaneProps) {
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
   return (
     <div className="editor-pane">
       <button className="reset-button" type="button" onClick={onReset}>

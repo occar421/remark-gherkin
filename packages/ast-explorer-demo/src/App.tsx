@@ -147,7 +147,6 @@ export function App() {
         ])
       : null;
   };
-  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   return (
     <div className="app-container">
       <header className="app-header">
@@ -177,7 +176,6 @@ export function App() {
         <div className="editor-pane-wrapper">
           <EditorPane
             content={content}
-            isDark={isDark}
             onChange={(value) => setContent(value ?? "")}
             onMount={handleEditorDidMount}
             onReset={handleReset}
