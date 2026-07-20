@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { filterNode, findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
 import {
   type CursorPositionChangedEvent,
@@ -15,43 +15,10 @@ import {
   type LintRuleName,
   type LintSettings,
 } from "./lint-utils.js";
-
-const defaultContent = `# Feature: Staying alive
-
-This is about actually staying alive,
-not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
-
-## Rule: If you don't eat you die
-
-![xkcd](https://imgs.xkcd.com/comics/lunch_2x.png)
-
-\`@important\` \`@essential\`
-### Scenario Outline: eating
-
-* Given there are <start> cucumbers
-* When I eat <eat> cucumbers
-* Then I should have <left> cucumbers
-
-#### Examples:
-
-  | start | eat | left |
-  | ----- | --- | ---- |
-  |    12 |   5 |    7 |
-  |    20 |   5 |   15 |
-`;
-
-const contentStorageKey = "ast-explorer-demo-content";
-
-function getStoredContent() {
-  try {
-    return window.localStorage.getItem(contentStorageKey) ?? defaultContent;
-  } catch {
-    return defaultContent;
-  }
-}
+import { useContent } from "./content-hook.ts";
 
 export function App() {
-  const [content, setContent] = useState(getStoredContent);
+  const { content, setContent } = useContent(defaultContent);
   const [hideLocation, setHideLocation] = useState(true),
     [hideMethods, setHideMethods] = useState(true),
     [hideEmpty, setHideEmpty] = useState(true),
@@ -62,13 +29,6 @@ export function App() {
   const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(contentStorageKey, content);
-    } catch {
-      // LocalStorage may be unavailable in private browsing or restricted environments.
-    }
-  }, [content]);
   const { fullAst, ast } = useMemo(() => {
     try {
       const tree = processor.parse(content);
@@ -246,3 +206,27 @@ export function App() {
     </div>
   );
 }
+
+const defaultContent = `# Feature: Staying alive
+
+This is about actually staying alive,
+not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
+
+## Rule: If you don't eat you die
+
+![xkcd](https://imgs.xkcd.com/comics/lunch_2x.png)
+
+\`@important\` \`@essential\`
+### Scenario Outline: eating
+
+* Given there are <start> cucumbers
+* When I eat <eat> cucumbers
+* Then I should have <left> cucumbers
+
+#### Examples:
+
+  | start | eat | left |
+  | ----- | --- | ---- |
+  |    12 |   5 |    7 |
+  |    20 |   5 |   15 |
+`;
