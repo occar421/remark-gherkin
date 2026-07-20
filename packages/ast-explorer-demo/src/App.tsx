@@ -16,14 +16,18 @@ import {
   type LintSettings,
 } from "./lint-utils.js";
 import { useContent } from "./content-hook.ts";
+import { useTreeConfig } from "./useTreeConfig.tsx";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
-  const [hideLocation, setHideLocation] = useState(true),
-    [hideMethods, setHideMethods] = useState(true),
-    [hideEmpty, setHideEmpty] = useState(true),
-    [hideType, setHideType] = useState(false),
-    [autofocus, setAutofocus] = useState(true);
+  const {
+    hideLocation,
+    hideMethods,
+    hideEmpty,
+    hideType,
+    autofocus,
+    render: TreeConfig,
+  } = useTreeConfig();
   const [activePath, setActivePath] = useState<string[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
@@ -174,24 +178,7 @@ export function App() {
             </aside>
           )}
           <header>
-            <div className="header-bottom">
-              {[
-                ["Autofocus", autofocus, setAutofocus],
-                ["Hide methods", hideMethods, setHideMethods],
-                ["Hide empty keys", hideEmpty, setHideEmpty],
-                ["Hide location data", hideLocation, setHideLocation],
-                ["Hide type keys", hideType, setHideType],
-              ].map(([label, checked, setter]: any) => (
-                <label className="checkbox-label" key={label as string}>
-                  <input
-                    type="checkbox"
-                    checked={checked as boolean}
-                    onChange={(e) => setter(e.target.checked)}
-                  />
-                  {label as string}
-                </label>
-              ))}
-            </div>
+            <TreeConfig />
           </header>
           <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
             <JsonViewer
