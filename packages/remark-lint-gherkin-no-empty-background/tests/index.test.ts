@@ -30,12 +30,20 @@ suite("remark-lint-gherkin-no-empty-background", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Backgrounds must not be empty");
     expect(file.messages[0].ruleId).toBe("gherkin-no-empty-background");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 
   test("Should report when background is empty (at end of file)", () => {
     const file = processor.processSync("# Feature: Test\n\n## Background:");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Backgrounds must not be empty");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 
   test("Should report when background has only non-step list items", () => {
@@ -44,5 +52,9 @@ suite("remark-lint-gherkin-no-empty-background", () => {
     );
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Backgrounds must not be empty");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 });
