@@ -34,6 +34,10 @@ suite("remark-lint-gherkin-no-unnamed-scenarios", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Missing Scenario name");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unnamed-scenarios");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 13, offset: 37 },
+    });
   });
 
   test("Should report when scenario outline name is empty", () => {
@@ -45,6 +49,10 @@ suite("remark-lint-gherkin-no-unnamed-scenarios", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Missing Scenario Outline name");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unnamed-scenarios");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 21, offset: 45 },
+    });
   });
 
   test("Should report when scenario name is only whitespace", () => {
@@ -55,5 +63,9 @@ suite("remark-lint-gherkin-no-unnamed-scenarios", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Missing Scenario name");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 16, offset: 40 },
+    });
   });
 });
