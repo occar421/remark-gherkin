@@ -38,6 +38,7 @@ export function App() {
       return { fullAst: null, ast: { error: String(err) } };
     }
   }, [content, hideLocation, hideMethods, hideEmpty, hideType]);
+
   const lintMessages = useMemo(() => {
     try {
       return lintContent(content, lintSettings);
@@ -45,6 +46,7 @@ export function App() {
       return [];
     }
   }, [content, lintSettings]);
+
   const handleChangeCursorPosition = useCallback((e: CursorPositionChangedEvent) => {
     if (!demoEditor.current || !autofocus || !fullAst) {
       return;
@@ -55,16 +57,7 @@ export function App() {
   }, []);
 
   const markers: Marker[] = lintMessages.map((message) => ({
-    range: {
-      start: {
-        lineNumber: message.line ?? 1,
-        column: message.column ?? 1,
-      },
-      end: {
-        lineNumber: message.line ?? 1,
-        column: (message.column ?? 1) + 1,
-      },
-    },
+    range: transformRange(message.place),
     ruleId: message.ruleId ?? "",
     source: message.source ?? "",
     reason: message.reason,
@@ -77,23 +70,9 @@ export function App() {
     }
 
     const position = getPositionAtPath(fullAst!, path.slice(1));
-    demoEditor.current?.setDecorations(
-      position
-        ? [
-            {
-              start: {
-                lineNumber: position?.start.line,
-                column: position?.start.column,
-              },
-              end: {
-                lineNumber: position?.end.line,
-                column: position?.end.column,
-              },
-            },
-          ]
-        : [],
-    );
+    demoEditor.current?.setDecorations(position ? [position] : []);
   };
+
   const handleTreeBlur = () => {
     demoEditor.current?.setDecorations([]);
   };
@@ -155,6 +134,27 @@ export function App() {
       </main>
     </div>
   );
+}
+
+const emptyRange = { start: { line: 1, column: 1 }, end: { line: 1, column: 2 } };
+
+function transformRange(range: ReturnType<typeof lintContent>[number]["place"]): Marker["range"] {
+  if (!range) {
+    return emptyRange;
+  }
+
+  if ("start" in range) {
+    return range;
+  }
+
+  if ("offset" in range) {
+    return {
+      start: { line: range.line, column: range.column },
+      end: { line: range.line, column: range.column + 1 },
+    };
+  }
+
+  return emptyRange;
 }
 
 const defaultContent = `# Feature: Staying alive

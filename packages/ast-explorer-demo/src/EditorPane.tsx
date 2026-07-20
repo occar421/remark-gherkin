@@ -4,15 +4,20 @@ import "./EditorPane.css";
 
 type IStandaloneCodeEditor = Parameters<OnMount>[0];
 
-type Range = {
-  start: Position;
-  end: Position;
+type PositionInMarker = {
+  line: number;
+  column: number;
+};
+
+type MarkerRange = {
+  start: PositionInMarker;
+  end: PositionInMarker;
 };
 
 /**
  * A position in the editor.
  */
-type Position = {
+type PositionInEditor = {
   /**
    * line number (starts at 1)
    */
@@ -24,7 +29,7 @@ type Position = {
 };
 
 export type Marker = {
-  range: Range;
+  range: MarkerRange;
   source: string;
   reason: string;
   ruleId: string;
@@ -35,11 +40,11 @@ export type CursorPositionChangedEvent = {
   /**
    * Primary cursor's position.
    */
-  readonly position: Position;
+  readonly position: PositionInEditor;
 };
 
 export type DemoEditorHandle = {
-  setDecorations: (ranges: Range[]) => void;
+  setDecorations: (ranges: MarkerRange[]) => void;
 };
 
 export type Props = {
@@ -65,9 +70,34 @@ export function EditorPane({
 
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
+  const showMarkers = useCallback(() => {
+    if (!editor.current || !monaco.current) {
+      return;
+    }
+
+    const model = editor.current?.getModel();
+
+    if (model) {
+      monaco.current?.editor.setModelMarkers(
+        model,
+        "markers",
+        markers.map((marker) => ({
+          startLineNumber: marker.range.start.line,
+          startColumn: marker.range.start.column,
+          endLineNumber: marker.range.end.line,
+          endColumn: marker.range.end.column,
+          message: `${marker.source ? `${marker.source}: ` : ""}${marker.reason} (${marker.ruleId})`,
+          severity: marker.fatal ? 8 : 4,
+        })),
+      );
+    }
+  }, []);
+
   const handleDidMount = useCallback<OnMount>((e, m) => {
     editor.current = e;
     monaco.current = m;
+
+    showMarkers();
   }, []);
 
   const handleReset = useCallback(() => {
@@ -93,44 +123,23 @@ export function EditorPane({
   }, [onDidChangeCursorPosition]);
 
   useEffect(() => {
-    if (!editor.current || !monaco.current) {
-      return;
-    }
-
-    const model = editor.current?.getModel();
-
-    if (model) {
-      monaco.current?.editor.getModel(
-        model,
-        "markers",
-        markers.map((marker) => ({
-          startLineNumber: marker.range.start.lineNumber,
-          startColumn: marker.range.start.column,
-          endLineNumber: marker.range.end.lineNumber,
-          endColumn: marker.range.end.column,
-          message: `${marker.source ? `${marker.source}: ` : ""}${marker.reason} (${marker.ruleId})`,
-          severity: marker.fatal ? 8 : 4,
-        })),
-      );
-    }
+    showMarkers();
   }, [markers]);
 
   useImperativeHandle(ref, () => ({
-    setDecorations(ranges: Range[]) {
+    setDecorations(ranges: MarkerRange[]) {
       decorations.current?.clear?.();
 
       if (!editor.current) {
         return;
       }
 
-      console.log("setting decorations", ranges);
-
       decorations.current = editor.current?.createDecorationsCollection(
         ranges.map((range) => ({
           range: {
-            startLineNumber: range.start.lineNumber,
+            startLineNumber: range.start.line,
             startColumn: range.start.column,
-            endLineNumber: range.end.lineNumber,
+            endLineNumber: range.end.line,
             endColumn: range.end.column,
           },
           options: { inlineClassName: "ast-source-highlight" },
