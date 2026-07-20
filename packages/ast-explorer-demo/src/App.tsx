@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Editor } from "@monaco-editor/react";
-import type { OnMount } from "@monaco-editor/react";
 import { filterNode, findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
+import { EditorPane } from "./EditorPane.js";
 import { JsonViewer } from "./JsonViewer.js";
 import {
   defaultLintSettings,
@@ -84,7 +83,7 @@ export function App() {
       return [];
     }
   }, [content, lintSettings]);
-  const handleEditorDidMount: OnMount = (e, monacoInstance) => {
+  const handleEditorDidMount = (e: any, monacoInstance: any) => {
     setEditor(e);
     setMonaco(monacoInstance);
     e.focus();
@@ -175,24 +174,13 @@ export function App() {
         </nav>
       </header>
       <main>
-        <div className="editor-pane">
-          <button className="reset-button" type="button" onClick={handleReset}>
-            Reset content
-          </button>
-          <Editor
-            height="100%"
-            defaultLanguage="markdown"
-            theme={isDark ? "vs-dark" : "light"}
-            value={content}
+        <div className="editor-pane-wrapper">
+          <EditorPane
+            content={content}
+            isDark={isDark}
             onChange={(value) => setContent(value ?? "")}
             onMount={handleEditorDidMount}
-            options={{
-              minimap: { enabled: false },
-              fontSize: 14,
-              scrollBeyondLastLine: false,
-              automaticLayout: true,
-              fixedOverflowWidgets: true,
-            }}
+            onReset={handleReset}
           />
         </div>
         <div className="ast-pane-container">
