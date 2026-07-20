@@ -141,7 +141,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-no-restricted-patterns
 - [x] remark-lint-gherkin-no-restricted-tags
 - [x] remark-lint-gherkin-no-scenario-outlines-without-examples
-- [ ] remark-lint-gherkin-no-superfluous-tags
+- [x] remark-lint-gherkin-no-superfluous-tags
 - [ ] remark-lint-gherkin-no-tags-on-backgrounds
 - [ ] remark-lint-gherkin-no-unnamed-features
 - [ ] remark-lint-gherkin-no-unnamed-scenarios

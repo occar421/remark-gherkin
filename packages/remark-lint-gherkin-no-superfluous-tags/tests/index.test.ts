@@ -41,6 +41,10 @@ suite("remark-lint-gherkin-no-superfluous-tags", () => {
     expect(file.messages[0].message).toBe(
       'Tag "@tag1" is already present on a parent Gherkin element',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 31 },
+      end: { line: 5, column: 8, offset: 38 },
+    });
     expect(file.messages[0].ruleId).toBe("gherkin-no-superfluous-tags");
   });
 
@@ -59,6 +63,10 @@ suite("remark-lint-gherkin-no-superfluous-tags", () => {
     expect(file.messages[0].message).toBe(
       'Tag "@rule_tag" is already present on a parent Gherkin element',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 7, column: 1, offset: 53 },
+      end: { line: 7, column: 12, offset: 64 },
+    });
   });
 
   test("Should report when tag on Rule is duplicated from Feature", () => {
@@ -74,6 +82,10 @@ suite("remark-lint-gherkin-no-superfluous-tags", () => {
     expect(file.messages[0].message).toBe(
       'Tag "@feature_tag" is already present on a parent Gherkin element',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 38 },
+      end: { line: 5, column: 15, offset: 52 },
+    });
   });
 
   test("Should handle multiple tags and report all superfluous ones", () => {
@@ -92,6 +104,14 @@ suite("remark-lint-gherkin-no-superfluous-tags", () => {
     expect(file.messages[1].message).toBe(
       'Tag "@tag2" is already present on a parent Gherkin element',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 39 },
+      end: { line: 5, column: 8, offset: 46 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 5, column: 9, offset: 47 },
+      end: { line: 5, column: 16, offset: 54 },
+    });
   });
 
   test("Should report when tag on Scenario is duplicated from both Feature and Rule", () => {
@@ -107,5 +127,13 @@ suite("remark-lint-gherkin-no-superfluous-tags", () => {
 ### Scenario: Scenario 1
 `);
     expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 8, column: 1, offset: 56 },
+      end: { line: 8, column: 8, offset: 63 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 8, column: 9, offset: 64 },
+      end: { line: 8, column: 16, offset: 71 },
+    });
   });
 });
