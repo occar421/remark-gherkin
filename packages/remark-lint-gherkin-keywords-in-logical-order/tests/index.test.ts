@@ -54,6 +54,10 @@ suite("remark-lint-gherkin-keywords-in-logical-order", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should not appear after "When"');
     expect(file.messages[0].ruleId).toBe("gherkin-keywords-in-logical-order");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 15, offset: 63 },
+    });
   });
 
   test("Should report when Then appears before When", () => {
@@ -66,6 +70,10 @@ suite("remark-lint-gherkin-keywords-in-logical-order", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "When" should not appear after "Then"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
   });
 
   test("Should report when Then appears before Given", () => {
@@ -78,6 +86,10 @@ suite("remark-lint-gherkin-keywords-in-logical-order", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should not appear after "Then"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 15, offset: 63 },
+    });
   });
 
   test("Should allow repeated keywords (handled by use-and)", () => {
@@ -103,6 +115,14 @@ suite("remark-lint-gherkin-keywords-in-logical-order", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe('Step "When" should not appear after "Then"');
     expect(file.messages[1].message).toBe('Step "Given" should not appear after "Then"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 6, column: 1, offset: 63 },
+      end: { line: 6, column: 15, offset: 77 },
+    });
   });
 
   test("Should reset state across scenarios", () => {
@@ -129,5 +149,9 @@ suite("remark-lint-gherkin-keywords-in-logical-order", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should not appear after "When"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 46 },
+      end: { line: 5, column: 15, offset: 60 },
+    });
   });
 });
