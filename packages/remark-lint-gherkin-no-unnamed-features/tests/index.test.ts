@@ -32,6 +32,10 @@ suite("remark-lint-gherkin-no-unnamed-features", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Missing Feature name");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unnamed-features");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 11, offset: 11 },
+    });
   });
 
   test("Should report when feature name is only whitespace", () => {
@@ -41,5 +45,9 @@ suite("remark-lint-gherkin-no-unnamed-features", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Missing Feature name");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 14, offset: 14 },
+    });
   });
 });
