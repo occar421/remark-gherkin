@@ -91,7 +91,7 @@ export function EditorPane({
         })),
       );
     }
-  }, []);
+  }, [markers]);
 
   const handleDidMount = useCallback<OnMount>((e, m) => {
     editor.current = e;
