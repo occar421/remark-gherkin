@@ -130,7 +130,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-max-scenarios-per-file
 - [x] remark-lint-gherkin-name-length
 - [x] remark-lint-gherkin-no-background-only-scenario
-- [ ] remark-lint-gherkin-no-dupe-feature-names
+- [x] remark-lint-gherkin-no-dupe-feature-names
 - [ ] remark-lint-gherkin-no-dupe-scenario-names
 - [ ] remark-lint-gherkin-no-duplicate-tags
 - [ ] remark-lint-gherkin-no-empty-background

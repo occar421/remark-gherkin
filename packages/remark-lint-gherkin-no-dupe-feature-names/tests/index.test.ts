@@ -34,5 +34,9 @@ suite("remark-lint-gherkin-no-dupe-feature-names", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Feature name "Feature 1" is already used');
     expect(file.messages[0].ruleId).toBe("gherkin-no-dupe-feature-names");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 21, offset: 42 },
+    });
   });
 });
