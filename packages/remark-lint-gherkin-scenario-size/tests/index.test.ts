@@ -42,6 +42,10 @@ suite("remark-lint-gherkin-scenario-size", () => {
       "Expected Background to have at most 1 steps, but found 2",
     );
     expect(file.messages[0].ruleId).toBe("gherkin-scenario-size");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 
   test("Should report when Scenario step count exceeds limit", () => {
@@ -55,6 +59,10 @@ suite("remark-lint-gherkin-scenario-size", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected Scenario to have at most 2 steps, but found 3");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 18, offset: 34 },
+    });
   });
 
   test("Should handle Scenario Outlines", () => {
@@ -71,6 +79,10 @@ suite("remark-lint-gherkin-scenario-size", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected Scenario to have at most 1 steps, but found 2");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 26, offset: 42 },
+    });
   });
 
   test("Should use default limit of 15", () => {
@@ -85,6 +97,10 @@ ${manySteps}
     expect(file.messages[0].message).toBe(
       "Expected Scenario to have at most 15 steps, but found 16",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 18, offset: 34 },
+    });
   });
 
   test("Should count only stepLine nodes", () => {
@@ -98,5 +114,9 @@ ${manySteps}
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected Scenario to have at most 1 steps, but found 2");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 18, offset: 34 },
+    });
   });
 });
