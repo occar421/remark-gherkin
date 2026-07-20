@@ -39,6 +39,10 @@ suite("remark-lint-gherkin-no-background-only-scenario", () => {
       "Backgrounds are only allowed when there is more than one scenario",
     );
     expect(file.messages[0].ruleId).toBe("gherkin-no-background-only-scenario");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 
   test("Should report when background and one scenario outline", () => {
@@ -49,5 +53,9 @@ suite("remark-lint-gherkin-no-background-only-scenario", () => {
     expect(file.messages[0].message).toBe(
       "Backgrounds are only allowed when there is more than one scenario",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 15, offset: 31 },
+    });
   });
 });
