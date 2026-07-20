@@ -26,12 +26,20 @@ suite("remark-lint-gherkin-allowed-tags", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tag `@not-allowed` is not allowed");
     expect(file.messages[0].ruleId).toBe("gherkin-allowed-tags");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 1, column: 15, offset: 14 },
+    });
   });
 
   test("Should report when some tags are not allowed", () => {
     const file = processor.processSync("`@allowed` `@not-allowed`\n# Feature: Test");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tag `@not-allowed` is not allowed");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 12, offset: 11 },
+      end: { line: 1, column: 26, offset: 25 },
+    });
   });
 
   test("Should report all not allowed tags", () => {
@@ -39,6 +47,14 @@ suite("remark-lint-gherkin-allowed-tags", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe("Tag `@not-allowed1` is not allowed");
     expect(file.messages[1].message).toBe("Tag `@not-allowed2` is not allowed");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 1, column: 16, offset: 15 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 1, column: 17, offset: 16 },
+      end: { line: 1, column: 32, offset: 31 },
+    });
   });
 
   test("Should work with multiple tags allowed", () => {
@@ -53,6 +69,10 @@ suite("remark-lint-gherkin-allowed-tags", () => {
     const file = multiProcessor.processSync("`@a` `@b` `@c`\n# Feature: Test");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tag `@c` is not allowed");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 11, offset: 10 },
+      end: { line: 1, column: 15, offset: 14 },
+    });
   });
 
   test("Should not report when tag is allowed via patterns", () => {
@@ -69,6 +89,10 @@ suite("remark-lint-gherkin-allowed-tags", () => {
 
     const file2 = patternProcessor.processSync("`@todo-not`\n# Feature: Test");
     expect(file2.messages).toHaveLength(1);
+    expect(file2.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 1, column: 12, offset: 11 },
+    });
   });
 
   test("Should work with both tags and patterns", () => {
@@ -89,6 +113,10 @@ suite("remark-lint-gherkin-allowed-tags", () => {
     const file2 = combinedProcessor.processSync("`@other`\n# Feature: Test");
     expect(file2.messages).toHaveLength(1);
     expect(file2.messages[0].message).toBe("Tag `@other` is not allowed");
+    expect(file2.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 1, column: 9, offset: 8 },
+    });
   });
 
   test("Should not report when options are empty", () => {
