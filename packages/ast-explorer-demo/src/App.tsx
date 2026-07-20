@@ -1,6 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { filterNode, findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
-import { EditorPane } from "./EditorPane.js";
+import {
+  type CursorPositionChangedEvent,
+  type DemoEditorHandle,
+  EditorPane,
+  type Marker,
+} from "./EditorPane.js";
 import { JsonViewer } from "./JsonViewer.js";
 import {
   defaultLintSettings,
@@ -11,7 +16,7 @@ import {
   type LintSettings,
 } from "./lint-utils.js";
 
-const initialContent = `# Feature: Staying alive
+const defaultContent = `# Feature: Staying alive
 
 This is about actually staying alive,
 not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
@@ -39,9 +44,9 @@ const contentStorageKey = "ast-explorer-demo-content";
 
 function getStoredContent() {
   try {
-    return window.localStorage.getItem(contentStorageKey) ?? initialContent;
+    return window.localStorage.getItem(contentStorageKey) ?? defaultContent;
   } catch {
-    return initialContent;
+    return defaultContent;
   }
 }
 
@@ -52,12 +57,11 @@ export function App() {
     [hideEmpty, setHideEmpty] = useState(true),
     [hideType, setHideType] = useState(false),
     [autofocus, setAutofocus] = useState(true);
-  const [editor, setEditor] = useState<any>(null),
-    [monaco, setMonaco] = useState<any>(null),
-    [activePath, setActivePath] = useState<string[] | null>(null);
+  const [activePath, setActivePath] = useState<string[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
-  const decorationRef = useRef<any>(null);
+  const demoEditor = useRef<DemoEditorHandle>(null);
+
   useEffect(() => {
     try {
       window.localStorage.setItem(contentStorageKey, content);
@@ -83,69 +87,54 @@ export function App() {
       return [];
     }
   }, [content, lintSettings]);
-  const handleEditorDidMount = (e: any, monacoInstance: any) => {
-    setEditor(e);
-    setMonaco(monacoInstance);
-    e.focus();
-  };
-  const handleReset = () => {
-    if (editor) {
-      const model = editor.getModel();
-      if (model) {
-        editor.executeEdits("reset-content", [
-          {
-            range: model.getFullModelRange(),
-            text: initialContent,
-            forceMoveMarkers: true,
-          },
-        ]);
-      }
-    } else {
-      setContent(initialContent);
+  const handleChangeCursorPosition = useCallback((e: CursorPositionChangedEvent) => {
+    if (!demoEditor.current || !autofocus || !fullAst) {
+      return;
     }
-  };
-  useEffect(() => {
-    if (!editor || !autofocus || !fullAst) return;
-    const disposable = editor.onDidChangeCursorPosition((e: any) => {
-      const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
-      if (path) setActivePath(["root", ...path]);
-    });
-    return () => disposable.dispose();
-  }, [editor, autofocus, fullAst]);
-  useEffect(() => {
-    if (!editor || !monaco) return;
-    const model = editor.getModel();
-    if (!model) return;
-    monaco.editor.setModelMarkers(
-      model,
-      "remark-lint",
-      lintMessages.map((message) => ({
-        startLineNumber: message.line ?? 1,
-        startColumn: message.column ?? 1,
-        endLineNumber: message.line ?? 1,
-        endColumn: (message.column ?? 1) + 1,
-        message: `${message.source ? `${message.source}: ` : ""}${message.reason} (${message.ruleId})`,
-        severity: message.fatal ? 8 : 4,
-      })),
-    );
-  }, [editor, lintMessages, monaco]);
+
+    const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
+    if (path) setActivePath(["root", ...path]);
+  }, []);
+
+  const markers: Marker[] = lintMessages.map((message) => ({
+    range: {
+      start: {
+        lineNumber: message.line ?? 1,
+        column: message.column ?? 1,
+      },
+      end: {
+        lineNumber: message.line ?? 1,
+        column: (message.column ?? 1) + 1,
+      },
+    },
+    ruleId: message.ruleId ?? "",
+    source: message.source ?? "",
+    reason: message.reason,
+    fatal: !!message.fatal,
+  }));
+
   const handleTreeHover = (path: string[] | null) => {
-    if (!editor) return;
+    if (!demoEditor.current) {
+      return;
+    }
+
     const position = path ? getPositionAtPath(fullAst, path.slice(1)) : null;
-    decorationRef.current?.clear();
-    decorationRef.current = position
-      ? editor.createDecorationsCollection([
-          {
-            range: {
-              startLineNumber: position.start.line,
-              startColumn: position.start.column,
-              endLineNumber: position.end.line,
-              endColumn: position.end.column,
+    demoEditor.current?.setDecorations(
+      position
+        ? [
+            {
+              start: {
+                lineNumber: position?.start.line,
+                column: position?.start.column,
+              },
+              end: {
+                lineNumber: position?.end.line,
+                column: position?.end.column,
+              },
             },
-            options: { inlineClassName: "ast-source-highlight" },
-          },
-        ])
-      : null;
+          ]
+        : [],
+    );
   };
   return (
     <div className="app-container">
@@ -175,10 +164,12 @@ export function App() {
       <main>
         <div className="editor-pane-wrapper">
           <EditorPane
+            ref={demoEditor}
+            defaultContent={defaultContent}
             content={content}
+            markers={markers}
             onChange={(value) => setContent(value ?? "")}
-            onMount={handleEditorDidMount}
-            onReset={handleReset}
+            onDidChangeCursorPosition={handleChangeCursorPosition}
           />
         </div>
         <div className="ast-pane-container">
