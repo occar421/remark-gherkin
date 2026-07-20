@@ -36,6 +36,10 @@ suite("remark-lint-gherkin-no-duplicate-tags", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Duplicate tag "@tag1"');
     expect(file.messages[0].ruleId).toBe("gherkin-no-duplicate-tags");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 9, offset: 9 },
+      end: { line: 2, column: 16, offset: 16 },
+    });
   });
 
   test("Should report when tags are duplicated on Scenario", () => {
@@ -47,6 +51,10 @@ suite("remark-lint-gherkin-no-duplicate-tags", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Duplicate tag "@tag1"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 9, offset: 30 },
+      end: { line: 3, column: 16, offset: 37 },
+    });
   });
 
   test("Should not report duplicate tags across different elements", () => {
