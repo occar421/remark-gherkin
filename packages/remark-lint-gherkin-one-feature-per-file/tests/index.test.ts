@@ -28,6 +28,10 @@ suite("remark-lint-gherkin-one-feature-per-file", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Only one feature is allowed per file");
     expect(file.messages[0].ruleId).toBe("gherkin-one-feature-per-file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 21, offset: 42 },
+    });
   });
 
   test("Should report when there are three features", () => {
@@ -37,6 +41,14 @@ suite("remark-lint-gherkin-one-feature-per-file", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe("Only one feature is allowed per file");
     expect(file.messages[1].message).toBe("Only one feature is allowed per file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 21, offset: 42 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 5, column: 1, offset: 44 },
+      end: { line: 5, column: 21, offset: 64 },
+    });
   });
 
   test("Should not report when there is zero features", () => {
@@ -48,11 +60,19 @@ suite("remark-lint-gherkin-one-feature-per-file", () => {
     const file = processor.processSync("# Feature: Feature 1\n\n# Ability: Ability 1");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Only one feature is allowed per file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 21, offset: 42 },
+    });
   });
 
   test("Should handle other Feature keywords (Business Need)", () => {
     const file = processor.processSync("# Feature: Feature 1\n\n# Business Need: Need 1");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Only one feature is allowed per file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 24, offset: 45 },
+    });
   });
 });
