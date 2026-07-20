@@ -25,6 +25,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
     expect(file.messages[0].message).toBe(
       'Restricted pattern match found for Global: "restricted"',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 36, offset: 36 },
+    });
     expect(file.messages[0].ruleId).toBe("gherkin-no-restricted-patterns");
   });
 
@@ -35,6 +39,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Feature: "validate"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 30, offset: 30 },
+    });
   });
 
   test("Should report when Scenario specific restricted pattern is found", () => {
@@ -46,6 +54,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Scenario: "debug"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 23 },
+      end: { line: 4, column: 24, offset: 46 },
+    });
   });
 
   test("Should report when Step specific restricted pattern is found", () => {
@@ -58,6 +70,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Step: "regex"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 47 },
+      end: { line: 5, column: 26, offset: 72 },
+    });
   });
 
   test("Should be case-insensitive", () => {
@@ -67,6 +83,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Feature: "VALIDATE"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 30, offset: 30 },
+    });
   });
 
   test("Should not report when no patterns match", () => {
@@ -94,6 +114,14 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages.some((m) => m.message.includes('ScenarioOutline: "template"'))).toBe(true);
     expect(file.messages.some((m) => m.message.includes('Examples: "data"'))).toBe(true);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 23 },
+      end: { line: 4, column: 32, offset: 54 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 7, column: 1, offset: 70 },
+      end: { line: 7, column: 24, offset: 93 },
+    });
   });
 
   test("Should support regex patterns", () => {
@@ -137,6 +165,10 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
     // If it's excluded, it SHOULD match.
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Restricted pattern match found for Step: "^a step$"');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 47 },
+      end: { line: 5, column: 15, offset: 61 },
+    });
   });
 
   test("Should report when restricted pattern is found in Description", () => {
@@ -155,5 +187,13 @@ This also has restricted content.
     expect(file.messages[1].message).toBe(
       'Restricted pattern match found for Description: "restricted"',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 22 },
+      end: { line: 3, column: 34, offset: 55 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 6, column: 1, offset: 81 },
+      end: { line: 6, column: 34, offset: 114 },
+    });
   });
 });
