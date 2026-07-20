@@ -34,6 +34,10 @@ suite("remark-lint-gherkin-required-tags", () => {
       const file = processor.processSync("# Feature: F\n## Scenario: S");
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].message).toBe("No tag found matching @smoke for Scenario");
+      expect(file.messages[0].place).toEqual({
+        start: { line: 2, column: 1, offset: 13 },
+        end: { line: 2, column: 15, offset: 27 },
+      });
     });
 
     test("Should not report when scenario is missing required tag but ignoreUntagged is true", () => {
@@ -47,6 +51,10 @@ suite("remark-lint-gherkin-required-tags", () => {
       const file = processor.processSync("# Feature: F\n`@wip`\n## Scenario: S");
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].message).toBe("No tag found matching @smoke for Scenario");
+      expect(file.messages[0].place).toEqual({
+        start: { line: 3, column: 1, offset: 20 },
+        end: { line: 3, column: 15, offset: 34 },
+      });
     });
   });
 
@@ -64,6 +72,10 @@ suite("remark-lint-gherkin-required-tags", () => {
       expect(file.messages[0].message).toBe(
         "No tag found matching ^@issue:[1-9]\\d*$ for Scenario",
       );
+      expect(file.messages[0].place).toEqual({
+        start: { line: 3, column: 1, offset: 26 },
+        end: { line: 3, column: 15, offset: 40 },
+      });
     });
   });
 
@@ -73,6 +85,10 @@ suite("remark-lint-gherkin-required-tags", () => {
       const file = processor.processSync("# Feature: F\n`@smoke`\n## Scenario: S");
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].message).toBe("No tag found matching @fast for Scenario");
+      expect(file.messages[0].place).toEqual({
+        start: { line: 3, column: 1, offset: 22 },
+        end: { line: 3, column: 15, offset: 36 },
+      });
     });
 
     test("Should not report when all required tags are present", () => {
@@ -90,6 +106,10 @@ suite("remark-lint-gherkin-required-tags", () => {
       );
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].message).toBe("No tag found matching @smoke for Scenario Outline");
+      expect(file.messages[0].place).toEqual({
+        start: { line: 3, column: 1, offset: 20 },
+        end: { line: 3, column: 23, offset: 42 },
+      });
     });
   });
 
