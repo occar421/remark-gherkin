@@ -87,12 +87,12 @@ export function App() {
     monaco.editor.setModelMarkers(
       model,
       "remark-lint",
-      lintMessages.map((message: any) => ({
+      lintMessages.map((message) => ({
         startLineNumber: message.line ?? 1,
         startColumn: message.column ?? 1,
-        endLineNumber: message.endLine ?? message.line ?? 1,
-        endColumn: message.endColumn ?? (message.column ?? 1) + 1,
-        message: `${message.source ? `${message.source}: ` : ""}${message.reason}`,
+        endLineNumber: message.line ?? 1,
+        endColumn: (message.column ?? 1) + 1,
+        message: `${message.source ? `${message.source}: ` : ""}${message.reason} (${message.ruleId})`,
         severity: message.fatal ? 8 : 4,
       })),
     );
