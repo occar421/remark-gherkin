@@ -148,7 +148,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-no-unused-variables
 - [x] remark-lint-gherkin-one-feature-per-file
 - [x] remark-lint-gherkin-one-space-between-tags
-- [ ] remark-lint-gherkin-only-one-when
+- [x] remark-lint-gherkin-only-one-when
 - [ ] remark-lint-gherkin-required-tags
 - [ ] remark-lint-gherkin-scenario-size
 - [ ] remark-lint-gherkin-up-to-one-background-per-file

@@ -52,6 +52,10 @@ suite("remark-lint-gherkin-only-one-when", () => {
       'Step "When" should not appear more than once per scenario',
     );
     expect(file.messages[0].ruleId).toBe("gherkin-only-one-when");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
   });
 
   test("Should report when there are more than two When steps", () => {
@@ -70,6 +74,14 @@ suite("remark-lint-gherkin-only-one-when", () => {
     expect(file.messages[1].message).toBe(
       'Step "When" should not appear more than once per scenario',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 6, column: 1, offset: 63 },
+      end: { line: 6, column: 14, offset: 76 },
+    });
   });
 
   test("Should report multiple When steps in Scenario Outline", () => {
@@ -85,6 +97,10 @@ suite("remark-lint-gherkin-only-one-when", () => {
 | val |
 `);
     expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 57 },
+      end: { line: 5, column: 14, offset: 70 },
+    });
     expect(file.messages[0].message).toBe(
       'Step "When" should not appear more than once per scenario',
     );
@@ -126,5 +142,13 @@ suite("remark-lint-gherkin-only-one-when", () => {
 * When step 4
 `);
     expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 48 },
+      end: { line: 5, column: 14, offset: 61 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 8, column: 1, offset: 93 },
+      end: { line: 8, column: 14, offset: 106 },
+    });
   });
 });
