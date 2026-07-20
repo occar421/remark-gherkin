@@ -135,6 +135,18 @@ suite("remark-lint-gherkin-no-restricted-patterns", () => {
     expect(file.messages).toHaveLength(3);
     expect(file.messages.filter((m) => m.message.includes('Global: "re[gx]ex"'))).toHaveLength(2);
     expect(file.messages.filter((m) => m.message.includes('Global: "num \\d+"'))).toHaveLength(1);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 25, offset: 25 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 3, column: 1, offset: 26 },
+      end: { line: 3, column: 26, offset: 51 },
+    });
+    expect(file.messages[2].place).toEqual({
+      start: { line: 4, column: 1, offset: 52 },
+      end: { line: 4, column: 32, offset: 83 },
+    });
   });
 
   test("Should not include Step keywords (Given, When, Then, And) in the pattern matching for steps", () => {
