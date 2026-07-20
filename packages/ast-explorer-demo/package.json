@@ -17,9 +17,12 @@
     "mdast-util-gherkin": "workspace:*",
     "remark-gfm": "catalog:",
     "remark-gherkin": "workspace:*",
+    "remark-lint": "catalog:",
     "remark-parse": "catalog:",
+    "remark-preset-lint-gherkin-lint": "workspace:*",
     "typescript": "catalog:",
     "unified": "catalog:",
+    "vfile": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   }

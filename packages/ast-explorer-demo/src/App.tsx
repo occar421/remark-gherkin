@@ -3,6 +3,14 @@ import { Editor } from "@monaco-editor/react";
 import type { OnMount } from "@monaco-editor/react";
 import { filterNode, findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
 import { JsonViewer } from "./JsonViewer.js";
+import {
+  defaultLintSettings,
+  getLintRuleLabel,
+  lintContent,
+  lintRuleNames,
+  type LintRuleName,
+  type LintSettings,
+} from "./lint-utils.js";
 
 const initialContent = `# Feature: Staying alive
 
@@ -37,6 +45,8 @@ export function App() {
     [autofocus, setAutofocus] = useState(true);
   const [editor, setEditor] = useState<any>(null),
     [activePath, setActivePath] = useState<string[] | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
   const decorationRef = useRef<any>(null);
   const { fullAst, ast } = useMemo(() => {
     try {
@@ -49,6 +59,13 @@ export function App() {
       return { fullAst: null, ast: { error: String(err) } };
     }
   }, [content, hideLocation, hideMethods, hideEmpty, hideType]);
+  const lintMessages = useMemo(() => {
+    try {
+      return lintContent(content, lintSettings);
+    } catch {
+      return [];
+    }
+  }, [content, lintSettings]);
   const handleEditorDidMount: OnMount = (e) => {
     setEditor(e);
     e.focus();
@@ -61,6 +78,21 @@ export function App() {
     });
     return () => disposable.dispose();
   }, [editor, autofocus, fullAst]);
+  useEffect(() => {
+    if (!editor) return;
+    editor.setModelMarkers(
+      editor.getModel(),
+      "remark-lint",
+      lintMessages.map((message: any) => ({
+        startLineNumber: message.line ?? 1,
+        startColumn: message.column ?? 1,
+        endLineNumber: message.endLine ?? message.line ?? 1,
+        endColumn: message.endColumn ?? (message.column ?? 1) + 1,
+        message: `${message.source ? `${message.source}: ` : ""}${message.reason}`,
+        severity: message.fatal ? 8 : 4,
+      })),
+    );
+  }, [editor, lintMessages]);
   const handleTreeHover = (path: string[] | null) => {
     if (!editor) return;
     const position = path ? getPositionAtPath(fullAst, path.slice(1)) : null;
@@ -87,7 +119,12 @@ export function App() {
           AST Explorer Demo for Markdown with Gherkin
         </a>
         <nav className="app-actions" aria-label="Application links">
-          <button className="settings-button" type="button" disabled title="Settings coming soon">
+          <button
+            className="settings-button"
+            type="button"
+            onClick={() => setSettingsOpen((open) => !open)}
+            aria-expanded={settingsOpen}
+          >
             ⚙ Settings
           </button>
           <a
@@ -118,6 +155,42 @@ export function App() {
           />
         </div>
         <div className="ast-pane-container">
+          {settingsOpen && (
+            <aside className="settings-panel" aria-label="Lint settings">
+              <h2>Lint rules</h2>
+              <label className="lint-setting lint-preset">
+                <input
+                  type="checkbox"
+                  checked={lintSettings.preset}
+                  onChange={(event) =>
+                    setLintSettings((current) => ({
+                      ...current,
+                      preset: event.target.checked,
+                    }))
+                  }
+                />
+                remark-preset-lint-gherkin-lint
+              </label>
+              <div className="lint-rule-list">
+                {lintRuleNames.map((name: LintRuleName) => (
+                  <label className="lint-setting" key={name}>
+                    <input
+                      type="checkbox"
+                      checked={lintSettings[name]}
+                      disabled={!lintSettings.preset}
+                      onChange={(event) =>
+                        setLintSettings((current) => ({
+                          ...current,
+                          [name]: event.target.checked,
+                        }))
+                      }
+                    />
+                    {getLintRuleLabel(name)}
+                  </label>
+                ))}
+              </div>
+            </aside>
+          )}
           <header>
             <div className="header-bottom">
               {[

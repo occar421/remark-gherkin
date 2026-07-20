@@ -7,6 +7,12 @@ import {
   getPositionAtPath,
 } from "../src/ast-utils.js";
 import { getItemLabel } from "../src/JsonItem.js";
+import {
+  defaultLintSettings,
+  getLintRuleLabel,
+  lintContent,
+  lintRuleNames,
+} from "../src/lint-utils.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World
@@ -68,5 +74,22 @@ describe("logic", () => {
       "heading (segmentLine)",
     );
     expect(getItemLabel("0", "value")).toBe("0");
+  });
+
+  test("lintContent should report a warning with a source position", () => {
+    const messages = lintContent("# Feature:\n", defaultLintSettings);
+
+    expect(messages.length).toBeGreaterThan(0);
+    expect(messages[0].line).toBe(1);
+    expect(messages[0].column).toBeGreaterThan(0);
+    expect(messages[0].fatal).toBeFalsy();
+  });
+
+  test("lintContent should respect individual rule settings", () => {
+    const settings = { ...defaultLintSettings };
+    for (const name of lintRuleNames) settings[name] = false;
+
+    expect(lintContent("# Feature:\n", settings)).toHaveLength(0);
+    expect(getLintRuleLabel("remark-lint-gherkin-no-unnamed-features")).toBe("no unnamed features");
   });
 });
