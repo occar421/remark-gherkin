@@ -17,7 +17,7 @@ export const useContent = (defaultContent: string) => {
     setContent(newContent);
 
     try {
-      window.localStorage.setItem(contentStorageKey, content);
+      window.localStorage.setItem(contentStorageKey, newContent);
     } catch {
       // LocalStorage may be unavailable in private browsing or restricted environments.
     }
