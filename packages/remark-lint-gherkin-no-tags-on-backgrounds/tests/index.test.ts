@@ -26,6 +26,10 @@ suite("remark-lint-gherkin-no-tags-on-backgrounds", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Tags on backgrounds are not allowed");
     expect(file.messages[0].ruleId).toBe("gherkin-no-tags-on-backgrounds");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 7, offset: 23 },
+    });
   });
 
   test("Should not report when tags on scenario", () => {
