@@ -7,16 +7,10 @@ import {
   type Marker,
 } from "./EditorPane.js";
 import { JsonViewer } from "./JsonViewer.js";
-import {
-  defaultLintSettings,
-  getLintRuleLabel,
-  lintContent,
-  lintRuleNames,
-  type LintRuleName,
-  type LintSettings,
-} from "./lint-utils.js";
+import { lintContent } from "./lint-utils.js";
 import { useContent } from "./content-hook.ts";
 import { useTreeConfig } from "./useTreeConfig.tsx";
+import { useSettingsPanel } from "./useSettingsPanel.tsx";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
@@ -28,9 +22,9 @@ export function App() {
     autofocus,
     render: TreeConfig,
   } = useTreeConfig();
-  const [activePath, setActivePath] = useState<string[] | null>(null);
+  const { lintSettings, render: SettingsPanel } = useSettingsPanel();
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
+  const [activePath, setActivePath] = useState<string[] | null>(null);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
   const { fullAst, ast } = useMemo(() => {
@@ -143,38 +137,7 @@ export function App() {
         <div className="ast-pane-container">
           {settingsOpen && (
             <aside className="settings-panel" aria-label="Lint settings">
-              <h2>Lint rules</h2>
-              <label className="lint-setting lint-preset">
-                <input
-                  type="checkbox"
-                  checked={lintSettings.preset}
-                  onChange={(event) =>
-                    setLintSettings((current) => ({
-                      ...current,
-                      preset: event.target.checked,
-                    }))
-                  }
-                />
-                remark-preset-lint-gherkin-lint
-              </label>
-              <div className="lint-rule-list">
-                {lintRuleNames.map((name: LintRuleName) => (
-                  <label className="lint-setting" key={name}>
-                    <input
-                      type="checkbox"
-                      checked={lintSettings[name]}
-                      disabled={lintSettings.preset}
-                      onChange={(event) =>
-                        setLintSettings((current) => ({
-                          ...current,
-                          [name]: event.target.checked,
-                        }))
-                      }
-                    />
-                    {getLintRuleLabel(name)}
-                  </label>
-                ))}
-              </div>
+              <SettingsPanel />
             </aside>
           )}
           <header>
