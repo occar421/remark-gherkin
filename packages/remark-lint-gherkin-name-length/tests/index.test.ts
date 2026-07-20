@@ -36,6 +36,10 @@ suite("remark-lint-gherkin-name-length", () => {
       "Expected Feature name to be at most 10 characters, but found 32",
     );
     expect(file.messages[0].ruleId).toBe("gherkin-name-length");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 44, offset: 44 },
+    });
   });
 
   test("Should report when Scenario name exceeds limit", () => {
@@ -48,6 +52,10 @@ suite("remark-lint-gherkin-name-length", () => {
     expect(file.messages[0].message).toBe(
       "Expected Scenario name to be at most 10 characters, but found 28",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 42, offset: 58 },
+    });
   });
 
   test("Should report when Step name exceeds limit", () => {
@@ -61,6 +69,10 @@ suite("remark-lint-gherkin-name-length", () => {
     expect(file.messages[0].message).toBe(
       "Expected Step name to be at most 10 characters, but found 29",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 35 },
+      end: { line: 4, column: 38, offset: 72 },
+    });
   });
 
   test("Should use default limit of 70", () => {
@@ -73,6 +85,10 @@ suite("remark-lint-gherkin-name-length", () => {
     expect(file.messages[0].message).toBe(
       `Expected Feature name to be at most 70 characters, but found 71`,
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 2, column: 1, offset: 1 },
+      end: { line: 2, column: 83, offset: 83 },
+    });
   });
 
   test("Should handle Scenario Outlines", () => {
@@ -85,5 +101,9 @@ suite("remark-lint-gherkin-name-length", () => {
     expect(file.messages[0].message).toBe(
       "Expected Scenario name to be at most 10 characters, but found 14",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 37, offset: 53 },
+    });
   });
 });
