@@ -42,6 +42,10 @@ suite("remark-lint-gherkin-use-and", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should use And instead of Given');
     expect(file.messages[0].ruleId).toBe("gherkin-use-and");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 50 },
+      end: { line: 5, column: 15, offset: 64 },
+    });
   });
 
   test("Should report when When is repeated", () => {
@@ -54,6 +58,10 @@ suite("remark-lint-gherkin-use-and", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "When" should use And instead of When');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
   });
 
   test("Should report when Then is repeated", () => {
@@ -66,6 +74,10 @@ suite("remark-lint-gherkin-use-and", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Then" should use And instead of Then');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 49 },
+      end: { line: 5, column: 14, offset: 62 },
+    });
   });
 
   test("Should not report when But is used", () => {
@@ -91,6 +103,10 @@ suite("remark-lint-gherkin-use-and", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should use And instead of Given');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 63 },
+      end: { line: 6, column: 15, offset: 77 },
+    });
   });
 
   test("Should reset previous keyword across scenarios", () => {
@@ -115,5 +131,9 @@ suite("remark-lint-gherkin-use-and", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Step "Given" should use And instead of Given');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 5, column: 1, offset: 47 },
+      end: { line: 5, column: 15, offset: 61 },
+    });
   });
 });
