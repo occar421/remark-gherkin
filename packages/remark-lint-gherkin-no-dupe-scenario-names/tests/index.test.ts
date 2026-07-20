@@ -37,6 +37,10 @@ suite("remark-lint-gherkin-no-dupe-scenario-names", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Scenario name "Scenario 1" is already used');
     expect(file.messages[0].ruleId).toBe("gherkin-no-dupe-scenario-names");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 46 },
+      end: { line: 4, column: 24, offset: 69 },
+    });
   });
 
   test("Should report when scenario names are duplicated including Scenario Outline", () => {
@@ -48,6 +52,10 @@ suite("remark-lint-gherkin-no-dupe-scenario-names", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Scenario name "Scenario 1" is already used');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 46 },
+      end: { line: 4, column: 33, offset: 78 },
+    });
   });
 
   test("Should report duplicates across features by default (anywhere)", () => {
@@ -61,6 +69,10 @@ suite("remark-lint-gherkin-no-dupe-scenario-names", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Scenario name "Duplicate Name" is already used');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 72 },
+      end: { line: 6, column: 28, offset: 99 },
+    });
   });
 
   test("Should not report duplicates across features when using 'in-feature' option", () => {
@@ -100,5 +112,9 @@ suite("remark-lint-gherkin-no-dupe-scenario-names", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Scenario name "Duplicate Name" is already used');
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 50 },
+      end: { line: 4, column: 28, offset: 77 },
+    });
   });
 });
