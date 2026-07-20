@@ -36,8 +36,18 @@ not the [Bee Gees song](https://www.youtube.com/watch?v=I_izvAbhExY).
   |    20 |   5 |   15 |
 `;
 
+const contentStorageKey = "ast-explorer-demo-content";
+
+function getStoredContent() {
+  try {
+    return window.localStorage.getItem(contentStorageKey) ?? initialContent;
+  } catch {
+    return initialContent;
+  }
+}
+
 export function App() {
-  const [content, setContent] = useState(initialContent);
+  const [content, setContent] = useState(getStoredContent);
   const [hideLocation, setHideLocation] = useState(true),
     [hideMethods, setHideMethods] = useState(true),
     [hideEmpty, setHideEmpty] = useState(true),
@@ -49,6 +59,13 @@ export function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
   const decorationRef = useRef<any>(null);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(contentStorageKey, content);
+    } catch {
+      // LocalStorage may be unavailable in private browsing or restricted environments.
+    }
+  }, [content]);
   const { fullAst, ast } = useMemo(() => {
     try {
       const tree = processor.parse(content);
@@ -71,6 +88,22 @@ export function App() {
     setEditor(e);
     setMonaco(monacoInstance);
     e.focus();
+  };
+  const handleReset = () => {
+    if (editor) {
+      const model = editor.getModel();
+      if (model) {
+        editor.executeEdits("reset-content", [
+          {
+            range: model.getFullModelRange(),
+            text: initialContent,
+            forceMoveMarkers: true,
+          },
+        ]);
+      }
+    } else {
+      setContent(initialContent);
+    }
   };
   useEffect(() => {
     if (!editor || !autofocus || !fullAst) return;
@@ -143,6 +176,9 @@ export function App() {
       </header>
       <main>
         <div className="editor-pane">
+          <button className="reset-button" type="button" onClick={handleReset}>
+            Reset content
+          </button>
           <Editor
             height="100%"
             defaultLanguage="markdown"
