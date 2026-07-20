@@ -91,7 +91,7 @@ describe("logic", () => {
     for (const name of lintRuleNames) settings[name] = false;
 
     expect(lintContent("# Feature:\n", settings)).toHaveLength(0);
-    expect(getLintRuleLabel("remark-lint-gherkin-no-unnamed-features")).toBe("no unnamed features");
+    expect(getLintRuleLabel("remark-lint-gherkin-no-unnamed-features")).toBe("no-unnamed-features");
   });
 
   test("preset should run all rules regardless of child settings", () => {
