@@ -140,13 +140,10 @@ importers:
         version: 0.2.4(@types/node@26.0.0)(@voidzero-dev/vite-plus-core@0.2.4(@types/node@26.0.0)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
 
   packages/ast-explorer-demo:
-    devDependencies:
+    dependencies:
       '@monaco-editor/react':
         specifier: 'catalog:'
         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@types/node':
-        specifier: 'catalog:'
-        version: 26.0.0
       mdast-util-gherkin:
         specifier: workspace:*
         version: link:../mdast-util-gherkin
@@ -165,13 +162,20 @@ importers:
       remark-preset-lint-gherkin-lint:
         specifier: workspace:*
         version: link:../remark-preset-lint-gherkin-lint
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
       unified:
         specifier: 'catalog:'
         version: 11.0.5
       vfile:
+        specifier: 'catalog:'
+        version: 6.0.3
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.0.0
+      '@types/unist':
+        specifier: 'catalog:'
+        version: 3.0.3
+      typescript:
         specifier: 'catalog:'
         version: 6.0.3
       vite:

@@ -1,20 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 
-export function getItemLabel(label: string, value: any): string {
+type Props = {
+  label: string;
+  value: any;
+  path: string[];
+  activePath: string[] | null;
+  onHover?: (path: string[]) => void;
+  onBlur?: () => void;
+};
+
+export function getItemLabel(label: string, value: unknown): string {
   if (
     value &&
     typeof value === "object" &&
     !Array.isArray(value) &&
+    "type" in value &&
     typeof value.type === "string"
   ) {
-    const gherkinType = value.data?.gherkin?.type;
+    let gherkinType = undefined;
+    if ("data" in value && typeof value.data === "object") {
+      gherkinType = (value.data as unknown as any)?.gherkin?.type;
+    }
     return gherkinType ? `${value.type} (${gherkinType})` : value.type;
   }
 
   return label;
 }
 
-export function JsonItem({ label, value, path, activePath, onHover }: any) {
+export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Props) {
   const [collapsed, setCollapsed] = useState(
     path.length !== 1 && path[path.length - 1] !== "children",
   );
@@ -41,8 +54,8 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
       <div
         className={`json-view-item ${isExact ? "json-view-active" : ""}`}
         ref={ref}
-        onMouseEnter={() => onHover(path)}
-        onMouseLeave={() => onHover(null)}
+        onMouseEnter={() => onHover?.(path)}
+        onMouseLeave={() => onBlur?.()}
       >
         <span className="json-view-label">{label}</span>
         <span className="json-view-punctuation">:</span>
@@ -56,8 +69,8 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
     <div
       className={`json-view-item ${isExact ? "json-view-active" : ""}`}
       ref={ref}
-      onMouseEnter={() => onHover(path)}
-      onMouseLeave={() => onHover(null)}
+      onMouseEnter={() => onHover?.(path)}
+      onMouseLeave={() => onBlur?.()}
     >
       <div
         className="json-view-collapsible"
@@ -88,12 +101,11 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
                 path={[...path, key]}
                 activePath={activePath}
                 onHover={onHover}
+                onBlur={onBlur}
               />
             ))}
           </div>
-          <div className="json-view-punctuation" style={{ marginLeft: "7px" }}>
-            {isArray ? "]" : "}"}
-          </div>
+          <div className="json-view-punctuation end">{isArray ? "]" : "}"}</div>
         </>
       )}
     </div>

@@ -1,6 +1,13 @@
 import { JsonItem } from "./JsonItem.js";
 
-export function JsonViewer({ data, activePath, onHover }: any) {
+type Props = {
+  data: object | Node | object[];
+  activePath: string[] | null;
+  onHover: (path: string[]) => void;
+  onBlur: () => void;
+};
+
+export function JsonViewer({ data, activePath, onHover, onBlur }: Props) {
   return (
     <div className="json-view-container">
       <JsonItem
@@ -9,6 +16,7 @@ export function JsonViewer({ data, activePath, onHover }: any) {
         path={["root"]}
         activePath={activePath}
         onHover={onHover}
+        onBlur={onBlur}
       />
     </div>
   );

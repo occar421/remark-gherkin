@@ -398,32 +398,36 @@ main {
 
 @media (prefers-color-scheme: dark) {
   .json-view-label {
-    color: #e6b450 !important;
+    color: #e6b450;
   }
 
   .json-view-string {
-    color: #5ccfe6 !important;
+    color: #5ccfe6;
   }
 
   .json-view-number,
   .json-view-boolean {
-    color: #ff9e64 !important;
+    color: #ff9e64;
   }
 
   .json-view-punctuation {
-    color: #a9b1d6 !important;
+    color: #a9b1d6;
+
+    &.end {
+      margin-left: 7px;
+    }
   }
 
   .json-view-null {
-    color: #f43f5e !important;
+    color: #f43f5e;
   }
 
   .json-view-collapse {
-    color: #f43f5e !important;
+    color: #f43f5e;
   }
 
   .json-view-expand {
-    color: #10b981 !important;
+    color: #10b981;
   }
 }
 

@@ -113,12 +113,12 @@ export function App() {
     fatal: !!message.fatal,
   }));
 
-  const handleTreeHover = (path: string[] | null) => {
+  const handleTreeHover = (path: string[]) => {
     if (!demoEditor.current) {
       return;
     }
 
-    const position = path ? getPositionAtPath(fullAst, path.slice(1)) : null;
+    const position = getPositionAtPath(fullAst!, path.slice(1));
     demoEditor.current?.setDecorations(
       position
         ? [
@@ -136,6 +136,10 @@ export function App() {
         : [],
     );
   };
+  const handleTreeBlur = () => {
+    demoEditor.current?.setDecorations([]);
+  };
+
   return (
     <div className="app-container">
       <header className="app-header">
@@ -230,7 +234,12 @@ export function App() {
             </div>
           </header>
           <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
-            <JsonViewer data={ast} activePath={activePath} onHover={handleTreeHover} />
+            <JsonViewer
+              data={ast}
+              activePath={activePath}
+              onHover={handleTreeHover}
+              onBlur={handleTreeBlur}
+            />
           </div>
         </div>
       </main>
