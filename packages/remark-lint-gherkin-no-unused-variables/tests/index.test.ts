@@ -49,6 +49,10 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Unused variable: '<variable2>'");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unused-variables");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 43, offset: 67 },
+    });
   });
 
   test("Should not report with no examples", () => {
@@ -82,6 +86,14 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe("Unused variable: '<variable2>'");
     expect(file.messages[1].message).toBe("Unused variable: '<variable4>'");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 43, offset: 67 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 43, offset: 67 },
+    });
   });
 
   test("Should handle variables in different steps", () => {
@@ -100,5 +112,9 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Unused variable: '<param4>'");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 25 },
+      end: { line: 3, column: 43, offset: 67 },
+    });
   });
 });

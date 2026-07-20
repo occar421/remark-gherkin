@@ -145,7 +145,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-no-tags-on-backgrounds
 - [x] remark-lint-gherkin-no-unnamed-features
 - [x] remark-lint-gherkin-no-unnamed-scenarios
-- [ ] remark-lint-gherkin-no-unused-variables
+- [x] remark-lint-gherkin-no-unused-variables
 - [ ] remark-lint-gherkin-one-feature-per-file
 - [ ] remark-lint-gherkin-one-space-between-tags
 - [ ] remark-lint-gherkin-only-one-when
