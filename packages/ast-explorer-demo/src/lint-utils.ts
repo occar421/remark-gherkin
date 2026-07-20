@@ -48,7 +48,7 @@ export const defaultLintSettings: LintSettings = {
 } as LintSettings;
 
 export function getLintRuleLabel(name: LintRuleName) {
-  return name.replace("remark-lint-gherkin-", "").replaceAll("-", " ");
+  return name.replace("remark-lint-gherkin-", "");
 }
 
 export function lintContent(content: string, settings: LintSettings) {
