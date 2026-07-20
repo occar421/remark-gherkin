@@ -155,6 +155,7 @@ export function App() {
               fontSize: 14,
               scrollBeyondLastLine: false,
               automaticLayout: true,
+              fixedOverflowWidgets: true,
             }}
           />
         </div>
