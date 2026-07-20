@@ -36,6 +36,10 @@ suite("remark-lint-gherkin-up-to-one-background-per-file", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Only one background is allowed per file");
     expect(file.messages[0].ruleId).toBe("gherkin-up-to-one-background-per-file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 48 },
+      end: { line: 6, column: 15, offset: 62 },
+    });
   });
 
   test("Should report when there are three backgrounds", () => {
@@ -45,5 +49,13 @@ suite("remark-lint-gherkin-up-to-one-background-per-file", () => {
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe("Only one background is allowed per file");
     expect(file.messages[1].message).toBe("Only one background is allowed per file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 35 },
+      end: { line: 6, column: 15, offset: 49 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 9, column: 1, offset: 53 },
+      end: { line: 9, column: 15, offset: 67 },
+    });
   });
 });
