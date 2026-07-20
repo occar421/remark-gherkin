@@ -24,6 +24,10 @@ suite("remark-lint-gherkin-no-scenario-outlines-without-examples", () => {
     expect(file.messages[0].message).toBe(
       "Scenario Outline must have at least one Examples section",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 43, offset: 59 },
+    });
     expect(file.messages[0].ruleId).toBe("gherkin-no-scenario-outlines-without-examples");
   });
 
@@ -35,6 +39,10 @@ suite("remark-lint-gherkin-no-scenario-outlines-without-examples", () => {
     expect(file.messages[0].message).toBe(
       "Scenario Outline must have at least one Examples section",
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 45, offset: 61 },
+    });
   });
 
   test("Should not report when Scenario Outline has Examples", () => {
@@ -63,5 +71,13 @@ suite("remark-lint-gherkin-no-scenario-outlines-without-examples", () => {
       "# Feature: Test\n\n## Scenario Outline: First\n- Given a step\n\n## Scenario Outline: Second\n- Given another step",
     );
     expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 3, column: 1, offset: 17 },
+      end: { line: 3, column: 27, offset: 43 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 6, column: 1, offset: 60 },
+      end: { line: 6, column: 28, offset: 87 },
+    });
   });
 });
