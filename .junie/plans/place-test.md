@@ -147,7 +147,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-no-unnamed-scenarios
 - [x] remark-lint-gherkin-no-unused-variables
 - [x] remark-lint-gherkin-one-feature-per-file
-- [ ] remark-lint-gherkin-one-space-between-tags
+- [x] remark-lint-gherkin-one-space-between-tags
 - [ ] remark-lint-gherkin-only-one-when
 - [ ] remark-lint-gherkin-required-tags
 - [ ] remark-lint-gherkin-scenario-size

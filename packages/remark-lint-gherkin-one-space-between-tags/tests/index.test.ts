@@ -28,6 +28,10 @@ suite("remark-lint-gherkin-one-space-between-tags", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("There should be exactly one space between tags");
     expect(file.messages[0].ruleId).toBe("gherkin-one-space-between-tags");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 8, offset: 7 },
+      end: { line: 1, column: 10, offset: 9 },
+    });
   });
 
   test("Should report when tags are separated by a tab", () => {
@@ -35,12 +39,24 @@ suite("remark-lint-gherkin-one-space-between-tags", () => {
     const file = processor.processSync("`@tag1`	`@tag2`\n# Feature: My Feature");
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("There should be exactly one space between tags");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 8, offset: 7 },
+      end: { line: 1, column: 9, offset: 8 },
+    });
   });
 
   test("Should report multiple violations", () => {
     const processor = getProcessor();
     const file = processor.processSync("`@tag1`  `@tag2`   `@tag3`\n# Feature: My Feature");
     expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 8, offset: 7 },
+      end: { line: 1, column: 10, offset: 9 },
+    });
+    expect(file.messages[1].place).toEqual({
+      start: { line: 1, column: 17, offset: 16 },
+      end: { line: 1, column: 20, offset: 19 },
+    });
   });
 
   test("Should not report leading or trailing spaces (outside the scope of this rule)", () => {
