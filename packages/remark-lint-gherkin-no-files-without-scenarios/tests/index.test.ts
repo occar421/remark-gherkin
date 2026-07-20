@@ -21,6 +21,10 @@ suite("remark-lint-gherkin-no-files-without-scenarios", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Feature files must have at least one scenario");
     expect(file.messages[0].ruleId).toBe("gherkin-no-files-without-scenarios");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 1, column: 16, offset: 15 },
+    });
   });
 
   test("Should not report when feature has a scenario", () => {

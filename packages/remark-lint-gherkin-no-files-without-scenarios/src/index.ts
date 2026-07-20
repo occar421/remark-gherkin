@@ -12,11 +12,13 @@ const remarkLintGherkinNoFilesWithoutScenarios = lintRule<Root>(
   (tree, file) => {
     let scenarioCount = 0;
     let featureFound = false;
+    let featureNode;
 
     visit(tree, testGherkinNode("segmentLine"), (node) => {
       switch (node.data.gherkin.segmentKeyword) {
         case "Feature":
           featureFound = true;
+          featureNode = node;
           return;
         case "Scenario":
         case "ScenarioOutline":
@@ -28,7 +30,7 @@ const remarkLintGherkinNoFilesWithoutScenarios = lintRule<Root>(
     });
 
     if (featureFound && scenarioCount === 0) {
-      file.message("Feature files must have at least one scenario");
+      file.message("Feature files must have at least one scenario", featureNode);
     }
   },
 );

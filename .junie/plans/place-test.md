@@ -135,7 +135,7 @@ sessionId: session-260720-175202-1so3
 - [x] remark-lint-gherkin-no-duplicate-tags
 - [x] remark-lint-gherkin-no-empty-background
 - [x] remark-lint-gherkin-no-examples-in-scenarios
-- [ ] remark-lint-gherkin-no-files-without-scenarios
+- [x] remark-lint-gherkin-no-files-without-scenarios
 - [ ] remark-lint-gherkin-no-homogenous-tags
 - [ ] remark-lint-gherkin-no-partially-commented-tag-lines
 - [ ] remark-lint-gherkin-no-restricted-patterns
