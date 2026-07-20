@@ -69,7 +69,6 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
     });
 
     visit(tree, testGherkinNode("description"), (node) => {
-      console.log(node);
       const text = toString(node);
       if (!text) return;
 

@@ -33,7 +33,6 @@ suite("remark-lint-gherkin-no-dupe-scenario-names", () => {
 ## Scenario: Scenario 1
 ## Scenario: Scenario 1
 `);
-    console.log(file.messages);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe('Scenario name "Scenario 1" is already used');
     expect(file.messages[0].ruleId).toBe("gherkin-no-dupe-scenario-names");
