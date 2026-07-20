@@ -25,6 +25,10 @@ suite("remark-lint-gherkin-no-homogenous-tags", () => {
       'All scenarios have the tag "@tag1", it should be moved to the parent level',
     );
     expect(file.messages[0].ruleId).toBe("gherkin-no-homogenous-tags");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 25 },
+      end: { line: 4, column: 16, offset: 40 },
+    });
   });
 
   test("Should report when all scenarios in a rule have the same tag", () => {
@@ -35,6 +39,10 @@ suite("remark-lint-gherkin-no-homogenous-tags", () => {
     expect(file.messages[0].message).toBe(
       'All scenarios have the tag "@tag1", it should be moved to the parent level',
     );
+    expect(file.messages[0].place).toEqual({
+      start: { line: 6, column: 1, offset: 39 },
+      end: { line: 6, column: 16, offset: 54 },
+    });
   });
 
   test("Should not report when only some scenarios have the tag", () => {
@@ -54,6 +62,11 @@ suite("remark-lint-gherkin-no-homogenous-tags", () => {
       "# Feature: Test\n\n`@tag1` `@tag2`\n## Scenario: S1\n\n`@tag1` `@tag2`\n## Scenario: S2",
     );
     expect(file.messages).toHaveLength(2);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 33 },
+      end: { line: 4, column: 16, offset: 48 },
+    });
+    expect(file.messages[1].place).toEqual(file.messages[0].place);
   });
 
   test("Should handle Scenario Outline", () => {
@@ -61,5 +74,9 @@ suite("remark-lint-gherkin-no-homogenous-tags", () => {
       "# Feature: Test\n\n`@tag1`\n## Scenario: S1\n\n`@tag1`\n## Scenario Outline: S2\n- Given <val>\n\nExamples:\n| val |\n| 1 |",
     );
     expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].place).toEqual({
+      start: { line: 4, column: 1, offset: 25 },
+      end: { line: 4, column: 16, offset: 40 },
+    });
   });
 });
