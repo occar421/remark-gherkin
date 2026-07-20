@@ -127,7 +127,7 @@ sessionId: session-260720-175202-1so3
 
 - [x] remark-lint-gherkin-allowed-tags
 - [x] remark-lint-gherkin-keywords-in-logical-order
-- [ ] remark-lint-gherkin-max-scenarios-per-file
+- [x] remark-lint-gherkin-max-scenarios-per-file
 - [ ] remark-lint-gherkin-name-length
 - [ ] remark-lint-gherkin-no-background-only-scenario
 - [ ] remark-lint-gherkin-no-dupe-feature-names

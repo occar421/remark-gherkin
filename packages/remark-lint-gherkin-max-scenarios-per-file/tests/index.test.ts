@@ -36,6 +36,10 @@ suite("remark-lint-gherkin-max-scenarios-per-file", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected at most 1 scenarios, but found 2");
     expect(file.messages[0].ruleId).toBe("gherkin-max-scenarios-per-file");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 5, column: 1, offset: 47 },
+    });
   });
 
   test("Should count Scenario Outlines examples by default", () => {
@@ -53,6 +57,10 @@ suite("remark-lint-gherkin-max-scenarios-per-file", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected at most 2 scenarios, but found 3");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 11, column: 1, offset: 87 },
+    });
   });
 
   test("Should not count Scenario Outlines examples when countOutlineExamples is false", () => {
@@ -97,6 +105,10 @@ suite("remark-lint-gherkin-max-scenarios-per-file", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Expected at most 2 scenarios, but found 3");
+    expect(file.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 16, column: 1, offset: 116 },
+    });
   });
 
   test("Should handle mix of Scenarios and Scenario Outlines", () => {
@@ -128,6 +140,10 @@ suite("remark-lint-gherkin-max-scenarios-per-file", () => {
 `);
     expect(fileFail.messages).toHaveLength(1);
     expect(fileFail.messages[0].message).toBe("Expected at most 2 scenarios, but found 3");
+    expect(fileFail.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 11, column: 1, offset: 96 },
+    });
   });
 
   test("Should use default limit of 10", () => {
@@ -143,5 +159,9 @@ suite("remark-lint-gherkin-max-scenarios-per-file", () => {
     const fileFail = processor.processSync(content);
     expect(fileFail.messages).toHaveLength(1);
     expect(fileFail.messages[0].message).toBe("Expected at most 10 scenarios, but found 11");
+    expect(fileFail.messages[0].place).toEqual({
+      start: { line: 1, column: 1, offset: 0 },
+      end: { line: 13, column: 1, offset: 182 },
+    });
   });
 });
