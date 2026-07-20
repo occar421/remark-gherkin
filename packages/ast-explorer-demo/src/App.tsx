@@ -44,6 +44,7 @@ export function App() {
     [hideType, setHideType] = useState(false),
     [autofocus, setAutofocus] = useState(true);
   const [editor, setEditor] = useState<any>(null),
+    [monaco, setMonaco] = useState<any>(null),
     [activePath, setActivePath] = useState<string[] | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
@@ -66,8 +67,9 @@ export function App() {
       return [];
     }
   }, [content, lintSettings]);
-  const handleEditorDidMount: OnMount = (e) => {
+  const handleEditorDidMount: OnMount = (e, monacoInstance) => {
     setEditor(e);
+    setMonaco(monacoInstance);
     e.focus();
   };
   useEffect(() => {
@@ -79,9 +81,11 @@ export function App() {
     return () => disposable.dispose();
   }, [editor, autofocus, fullAst]);
   useEffect(() => {
-    if (!editor) return;
-    editor.setModelMarkers(
-      editor.getModel(),
+    if (!editor || !monaco) return;
+    const model = editor.getModel();
+    if (!model) return;
+    monaco.editor.setModelMarkers(
+      model,
       "remark-lint",
       lintMessages.map((message: any) => ({
         startLineNumber: message.line ?? 1,
@@ -92,7 +96,7 @@ export function App() {
         severity: message.fatal ? 8 : 4,
       })),
     );
-  }, [editor, lintMessages]);
+  }, [editor, lintMessages, monaco]);
   const handleTreeHover = (path: string[] | null) => {
     if (!editor) return;
     const position = path ? getPositionAtPath(fullAst, path.slice(1)) : null;
@@ -177,7 +181,7 @@ export function App() {
                     <input
                       type="checkbox"
                       checked={lintSettings[name]}
-                      disabled={!lintSettings.preset}
+                      disabled={lintSettings.preset}
                       onChange={(event) =>
                         setLintSettings((current) => ({
                           ...current,

@@ -29,8 +29,8 @@ export function JsonItem({ label, value, path, activePath, onHover }: any) {
     if (isExact && ref.current) ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [isExact]);
   useEffect(() => {
-    if (isParent && collapsed) setCollapsed(false);
-  }, [isParent, collapsed]);
+    if (isParent) setCollapsed(false);
+  }, [isParent]);
 
   if (!isObject) {
     let typeClass = "json-view-number";

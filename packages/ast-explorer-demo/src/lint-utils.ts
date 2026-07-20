@@ -56,6 +56,8 @@ export function lintContent(content: string, settings: LintSettings) {
   const processor = unified().use(remarkParse).use(remarkGfm).use(remarkGherkin);
 
   if (settings.preset) {
+    processor.use(remarkPresetLintGherkinLint as any);
+  } else {
     processor.use(remarkLint);
     lintPlugins.forEach((plugin, index) => {
       if (settings[lintRuleNames[index]]) processor.use(plugin);

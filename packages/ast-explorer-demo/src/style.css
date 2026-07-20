@@ -288,14 +288,22 @@ main {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+  position: relative;
 }
 
 .settings-panel {
-  max-height: 45vh;
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  width: min(360px, calc(100% - 16px));
+  max-height: min(45vh, calc(100% - 16px));
   overflow: auto;
   padding: 12px 16px;
+  border: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--code-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
 }
 
 .settings-panel h2 {
