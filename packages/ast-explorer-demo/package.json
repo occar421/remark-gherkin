@@ -23,6 +23,7 @@
     "vfile": "catalog:"
   },
   "devDependencies": {
+    "@types/mdast": "catalog:",
     "@types/node": "catalog:",
     "@types/unist": "catalog:",
     "typescript": "catalog:",

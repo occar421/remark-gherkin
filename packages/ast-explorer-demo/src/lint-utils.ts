@@ -1,4 +1,4 @@
-import { unified } from "unified";
+import { type Preset, type Plugin, unified } from "unified";
 import remarkGfm from "remark-gfm";
 import remarkLint from "remark-lint";
 import remarkParse from "remark-parse";
@@ -39,7 +39,7 @@ export const lintRuleNames = [
 export type LintRuleName = (typeof lintRuleNames)[number];
 export type LintSettings = { preset: boolean } & Record<LintRuleName, boolean>;
 
-const presetPlugins = (remarkPresetLintGherkinLint.plugins ?? []) as any[];
+const presetPlugins = remarkPresetLintGherkinLint.plugins ?? [];
 const lintPlugins = presetPlugins.slice(1);
 
 export const defaultLintSettings: LintSettings = {
@@ -56,11 +56,11 @@ export function lintContent(content: string, settings: LintSettings) {
   const processor = unified().use(remarkParse).use(remarkGfm).use(remarkGherkin);
 
   if (settings.preset) {
-    processor.use(remarkPresetLintGherkinLint as any);
+    processor.use(remarkPresetLintGherkinLint as Preset);
   } else {
     processor.use(remarkLint);
     lintPlugins.forEach((plugin, index) => {
-      if (settings[lintRuleNames[index]]) processor.use(plugin);
+      if (settings[lintRuleNames[index]]) processor.use(plugin as Plugin);
     });
   }
 

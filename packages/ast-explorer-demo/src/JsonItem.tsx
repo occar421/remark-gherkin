@@ -1,31 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { testGherkinNode } from "mdast-util-gherkin";
+import type { Node } from "mdast";
 
 type Props = {
   label: string;
-  value: any;
+  value: unknown;
   path: string[];
   activePath: string[] | null;
   onHover?: (path: string[]) => void;
   onBlur?: () => void;
 };
-
-export function getItemLabel(label: string, value: unknown): string {
-  if (
-    value &&
-    typeof value === "object" &&
-    !Array.isArray(value) &&
-    "type" in value &&
-    typeof value.type === "string"
-  ) {
-    let gherkinType = undefined;
-    if ("data" in value && typeof value.data === "object") {
-      gherkinType = (value.data as unknown as any)?.gherkin?.type;
-    }
-    return gherkinType ? `${value.type} (${gherkinType})` : value.type;
-  }
-
-  return label;
-}
 
 export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Props) {
   const [collapsed, setCollapsed] = useState(
@@ -93,11 +77,11 @@ export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Pr
       {!collapsed && (
         <>
           <div className="json-view-children">
-            {Object.keys(value).map((key) => (
+            {Object.entries(value).map(([key, val]) => (
               <JsonItem
                 key={key}
-                label={getItemLabel(key, value[key])}
-                value={value[key]}
+                label={getItemLabel(key, val)}
+                value={val}
                 path={[...path, key]}
                 activePath={activePath}
                 onHover={onHover}
@@ -110,4 +94,19 @@ export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Pr
       )}
     </div>
   );
+}
+
+export function getItemLabel(label: string, value: unknown): string {
+  if (isMdastNode(value)) {
+    if (testGherkinNode()(value)) {
+      return `${value.type} (${value.data.gherkin.type})`;
+    }
+    return value.type;
+  }
+
+  return label;
+}
+
+function isMdastNode(value: unknown): value is Node {
+  return typeof value === "object" && !!value && "type" in value && typeof value.type === "string";
 }

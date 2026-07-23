@@ -7,29 +7,26 @@ export function useTreeConfig() {
   const [hideType, setHideType] = useState(false);
   const [autofocus, setAutofocus] = useState(true);
 
-  const render = useCallback(
-    () => (
+  const controls = [
+    ["Autofocus", autofocus, setAutofocus],
+    ["Hide methods", hideMethods, setHideMethods],
+    ["Hide empty keys", hideEmpty, setHideEmpty],
+    ["Hide location data", hideLocation, setHideLocation],
+    ["Hide type keys", hideType, setHideType],
+  ] as const;
+
+  const render = useCallback(() => {
+    return (
       <div className="header-bottom">
-        {[
-          ["Autofocus", autofocus, setAutofocus],
-          ["Hide methods", hideMethods, setHideMethods],
-          ["Hide empty keys", hideEmpty, setHideEmpty],
-          ["Hide location data", hideLocation, setHideLocation],
-          ["Hide type keys", hideType, setHideType],
-        ].map(([label, checked, setter]: any) => (
-          <label className="checkbox-label" key={label as string}>
-            <input
-              type="checkbox"
-              checked={checked as boolean}
-              onChange={(e) => setter(e.target.checked)}
-            />
-            {label as string}
+        {controls.map(([label, checked, setter]) => (
+          <label className="checkbox-label" key={label}>
+            <input type="checkbox" checked={checked} onChange={(e) => setter(e.target.checked)} />
+            {label}
           </label>
         ))}
       </div>
-    ),
-    [autofocus, hideMethods, hideEmpty, hideLocation, hideType],
-  );
+    );
+  }, [controls]);
 
   return {
     hideLocation,

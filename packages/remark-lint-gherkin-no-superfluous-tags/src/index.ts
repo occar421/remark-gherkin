@@ -47,12 +47,15 @@ function getTagsBefore(tree: Root, node: GherkinSegmentLine): string[] {
   return [];
 }
 
+type Rule = Parameters<typeof lintRule>[1];
+type VFile = Parameters<Rule>[1];
+
 function checkSuperfluous(
   currentTags: string[],
   parentTags: string[],
   tree: Root,
   node: GherkinSegmentLine,
-  file: any,
+  file: VFile,
 ) {
   if (currentTags.length === 0 || parentTags.length === 0) return;
 
