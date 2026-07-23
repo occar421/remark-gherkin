@@ -39,7 +39,6 @@
   "devDependencies": {
     "@types/mdast": "catalog:",
     "@types/node": "catalog:",
-    "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
     "rehype-stringify": "catalog:",
     "remark-parse": "catalog:",

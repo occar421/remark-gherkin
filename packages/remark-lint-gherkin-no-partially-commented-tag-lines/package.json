@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@typescript/native-preview": "catalog:",
     "bumpp": "catalog:",
     "remark-gfm": "catalog:",
     "remark-gherkin": "workspace:*",

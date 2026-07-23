@@ -27,9 +27,6 @@ catalogs:
     '@types/unist':
       specifier: 3.0.3
       version: 3.0.3
-    '@typescript/native-preview':
-      specifier: 7.0.0-dev.20260627.2
-      version: 7.0.0-dev.20260627.2
     bumpp:
       specifier: 11.1.0
       version: 11.1.0
@@ -218,9 +215,6 @@ importers:
       '@types/unist':
         specifier: 'catalog:'
         version: 3.0.3
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -255,9 +249,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -301,9 +292,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -350,9 +338,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -402,9 +387,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -457,9 +439,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -506,9 +485,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -555,9 +531,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -607,9 +580,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -656,9 +626,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -705,9 +672,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -751,9 +715,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -797,9 +758,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -843,9 +801,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -892,9 +847,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -944,9 +896,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -993,9 +942,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1039,9 +985,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1085,9 +1028,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1137,9 +1077,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1183,9 +1120,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1232,9 +1166,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1290,9 +1221,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1339,9 +1267,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1388,9 +1313,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1486,9 +1408,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1538,9 +1457,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1587,9 +1503,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1636,9 +1549,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -1754,9 +1664,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
-      '@typescript/native-preview':
-        specifier: 'catalog:'
-        version: 7.0.0-dev.20260627.2
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
@@ -2235,53 +2142,6 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
-
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-om8UapcrjCyQ7Vsn0eb6kEB/scwo2/Np95cOyCiIIjUWObsDKL/DSpkYX3Z1cxo1L8WY48UM5edR2bzzarBxBg==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-40IOEo0tMS8lNLK/iVhjPcZsgXY7Erijqe5b2HLN9eufoPaGFUfNpFQ8JYHI/xgEF6/JdgGAQp6j4s8E8oamew==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [darwin]
-
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-66G5zoTYUi358zkza1kAoUgAXs4Ek0eA69TyPDU350fH6wgepeEkCuD5kel4iTPuIbJE40WZABcbBsQJsRCbJQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [linux]
-
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-1wIpqbi6Y8plCc4dH1Qw12fBu5Uk1qAdEC1fnpybkztXG90ErTG8XeccQ/SeCAl2X65PnhUU+rvzNVwqfvGyGg==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm]
-    os: [linux]
-
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-0v1xRUgREzDAaNjaKtHuX5jEHVmY/MC5YR/rvSTNSYbqtg3vnUvafimRpyInXwMq399a9K6SwW2omIOfYeNJmQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [linux]
-
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-kXsG81vUZxV4gjKfJP/Nx3mJISG9ijzQmXamDbDgPzndzpmD0g+RyzEF+s6RH5AzFAc3nuGcg3LQWY2QThl67w==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-+V3qtCz+L1d6xN1mFFHohzDnpHlPCLlOfZS11FE7Kjz/qfMViBjQwCAAtTlBT+GfZKj41nsQ5ybRqo2DVC1sMg==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [win32]
-
-  '@typescript/native-preview@7.0.0-dev.20260627.2':
-    resolution: {integrity: sha512-kJlusQpaCY5IxejXa5jcVUXu6IfLtIuK2+CWKvaFD3lqNhvt4OR3+1KOxAleaxHdvEc4fWMr0mrF7MIAmDXoAg==}
-    engines: {node: '>=16.20.0'}
-    hasBin: true
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -4054,37 +3914,6 @@ snapshots:
     optional: true
 
   '@types/unist@3.0.3': {}
-
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260627.2':
-    optional: true
-
-  '@typescript/native-preview@7.0.0-dev.20260627.2':
-    optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260627.2
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260627.2
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
