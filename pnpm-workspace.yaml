@@ -8,7 +8,7 @@ catalog:
   "@types/node": 26.0.0
   "@typescript/native-preview": 7.0.0-dev.20260627.2
   bumpp: 11.1.0
-  typescript: 6.0.3
+  typescript: 7.0.2
   vite: npm:@voidzero-dev/vite-plus-core@0.2.6
   vite-plus: 0.2.6
   mdast-util-from-markdown: 2.0.3
