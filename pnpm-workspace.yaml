@@ -9,8 +9,8 @@ catalog:
   "@typescript/native-preview": 7.0.0-dev.20260627.2
   bumpp: 11.1.0
   typescript: 6.0.3
-  vite: npm:@voidzero-dev/vite-plus-core@0.2.4
-  vite-plus: 0.2.4
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.6
+  vite-plus: 0.2.6
   mdast-util-from-markdown: 2.0.3
   mdast-util-to-markdown: 2.1.2
   unified: 11.0.5
@@ -35,12 +35,12 @@ catalog:
   unified-lint-rule: 3.0.1
   vfile: 6.0.3
   "@changesets/cli": 2.31.0
-  react: ^19.2.7
-  react-dom: ^19.2.7
-  "@types/react": ^19.2.17
-  "@types/react-dom": ^19.2.3
-  "@monaco-editor/react": ^4.7.0
-  react-json-view-lite: ^2.5.0
+  react: 19.2.8
+  react-dom: 19.2.8
+  "@types/react": 19.2.17
+  "@types/react-dom": 19.2.3
+  "@monaco-editor/react": 4.7.0
+  react-json-view-lite: 2.5.0
 overrides:
   vite: "catalog:"
 peerDependencyRules:
@@ -49,12 +49,13 @@ peerDependencyRules:
   allowedVersions:
     vite: "*"
 minimumReleaseAgeExclude:
-  - "@typescript/native-preview-darwin-arm64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-darwin-x64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-linux-arm64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-linux-arm@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-linux-x64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-win32-arm64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview-win32-x64@7.0.0-dev.20260627.2"
-  - "@typescript/native-preview@7.0.0-dev.20260627.2"
-  - unist-util-find-until@0.1.0
+  - "@voidzero-dev/vite-plus-core@0.2.6"
+  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.6"
+  - "@voidzero-dev/vite-plus-darwin-x64@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.6"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.6"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.6"
+  - vite-plus@0.2.6
