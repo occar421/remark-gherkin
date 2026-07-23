@@ -19,6 +19,7 @@ export default defineConfig({
     options: { typeAware: true, typeCheck: true },
     rules: {
       "typescript/no-explicit-any": "error",
+      "react/exhaustive-deps": "error",
     },
     overrides: [
       {
