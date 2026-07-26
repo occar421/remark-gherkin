@@ -66,3 +66,52 @@ export function lintContent(content: string, settings: LintSettings) {
   processor.runSync(tree, file);
   return file.messages;
 }
+
+type Position = {
+  line: number;
+  column: number;
+};
+
+type Range = {
+  start: Position;
+  end: Position;
+};
+
+export type Marker = {
+  range: Range;
+  source: string;
+  reason: string;
+  ruleId: string;
+  fatal: boolean;
+};
+
+export function transformMessageToMarker(message: VFile["messages"][number]): Marker {
+  return {
+    range: transformRange(message.place),
+    ruleId: message.ruleId ?? "",
+    source: message.source ?? "",
+    reason: message.reason,
+    fatal: !!message.fatal,
+  };
+}
+
+const emptyRange = { start: { line: 1, column: 1 }, end: { line: 1, column: 2 } };
+
+function transformRange(range: ReturnType<typeof lintContent>[number]["place"]): Marker["range"] {
+  if (!range) {
+    return emptyRange;
+  }
+
+  if ("start" in range) {
+    return range;
+  }
+
+  if ("offset" in range) {
+    return {
+      start: { line: range.line, column: range.column },
+      end: { line: range.line, column: range.column + 1 },
+    };
+  }
+
+  return emptyRange;
+}

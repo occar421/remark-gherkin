@@ -4,9 +4,8 @@ import {
   type CursorPositionChangedEvent,
   type DemoEditorHandle,
   EditorPane,
-  type Marker,
 } from "./EditorPane.js";
-import { lintContent } from "./lint-utils.js";
+import { lintContent, transformMessageToMarker } from "./lint-utils.js";
 import { useContent } from "./content-hook.ts";
 import AstPane from "./AstPane.tsx";
 import { useHeader } from "./useHeader.tsx";
@@ -14,7 +13,7 @@ import { useHeader } from "./useHeader.tsx";
 export function App() {
   const { content, setContent } = useContent(defaultContent);
   const { lintSettings, render: Header } = useHeader();
-  const [focusPath, setFocusPath] = useState<string[] | undefined>(["root"]);
+  const [focusPath, setFocusPath] = useState<string[]>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
   const ast = useMemo(() => {
@@ -28,17 +27,7 @@ export function App() {
   const markers = useMemo(() => {
     try {
       const messages = lintContent(content, lintSettings);
-
-      return messages.map(
-        (message) =>
-          ({
-            range: transformRange(message.place),
-            ruleId: message.ruleId ?? "",
-            source: message.source ?? "",
-            reason: message.reason,
-            fatal: !!message.fatal,
-          }) as Marker,
-      );
+      return messages.map(transformMessageToMarker);
     } catch {
       return [];
     }
@@ -98,27 +87,6 @@ export function App() {
       </main>
     </div>
   );
-}
-
-const emptyRange = { start: { line: 1, column: 1 }, end: { line: 1, column: 2 } };
-
-function transformRange(range: ReturnType<typeof lintContent>[number]["place"]): Marker["range"] {
-  if (!range) {
-    return emptyRange;
-  }
-
-  if ("start" in range) {
-    return range;
-  }
-
-  if ("offset" in range) {
-    return {
-      start: { line: range.line, column: range.column },
-      end: { line: range.line, column: range.column + 1 },
-    };
-  }
-
-  return emptyRange;
 }
 
 const defaultContent = `# Feature: Staying alive

@@ -1,18 +1,9 @@
 import { type Ref, useCallback, useEffect, useImperativeHandle, useRef } from "react";
 import { Editor, type OnMount, type Monaco } from "@monaco-editor/react";
 import "./EditorPane.css";
+import type { Marker } from "./lint-utils.ts";
 
 type IStandaloneCodeEditor = Parameters<OnMount>[0];
-
-type PositionInMarker = {
-  line: number;
-  column: number;
-};
-
-type MarkerRange = {
-  start: PositionInMarker;
-  end: PositionInMarker;
-};
 
 /**
  * A position in the editor.
@@ -28,14 +19,6 @@ type PositionInEditor = {
   readonly column: number;
 };
 
-export type Marker = {
-  range: MarkerRange;
-  source: string;
-  reason: string;
-  ruleId: string;
-  fatal: boolean;
-};
-
 export type CursorPositionChangedEvent = {
   /**
    * Primary cursor's position.
@@ -44,7 +27,7 @@ export type CursorPositionChangedEvent = {
 };
 
 export type DemoEditorHandle = {
-  setDecorations: (ranges: MarkerRange[]) => void;
+  setDecorations: (ranges: Marker["range"][]) => void;
 };
 
 export type Props = {
@@ -131,7 +114,7 @@ export function EditorPane({
   useEffect(() => () => cursorPositionListener.current?.dispose(), []);
 
   useImperativeHandle(ref, () => ({
-    setDecorations(ranges: MarkerRange[]) {
+    setDecorations(ranges: Marker["range"][]) {
       decorations.current?.clear?.();
 
       if (!editor.current) {
