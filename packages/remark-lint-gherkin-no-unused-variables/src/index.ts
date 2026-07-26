@@ -63,7 +63,7 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
       exampleParameter.forEach((_node, variable) => {
         if (!delimitedParameter.has(variable)) {
           file.message(
-            `Unused variable in Examples: '<${variable}>'`,
+            `Unused variable in Examples: '${variable}'`,
             exampleParameter.get(variable),
           );
         }
