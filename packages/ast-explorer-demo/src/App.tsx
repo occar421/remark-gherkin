@@ -8,13 +8,12 @@ import {
 } from "./EditorPane.js";
 import { lintContent } from "./lint-utils.js";
 import { useContent } from "./content-hook.ts";
-import { useSettingsPanel } from "./useSettingsPanel.tsx";
 import AstPane from "./AstPane.tsx";
+import { useHeader } from "./useHeader.tsx";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
-  const { lintSettings, render: SettingsPanel } = useSettingsPanel();
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const { lintSettings, render: Header } = useHeader();
   const [focusPath, setFocusPath] = useState<string[] | undefined>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
@@ -72,32 +71,7 @@ export function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <a className="app-title" href="/" aria-label="AST Explorer home">
-          AST Explorer Demo for Markdown with Gherkin
-        </a>
-        <nav className="app-actions" aria-label="Application links">
-          <button
-            className="settings-button"
-            type="button"
-            onClick={() => setSettingsOpen((open) => !open)}
-            aria-expanded={settingsOpen}
-          >
-            ⚙ Settings
-          </button>
-          <a
-            className="repository-link"
-            href="https://github.com/occar421/unifiedjs-gherkin"
-            target="_blank"
-            rel="noreferrer"
-          >
-            ↗ Repository
-          </a>
-        </nav>
-        {settingsOpen && (
-          <aside className="settings-panel" aria-label="Lint settings">
-            <SettingsPanel />
-          </aside>
-        )}
+        <Header />
       </header>
       <main>
         <div className="editor-pane-wrapper">

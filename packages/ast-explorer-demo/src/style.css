@@ -183,13 +183,17 @@ header {
 }
 
 .app-header {
+}
+
+.header {
+  display: flex;
   flex-direction: row;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   min-height: calc(var(--header-height) - 1px);
   padding: 0 20px;
   box-sizing: border-box;
-  position: relative;
 }
 
 .app-title {
