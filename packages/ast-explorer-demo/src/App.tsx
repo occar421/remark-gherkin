@@ -111,6 +111,11 @@ export function App() {
             ↗ Repository
           </a>
         </nav>
+        {settingsOpen && (
+          <aside className="settings-panel" aria-label="Lint settings">
+            <SettingsPanel />
+          </aside>
+        )}
       </header>
       <main>
         <div className="editor-pane-wrapper">
@@ -124,11 +129,6 @@ export function App() {
           />
         </div>
         <div className="ast-pane-container">
-          {settingsOpen && (
-            <aside className="settings-panel" aria-label="Lint settings">
-              <SettingsPanel />
-            </aside>
-          )}
           <header>
             <TreeConfig />
           </header>

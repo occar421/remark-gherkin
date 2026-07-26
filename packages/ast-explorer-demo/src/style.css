@@ -30,6 +30,8 @@
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --header-height: 52px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -184,9 +186,10 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-height: 52px;
+  min-height: calc(var(--header-height) - 1px);
   padding: 0 20px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .app-title {
@@ -302,20 +305,25 @@ main {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  position: relative;
 }
 
 .settings-panel {
+  --settings-panel-margin: 8px;
+  --settings-panel-padding-vertical: 12px;
+  --settings-panel-border-width: 1px;
+
   position: absolute;
   z-index: 2;
-  top: 8px;
-  right: 8px;
+  top: calc(100% + var(--settings-panel-margin));
+  right: var(--settings-panel-margin);
   width: min(360px, calc(100% - 16px));
-  max-height: min(45vh, calc(100% - 16px));
+  max-height: calc(
+    100vh - var(--header-height) - var(--settings-panel-padding-vertical) -
+      var(--settings-panel-margin) * 3 - var(--settings-panel-border-width) * 2
+  );
   overflow: auto;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  padding: var(--settings-panel-padding-vertical) 16px;
+  border: var(--settings-panel-border-width) solid var(--border);
   background: var(--code-bg);
   box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
 }
