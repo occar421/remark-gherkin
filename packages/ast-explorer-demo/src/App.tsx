@@ -1,43 +1,30 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import { filterNode, findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
+import { findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
 import {
   type CursorPositionChangedEvent,
   type DemoEditorHandle,
   EditorPane,
   type Marker,
 } from "./EditorPane.js";
-import { JsonViewer } from "./JsonViewer.js";
 import { lintContent } from "./lint-utils.js";
 import { useContent } from "./content-hook.ts";
-import { useTreeConfig } from "./useTreeConfig.tsx";
 import { useSettingsPanel } from "./useSettingsPanel.tsx";
+import AstPane from "./AstPane.tsx";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
-  const {
-    hideLocation,
-    hideMethods,
-    hideEmpty,
-    hideType,
-    autofocus,
-    render: TreeConfig,
-  } = useTreeConfig();
   const { lintSettings, render: SettingsPanel } = useSettingsPanel();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [focusPath, setFocusPath] = useState<string[] | undefined>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
-  const { fullAst, ast } = useMemo(() => {
+  const ast = useMemo(() => {
     try {
-      const tree = processor.parse(content);
-      return {
-        fullAst: tree,
-        ast: filterNode(tree, { hideLocation, hideMethods, hideEmpty, hideType }),
-      };
+      return processor.parse(content);
     } catch (err) {
-      return { fullAst: null, ast: { error: String(err) } };
+      return new Error(String(err));
     }
-  }, [content, hideLocation, hideMethods, hideEmpty, hideType]);
+  }, [content]);
 
   const lintMessages = useMemo(() => {
     try {
@@ -49,21 +36,16 @@ export function App() {
 
   const handleChangeCursorPosition = useCallback(
     (e: CursorPositionChangedEvent) => {
-      if (!demoEditor.current || !fullAst) {
+      if (!demoEditor.current || !ast) {
         return;
       }
 
-      if (!autofocus) {
-        setFocusPath(undefined);
-        return;
-      }
-
-      const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
+      const path = findPathAt(ast, e.position.lineNumber, e.position.column);
       if (path) {
         setFocusPath(["root", ...path]);
       }
     },
-    [autofocus, fullAst],
+    [ast],
   );
 
   const markers: Marker[] = lintMessages.map((message) => ({
@@ -75,11 +57,11 @@ export function App() {
   }));
 
   const handleTreeHover = (path: string[]) => {
-    if (!demoEditor.current) {
+    if (!demoEditor.current || Error.isError(ast)) {
       return;
     }
 
-    const position = getPositionAtPath(fullAst!, path.slice(1));
+    const position = getPositionAtPath(ast, path.slice(1));
     demoEditor.current?.setDecorations(position ? [position] : []);
   };
 
@@ -129,17 +111,12 @@ export function App() {
           />
         </div>
         <div className="ast-pane-container">
-          <header>
-            <TreeConfig />
-          </header>
-          <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
-            <JsonViewer
-              data={ast}
-              focusPath={focusPath}
-              onHover={handleTreeHover}
-              onBlur={handleTreeBlur}
-            />
-          </div>
+          <AstPane
+            ast={ast}
+            focusPath={focusPath}
+            onHover={handleTreeHover}
+            onBlur={handleTreeBlur}
+          />
         </div>
       </main>
     </div>
