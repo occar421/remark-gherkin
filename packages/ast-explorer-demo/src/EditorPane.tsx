@@ -67,6 +67,9 @@ export function EditorPane({
   const editor = useRef<IStandaloneCodeEditor>(null);
   const monaco = useRef<Monaco>(null);
   const decorations = useRef<{ clear: () => void }>(null);
+  const cursorPositionListener = useRef<{ dispose: () => void }>(null);
+  const onDidChangeCursorPositionRef = useRef(onDidChangeCursorPosition);
+  onDidChangeCursorPositionRef.current = onDidChangeCursorPosition;
 
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -93,11 +96,16 @@ export function EditorPane({
     }
   }, [markers]);
 
-  const handleDidMount = useCallback<OnMount>((e, m) => {
-    editor.current = e;
-    monaco.current = m;
+  const handleDidMount = useCallback<OnMount>((editor_, monaco_) => {
+    editor.current = editor_;
+    monaco.current = monaco_;
 
     showMarkers();
+
+    cursorPositionListener.current?.dispose();
+    cursorPositionListener.current = editor_.onDidChangeCursorPosition((e) => {
+      onDidChangeCursorPositionRef.current?.(e);
+    });
   }, []);
 
   const handleReset = useCallback(() => {
@@ -116,15 +124,11 @@ export function EditorPane({
   }, [onChange, defaultContent]);
 
   useEffect(() => {
-    const disposal = editor.current?.onDidChangeCursorPosition((e) => {
-      onDidChangeCursorPosition?.(e);
-    });
-    return () => disposal?.dispose();
-  }, [onDidChangeCursorPosition]);
-
-  useEffect(() => {
     showMarkers();
   }, [markers]);
+
+  // unmount of this component
+  useEffect(() => () => cursorPositionListener.current?.dispose(), []);
 
   useImperativeHandle(ref, () => ({
     setDecorations(ranges: MarkerRange[]) {

@@ -47,14 +47,19 @@ export function App() {
     }
   }, [content, lintSettings]);
 
-  const handleChangeCursorPosition = useCallback((e: CursorPositionChangedEvent) => {
-    if (!demoEditor.current || !autofocus || !fullAst) {
-      return;
-    }
+  const handleChangeCursorPosition = useCallback(
+    (e: CursorPositionChangedEvent) => {
+      if (!demoEditor.current || !autofocus || !fullAst) {
+        return;
+      }
 
-    const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
-    if (path) setActivePath(["root", ...path]);
-  }, []);
+      const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
+      if (path) {
+        setActivePath(["root", ...path]);
+      }
+    },
+    [autofocus, fullAst],
+  );
 
   const markers: Marker[] = lintMessages.map((message) => ({
     range: transformRange(message.place),

@@ -30,10 +30,15 @@ export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Pr
   }, [isParent]);
 
   if (!isObject) {
-    let typeClass = "json-view-number";
-    if (typeof value === "string") typeClass = "json-view-string";
-    if (typeof value === "boolean") typeClass = "json-view-boolean";
-    if (value === null) typeClass = "json-view-null";
+    const typeClass =
+      value === null
+        ? "json-view-null"
+        : typeof value === "boolean"
+          ? "json-view-boolean"
+          : typeof value === "string"
+            ? "json-view-string"
+            : "json-view-number";
+
     return (
       <div
         className={`json-view-item ${isExact ? "json-view-active" : ""}`}
