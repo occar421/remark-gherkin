@@ -25,9 +25,20 @@ export function App() {
     }
   }, [content]);
 
-  const lintMessages = useMemo(() => {
+  const markers = useMemo(() => {
     try {
-      return lintContent(content, lintSettings);
+      const messages = lintContent(content, lintSettings);
+
+      return messages.map(
+        (message) =>
+          ({
+            range: transformRange(message.place),
+            ruleId: message.ruleId ?? "",
+            source: message.source ?? "",
+            reason: message.reason,
+            fatal: !!message.fatal,
+          }) as Marker,
+      );
     } catch {
       return [];
     }
@@ -46,14 +57,6 @@ export function App() {
     },
     [ast],
   );
-
-  const markers: Marker[] = lintMessages.map((message) => ({
-    range: transformRange(message.place),
-    ruleId: message.ruleId ?? "",
-    source: message.source ?? "",
-    reason: message.reason,
-    fatal: !!message.fatal,
-  }));
 
   const handleTreeHover = (path: string[]) => {
     if (!demoEditor.current || Error.isError(ast)) {

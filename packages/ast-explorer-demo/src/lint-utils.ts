@@ -1,9 +1,7 @@
-import { type Preset, type Plugin, unified } from "unified";
-import remarkGfm from "remark-gfm";
+import { type Preset, type Plugin } from "unified";
 import remarkLint from "remark-lint";
-import remarkParse from "remark-parse";
-import remarkGherkin from "remark-gherkin";
 import remarkPresetLintGherkinLint from "remark-preset-lint-gherkin-lint";
+import { processor } from "./ast-utils.ts";
 import { VFile } from "vfile";
 
 export const lintRuleNames = [
@@ -53,8 +51,6 @@ export function getLintRuleLabel(name: LintRuleName) {
 
 export function lintContent(content: string, settings: LintSettings) {
   const file = new VFile({ value: content });
-  const processor = unified().use(remarkParse).use(remarkGfm).use(remarkGherkin);
-
   if (settings.preset) {
     processor.use(remarkPresetLintGherkinLint as Preset);
   } else {
