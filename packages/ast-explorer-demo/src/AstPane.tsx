@@ -7,10 +7,10 @@ import type { Root } from "mdast";
 type Props = {
   ast: Root | Error;
   focusPath: string[] | undefined;
-  onHover: (path: string[]) => void;
-  onBlur: () => void;
+  onTreeHover: (path: string[]) => void;
+  onTreeBlur: () => void;
 };
-export default function AstPane({ ast, focusPath, onHover, onBlur }: Props) {
+export default function AstPane({ ast, focusPath, onTreeHover, onTreeBlur }: Props) {
   const {
     hideLocation,
     hideMethods,
@@ -37,8 +37,8 @@ export default function AstPane({ ast, focusPath, onHover, onBlur }: Props) {
         <JsonViewer
           data={filteredAst}
           focusPath={autofocus ? focusPath : undefined}
-          onHover={onHover}
-          onBlur={onBlur}
+          onHover={onTreeHover}
+          onBlur={onTreeBlur}
         />
       </div>
     </div>

@@ -80,8 +80,8 @@ export function App() {
           <AstPane
             ast={ast}
             focusPath={focusPath}
-            onHover={handleTreeHover}
-            onBlur={handleTreeBlur}
+            onTreeHover={handleTreeHover}
+            onTreeBlur={handleTreeBlur}
           />
         </div>
       </main>
