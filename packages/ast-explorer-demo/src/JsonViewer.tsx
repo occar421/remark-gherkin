@@ -1,7 +1,7 @@
 import { JsonItem } from "./JsonItem.js";
 
 type Props = {
-  data: object | Node | object[];
+  data: object | object[];
   focusPath?: string[];
   onHover: (path: string[]) => void;
   onBlur: () => void;

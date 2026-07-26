@@ -68,8 +68,8 @@ export function findPathAt(
   line: number,
   column: number,
   currentPath: string[] = [],
-): string[] | null {
-  if (!node || typeof node !== "object") return null;
+): string[] | undefined {
+  if (!node || typeof node !== "object") return undefined;
 
   if ("position" in node && node.position) {
     const { start, end } = node.position;
@@ -79,7 +79,7 @@ export function findPathAt(
       (line === start.line && column < start.column) ||
       (line === end.line && column > end.column)
     ) {
-      return null;
+      return undefined;
     }
   }
 
@@ -100,22 +100,22 @@ export function findPathAt(
     return currentPath;
   }
 
-  return null;
+  return undefined;
 }
 
-export function getNodeAtPath(node: Node, path: string[]): Node | null {
+export function getNodeAtPath(node: Node, path: string[]): Node | undefined {
   let current = node;
   for (const part of path) {
-    if (current === null || current === undefined) return null;
+    if (current === null || current === undefined) return undefined;
     current = current[part as keyof typeof current] as unknown as Node;
   }
   return current;
 }
 
-export function getPositionAtPath(node: Node, path: string[]): Position | null {
+export function getPositionAtPath(node: Node, path: string[]): Position | undefined {
   for (let length = path.length; length >= 0; length--) {
     const candidate = getNodeAtPath(node, path.slice(0, length));
     if (candidate?.position) return candidate.position;
   }
-  return null;
+  return undefined;
 }
