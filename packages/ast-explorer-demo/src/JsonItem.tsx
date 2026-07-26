@@ -6,28 +6,42 @@ type Props = {
   label: string;
   value: unknown;
   path: string[];
-  activePath: string[] | null;
+  focusPath?: string[];
   onHover?: (path: string[]) => void;
   onBlur?: () => void;
 };
 
-export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Props) {
-  const [collapsed, setCollapsed] = useState(
-    path.length !== 1 && path[path.length - 1] !== "children",
-  );
+export function JsonItem({ label, value, path, focusPath, onHover, onBlur }: Props) {
   const isObject = value !== null && typeof value === "object";
   const pathStr = path.join(".");
-  const activePathStr = activePath?.join(".");
+  const activePathStr = focusPath?.join(".");
+
+  const shouldFocus = !!activePathStr;
   const isExact = activePathStr === pathStr;
-  const isParent = activePathStr?.startsWith(pathStr + ".");
+  const isParent = !!activePathStr?.startsWith(pathStr + ".");
+  const isChildren = `${activePathStr}.children` === pathStr;
+
+  const [collapsed, setCollapsed] = useState(!!activePathStr);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isExact && ref.current) ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [isExact]);
+    if (shouldFocus && isExact && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      setCollapsed(false);
+    }
+  }, [isExact, shouldFocus]);
+
   useEffect(() => {
-    if (isParent) setCollapsed(false);
-  }, [isParent]);
+    if (!shouldFocus) {
+      return;
+    }
+
+    if (isParent || isExact || isChildren) {
+      setCollapsed(false);
+    } else {
+      setCollapsed(true);
+    }
+  }, [isParent, isExact, isChildren, shouldFocus]);
 
   if (!isObject) {
     const typeClass =
@@ -88,7 +102,7 @@ export function JsonItem({ label, value, path, activePath, onHover, onBlur }: Pr
                 label={getItemLabel(key, val)}
                 value={val}
                 path={[...path, key]}
-                activePath={activePath}
+                focusPath={focusPath}
                 onHover={onHover}
                 onBlur={onBlur}
               />

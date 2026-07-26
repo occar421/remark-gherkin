@@ -24,7 +24,7 @@ export function App() {
   } = useTreeConfig();
   const { lintSettings, render: SettingsPanel } = useSettingsPanel();
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [activePath, setActivePath] = useState<string[] | null>(null);
+  const [focusPath, setFocusPath] = useState<string[] | undefined>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
   const { fullAst, ast } = useMemo(() => {
@@ -49,13 +49,18 @@ export function App() {
 
   const handleChangeCursorPosition = useCallback(
     (e: CursorPositionChangedEvent) => {
-      if (!demoEditor.current || !autofocus || !fullAst) {
+      if (!demoEditor.current || !fullAst) {
+        return;
+      }
+
+      if (!autofocus) {
+        setFocusPath(undefined);
         return;
       }
 
       const path = findPathAt(fullAst, e.position.lineNumber, e.position.column);
       if (path) {
-        setActivePath(["root", ...path]);
+        setFocusPath(["root", ...path]);
       }
     },
     [autofocus, fullAst],
@@ -130,7 +135,7 @@ export function App() {
           <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
             <JsonViewer
               data={ast}
-              activePath={activePath}
+              focusPath={focusPath}
               onHover={handleTreeHover}
               onBlur={handleTreeBlur}
             />

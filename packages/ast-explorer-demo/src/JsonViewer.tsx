@@ -2,19 +2,19 @@ import { JsonItem } from "./JsonItem.js";
 
 type Props = {
   data: object | Node | object[];
-  activePath: string[] | null;
+  focusPath?: string[];
   onHover: (path: string[]) => void;
   onBlur: () => void;
 };
 
-export function JsonViewer({ data, activePath, onHover, onBlur }: Props) {
+export function JsonViewer({ data, focusPath, onHover, onBlur }: Props) {
   return (
     <div className="json-view-container">
       <JsonItem
         label="root"
         value={data}
         path={["root"]}
-        activePath={activePath}
+        focusPath={focusPath}
         onHover={onHover}
         onBlur={onBlur}
       />
