@@ -60,7 +60,7 @@ body {
 
 h1,
 h2 {
-  font-family: var(--heading);
+  font-family: var(--heading), serif;
   font-weight: 500;
   color: var(--text-h);
 }
@@ -89,7 +89,7 @@ p {
 
 code,
 .counter {
-  font-family: var(--mono);
+  font-family: var(--mono), monospace;
   display: inline-flex;
   border-radius: 4px;
   color: var(--text-h);
@@ -376,7 +376,7 @@ main {
 
 /* JSON View Custom Theme */
 .json-view-container {
-  font-family: var(--mono);
+  font-family: var(--mono), monospace;
   font-size: 13px;
   line-height: 1.6;
 }
