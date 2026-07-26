@@ -10,7 +10,7 @@
   --social-bg: rgba(245, 245, 245, 0.5); /* editorWidget.background */
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px; /* editor.background */
-  --json-label: #9e880d; /* decorator */
+  --json-label: #0033b3; /* XML Tags foreground */
   --json-string: #067d17; /* string */
   --json-number: #1750eb; /* number */
   --json-punctuation: #080808; /* operator */
@@ -42,7 +42,7 @@
     --accent: #56a8f5; /* function.declaration */
     --accent-bg: #2b2d30; /* input.background */
     --accent-border: #3794ff; /* textLink.foreground */
-    --json-label: #b3ae60; /* decorator */
+    --json-label: #d5b778; /* XML Tags foreground */
     --json-string: #6aab73; /* string */
     --json-number: #2aacb8; /* number */
     --json-punctuation: #bcbec4; /* operator */
@@ -389,14 +389,6 @@ main {
   text-align: center;
 }
 
-.json-view-collapse {
-  color: var(--json-collapse);
-}
-
-.json-view-expand {
-  color: var(--json-expand);
-}
-
 .json-view-label {
   cursor: pointer;
 }
@@ -411,39 +403,37 @@ main {
   margin-left: 7px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .json-view-label {
-    color: var(--json-label);
-  }
+.json-view-label {
+  color: var(--json-label);
+}
 
-  .json-view-string {
-    color: var(--json-string);
-  }
+.json-view-string {
+  color: var(--json-string);
+}
 
-  .json-view-number,
-  .json-view-boolean {
-    color: var(--json-number);
-  }
+.json-view-number,
+.json-view-boolean {
+  color: var(--json-number);
+}
 
-  .json-view-punctuation {
-    color: var(--json-punctuation);
+.json-view-punctuation {
+  color: var(--json-punctuation);
 
-    &.end {
-      margin-left: 7px;
-    }
+  &.end {
+    margin-left: 7px;
   }
+}
 
-  .json-view-null {
-    color: var(--json-null);
-  }
+.json-view-null {
+  color: var(--json-null);
+}
 
-  .json-view-collapse {
-    color: var(--json-collapse);
-  }
+.json-view-collapse {
+  color: var(--json-collapse);
+}
 
-  .json-view-expand {
-    color: var(--json-expand);
-  }
+.json-view-expand {
+  color: var(--json-expand);
 }
 
 @media (max-width: 768px) {
