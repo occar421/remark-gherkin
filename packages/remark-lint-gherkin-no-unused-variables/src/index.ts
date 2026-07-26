@@ -59,10 +59,17 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
         lastIndex = parent.children.indexOf(examplesTableNode);
       }
 
-      // Report unused variables
+      // Report variables defined in Examples but not used in the outline
       exampleParameter.forEach((variable) => {
         if (!delimitedParameter.has(variable)) {
-          file.message(`Unused variable: '<${variable}>'`, scenarioOutlineNode);
+          file.message(`Unused variable in Examples: '<${variable}>'`, scenarioOutlineNode);
+        }
+      });
+
+      // Report variables used in the outline but not defined in Examples
+      delimitedParameter.forEach((variable) => {
+        if (!exampleParameter.has(variable)) {
+          file.message(`Unused variable in Outline: '<${variable}>'`, scenarioOutlineNode);
         }
       });
     });
