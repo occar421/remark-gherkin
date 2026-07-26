@@ -36,7 +36,9 @@ const remarkLintGherkinNoSuperfluousTags = lintRule<Root>(
 
 function getTagsBefore(tree: Root, node: GherkinSegmentLine): string[] {
   const index = tree.children.indexOf(node);
-  if (index <= 0) return [];
+  if (index <= 0) {
+    return [];
+  }
 
   const previous = tree.children[index - 1];
   if (testGherkinNode("tagLine")(previous)) {
@@ -57,11 +59,15 @@ function checkSuperfluous(
   node: GherkinSegmentLine,
   file: VFile,
 ) {
-  if (currentTags.length === 0 || parentTags.length === 0) return;
+  if (currentTags.length === 0 || parentTags.length === 0) {
+    return;
+  }
 
   const index = tree.children.indexOf(node);
   const tagLine = tree.children[index - 1];
-  if (!testGherkinNode("tagLine")(tagLine)) return;
+  if (!testGherkinNode("tagLine")(tagLine)) {
+    return;
+  }
 
   const parentTagsSet = new Set(parentTags);
 

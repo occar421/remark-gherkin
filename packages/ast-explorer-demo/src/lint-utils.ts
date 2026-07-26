@@ -60,7 +60,9 @@ export function lintContent(content: string, settings: LintSettings) {
   } else {
     processor.use(remarkLint);
     lintPlugins.forEach((plugin, index) => {
-      if (settings[lintRuleNames[index]]) processor.use(plugin as Plugin);
+      if (settings[lintRuleNames[index]]) {
+        processor.use(plugin as Plugin);
+      }
     });
   }
 

@@ -40,7 +40,9 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
     const check = (node: Node, text: string, label: string) => {
       const regexes = patternsMap.get(label);
       const originalPatterns = options[label as keyof RestrictedPatterns];
-      if (!regexes || !originalPatterns) return;
+      if (!regexes || !originalPatterns) {
+        return;
+      }
 
       regexes.forEach((regex, index) => {
         if (regex.test(text!)) {
@@ -54,7 +56,9 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
 
     visit(tree, testGherkinNode("segmentLine"), (node) => {
       const text = getSegmentName(node);
-      if (!text) return;
+      if (!text) {
+        return;
+      }
 
       check(node, text, "Global");
       check(node, text, node.data.gherkin.segmentKeyword);
@@ -62,7 +66,9 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
 
     visit(tree, testGherkinNode("stepLine"), (node) => {
       const text = getStepName(node);
-      if (!text) return;
+      if (!text) {
+        return;
+      }
 
       check(node, text, "Global");
       check(node, text, "Step");
@@ -70,7 +76,9 @@ const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>
 
     visit(tree, testGherkinNode("description"), (node) => {
       const text = toString(node);
-      if (!text) return;
+      if (!text) {
+        return;
+      }
 
       check(node, text, "Global");
       check(node, text, "Description");

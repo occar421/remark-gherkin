@@ -15,7 +15,9 @@ const remarkLintGherkinNoDupeFeatureNames = lintRule<Root>(
     visit(tree, testGherkinNode("segmentLine"), (node) => {
       if (node.data.gherkin.segmentKeyword === "Feature") {
         const name = getSegmentName(node);
-        if (name === undefined) return;
+        if (name === undefined) {
+          return;
+        }
 
         if (names.has(name)) {
           file.message(`Feature name "${name}" is already used`, node);

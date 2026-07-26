@@ -24,9 +24,15 @@ function filterNodeInner(node: RecursiveNodeInner, options: Options): RecursiveN
     const filtered = node.map((n) => filterNodeInner(n, options));
     return options.hideEmpty
       ? filtered.filter((item) => {
-          if (item === null || item === undefined) return false;
-          if (Array.isArray(item)) return item.length > 0;
-          if (typeof item === "object") return Object.keys(item).length > 0;
+          if (item === null || item === undefined) {
+            return false;
+          }
+          if (Array.isArray(item)) {
+            return item.length > 0;
+          }
+          if (typeof item === "object") {
+            return Object.keys(item).length > 0;
+          }
           return true;
         })
       : filtered;
@@ -38,24 +44,37 @@ function filterNodeInner(node: RecursiveNodeInner, options: Options): RecursiveN
 
   const result: Record<string, {}> = {};
   for (const key in node) {
-    if (options.hideLocation && key === "position") continue;
-    if (options.hideType && key === "type") continue;
+    if (options.hideLocation && key === "position") {
+      continue;
+    }
+    if (options.hideType && key === "type") {
+      continue;
+    }
 
     const value = node[key];
-    if (!value) continue;
-    if (options.hideMethods && typeof value === "function") continue;
+    if (!value) {
+      continue;
+    }
+    if (options.hideMethods && typeof value === "function") {
+      continue;
+    }
 
     const filteredValue = filterNodeInner(value, options);
 
     if (options.hideEmpty) {
-      if (filteredValue === null || filteredValue === undefined) continue;
-      if (Array.isArray(filteredValue) && filteredValue.length === 0) continue;
+      if (filteredValue === null || filteredValue === undefined) {
+        continue;
+      }
+      if (Array.isArray(filteredValue) && filteredValue.length === 0) {
+        continue;
+      }
       if (
         typeof filteredValue === "object" &&
         Object.keys(filteredValue).length === 0 &&
         !(filteredValue instanceof Date)
-      )
+      ) {
         continue;
+      }
     }
 
     result[key] = filteredValue;
@@ -69,7 +88,9 @@ export function findPathAt(
   column: number,
   currentPath: string[] = [],
 ): string[] | undefined {
-  if (!node || typeof node !== "object") return undefined;
+  if (!node || typeof node !== "object") {
+    return undefined;
+  }
 
   if ("position" in node && node.position) {
     const { start, end } = node.position;
@@ -86,13 +107,19 @@ export function findPathAt(
   if (Array.isArray(node)) {
     for (let i = 0; i < node.length; i++) {
       const p = findPathAt(node[i], line, column, [...currentPath, String(i)]);
-      if (p) return p;
+      if (p) {
+        return p;
+      }
     }
   } else {
     for (const key in node) {
-      if (key === "position") continue;
+      if (key === "position") {
+        continue;
+      }
       const p = findPathAt(node[key as keyof typeof node], line, column, [...currentPath, key]);
-      if (p) return p;
+      if (p) {
+        return p;
+      }
     }
   }
 
@@ -106,7 +133,9 @@ export function findPathAt(
 export function getNodeAtPath(node: Node, path: string[]): Node | undefined {
   let current = node;
   for (const part of path) {
-    if (current === null || current === undefined) return undefined;
+    if (current === null || current === undefined) {
+      return undefined;
+    }
     current = current[part as keyof typeof current] as unknown as Node;
   }
   return current;
@@ -115,7 +144,9 @@ export function getNodeAtPath(node: Node, path: string[]): Node | undefined {
 export function getPositionAtPath(node: Node, path: string[]): Position | undefined {
   for (let length = path.length; length >= 0; length--) {
     const candidate = getNodeAtPath(node, path.slice(0, length));
-    if (candidate?.position) return candidate.position;
+    if (candidate?.position) {
+      return candidate.position;
+    }
   }
   return undefined;
 }

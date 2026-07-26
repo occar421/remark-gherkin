@@ -88,7 +88,9 @@ describe("logic", () => {
   test("lintContent should respect individual rule settings", () => {
     const settings = { ...defaultLintSettings };
     settings.preset = false;
-    for (const name of lintRuleNames) settings[name] = false;
+    for (const name of lintRuleNames) {
+      settings[name] = false;
+    }
 
     expect(lintContent("# Feature:\n", settings)).toHaveLength(0);
     expect(getLintRuleLabel("remark-lint-gherkin-no-unnamed-features")).toBe("no-unnamed-features");
@@ -96,7 +98,9 @@ describe("logic", () => {
 
   test("preset should run all rules regardless of child settings", () => {
     const settings = { ...defaultLintSettings, preset: true };
-    for (const name of lintRuleNames) settings[name] = false;
+    for (const name of lintRuleNames) {
+      settings[name] = false;
+    }
 
     expect(lintContent("# Feature:\n", settings).length).toBeGreaterThan(0);
   });

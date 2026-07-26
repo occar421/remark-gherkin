@@ -74,7 +74,9 @@ type Rule = Parameters<typeof lintRule>[1];
 type VFile = Parameters<Rule>[1];
 
 const checkHomogenous = (file: VFile, scenarios: ScenarioInfo[]) => {
-  if (scenarios.length <= 1) return;
+  if (scenarios.length <= 1) {
+    return;
+  }
 
   const tagCounts = new Map<string, number>();
   for (const scenario of scenarios) {

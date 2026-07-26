@@ -12,6 +12,7 @@
   "type": "module",
   "scripts": {
     "ready": "vp run -r ready",
+    "check-fix": "vp run -r check --fix",
     "prepare": "vp config",
     "release": "pnpm publish -r --no-git-checks",
     "version": "changeset version",

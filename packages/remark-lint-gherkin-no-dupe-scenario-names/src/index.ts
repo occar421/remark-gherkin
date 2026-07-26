@@ -24,7 +24,9 @@ const remarkLintGherkinNoDupeScenarioNames = lintRule<Root, Options>(
         case "Scenario":
         case "ScenarioOutline":
           const name = getSegmentName(node);
-          if (name === undefined) return;
+          if (name === undefined) {
+            return;
+          }
 
           if (names.has(name)) {
             file.message(`Scenario name "${name}" is already used`, node);

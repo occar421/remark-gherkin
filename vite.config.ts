@@ -20,6 +20,7 @@ export default defineConfig({
     rules: {
       "typescript/no-explicit-any": "error",
       "react/exhaustive-deps": "error",
+      "eslint/curly": "error",
     },
     overrides: [
       {

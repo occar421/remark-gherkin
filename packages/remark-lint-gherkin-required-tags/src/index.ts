@@ -66,7 +66,9 @@ const remarkLintGherkinRequiredTags = lintRule<Root, Options>(
 
 function getTagsBefore(tree: Root, node: GherkinSegmentLine): GherkinTag[] {
   const index = tree.children.indexOf(node);
-  if (index <= 0) return [];
+  if (index <= 0) {
+    return [];
+  }
 
   const previous = tree.children[index - 1];
   if (testGherkinNode("tagLine")(previous)) {
