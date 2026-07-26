@@ -1,7 +1,7 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import type { Node, Root } from "mdast";
+import type { Root, GherkinDelimitedParameter, GherkinExampleParameter } from "mdast";
 import { testGherkinNode } from "mdast-util-gherkin";
 import { findAfter } from "unist-util-find-after";
 import { findBetween } from "unist-util-find-between";
@@ -21,8 +21,8 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
         return;
       }
 
-      const delimitedParameter = new Map<string, Node>();
-      const exampleParameter = new Map<string, Node>();
+      const delimitedParameter = new Map<string, GherkinDelimitedParameter>();
+      const exampleParameter = new Map<string, GherkinExampleParameter>();
 
       const firstExamplesNode = findAfter(
         parent,
@@ -62,9 +62,22 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
       // Report variables defined in Examples but not used in the outline
       exampleParameter.forEach((_node, variable) => {
         if (!delimitedParameter.has(variable)) {
+          const paramNode = exampleParameter.get(variable);
+
+          const minStartPosition = getMinStartPosition(paramNode);
+          const maxEndPosition = getMaxEndPosition(paramNode);
+
           file.message(
             `Unused variable in Examples: '${variable}'`,
-            exampleParameter.get(variable),
+            minStartPosition && maxEndPosition
+              ? {
+                  type: "",
+                  position: {
+                    start: minStartPosition,
+                    end: maxEndPosition,
+                  },
+                }
+              : undefined,
           );
         }
       });
@@ -81,5 +94,65 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
     });
   },
 );
+
+type Position = {
+  line: number;
+  column: number;
+  offset?: number;
+};
+
+function getMinStartPosition(node?: GherkinExampleParameter): Position | undefined {
+  if (!node) {
+    return undefined;
+  }
+
+  return node.children.reduce(
+    (prev, curr) => {
+      const currStart = curr.position?.start;
+
+      if (!prev?.offset) {
+        return currStart;
+      }
+
+      if (!currStart?.offset) {
+        return prev;
+      }
+
+      return prev.offset > currStart.offset ? currStart : prev;
+    },
+    {
+      line: Number.MAX_SAFE_INTEGER,
+      column: Number.MAX_SAFE_INTEGER,
+      offset: Number.MAX_SAFE_INTEGER,
+    } as Position | undefined,
+  );
+}
+
+function getMaxEndPosition(node?: GherkinExampleParameter): Position | undefined {
+  if (!node) {
+    return undefined;
+  }
+
+  return node.children.reduce(
+    (prev, curr) => {
+      const currEnd = curr.position?.end;
+
+      if (!prev?.offset) {
+        return currEnd;
+      }
+
+      if (!currEnd?.offset) {
+        return prev;
+      }
+
+      return prev.offset < currEnd.offset ? currEnd : prev;
+    },
+    {
+      line: Number.MIN_SAFE_INTEGER,
+      column: Number.MIN_SAFE_INTEGER,
+      offset: Number.MIN_SAFE_INTEGER,
+    } as Position | undefined,
+  );
+}
 
 export default remarkLintGherkinNoUnusedVariables;
