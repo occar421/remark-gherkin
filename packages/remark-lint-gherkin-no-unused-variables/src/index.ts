@@ -1,7 +1,7 @@
 import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import type { Root } from "mdast";
+import type { Node, Root } from "mdast";
 import { testGherkinNode } from "mdast-util-gherkin";
 import { findAfter } from "unist-util-find-after";
 import { findBetween } from "unist-util-find-between";
@@ -21,8 +21,8 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
         return;
       }
 
-      const delimitedParameter = new Set<string>();
-      const exampleParameter = new Set<string>();
+      const delimitedParameter = new Map<string, Node>();
+      const exampleParameter = new Map<string, Node>();
 
       const firstExamplesNode = findAfter(
         parent,
@@ -35,8 +35,8 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
 
       const outlineContents = findBetween(parent, scenarioOutlineNode, firstExamplesNode);
       for (const child of outlineContents) {
-        visit(child, testGherkinNode("delimitedParameter"), (stepNode) => {
-          delimitedParameter.add(stepNode.data.gherkin.ident);
+        visit(child, testGherkinNode("delimitedParameter"), (paramNode) => {
+          delimitedParameter.set(paramNode.data.gherkin.ident, paramNode);
         });
       }
 
@@ -52,24 +52,30 @@ const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
           break;
         }
 
-        visit(examplesTableNode, testGherkinNode("exampleParameter"), (exampleParameterNode) => {
-          exampleParameter.add(exampleParameterNode.data.gherkin.ident);
+        visit(examplesTableNode, testGherkinNode("exampleParameter"), (paramNode) => {
+          exampleParameter.set(paramNode.data.gherkin.ident, paramNode);
         });
 
         lastIndex = parent.children.indexOf(examplesTableNode);
       }
 
       // Report variables defined in Examples but not used in the outline
-      exampleParameter.forEach((variable) => {
+      exampleParameter.forEach((_node, variable) => {
         if (!delimitedParameter.has(variable)) {
-          file.message(`Unused variable in Examples: '<${variable}>'`, scenarioOutlineNode);
+          file.message(
+            `Unused variable in Examples: '<${variable}>'`,
+            exampleParameter.get(variable),
+          );
         }
       });
 
       // Report variables used in the outline but not defined in Examples
-      delimitedParameter.forEach((variable) => {
+      delimitedParameter.forEach((_node, variable) => {
         if (!exampleParameter.has(variable)) {
-          file.message(`Unused variable in Outline: '<${variable}>'`, scenarioOutlineNode);
+          file.message(
+            `Unused variable in Outline: '<${variable}>'`,
+            delimitedParameter.get(variable),
+          );
         }
       });
     });

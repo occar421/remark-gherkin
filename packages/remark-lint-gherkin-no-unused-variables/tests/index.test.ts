@@ -49,9 +49,9 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Unused variable in Examples: '<variable2>'");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unused-variables");
-    expect(file.messages[0].place).toEqual({
-      start: { line: 3, column: 1, offset: 25 },
-      end: { line: 3, column: 43, offset: 67 },
+    expect(file.messages[0].place).toMatchObject({
+      start: { line: 8, column: 15 },
+      end: { line: 8, column: 28 },
     });
   });
 
@@ -71,6 +71,10 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Unused variable in Outline: '<variable2>'");
     expect(file.messages[0].ruleId).toBe("gherkin-no-unused-variables");
+    expect(file.messages[0].place).toMatchObject({
+      start: { line: 5, column: 14 },
+      end: { line: 5, column: 25 },
+    });
   });
 
   test("Should report variables unused in either direction", () => {
@@ -123,14 +127,14 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
 `);
     expect(file.messages).toHaveLength(2);
     expect(file.messages[0].message).toBe("Unused variable in Examples: '<variable2>'");
-    expect(file.messages[1].message).toBe("Unused variable in Examples: '<variable4>'");
-    expect(file.messages[0].place).toEqual({
-      start: { line: 3, column: 1, offset: 25 },
-      end: { line: 3, column: 43, offset: 67 },
+    expect(file.messages[0].place).toMatchObject({
+      start: { line: 8, column: 15 },
+      end: { line: 8, column: 28 },
     });
-    expect(file.messages[1].place).toEqual({
-      start: { line: 3, column: 1, offset: 25 },
-      end: { line: 3, column: 43, offset: 67 },
+    expect(file.messages[1].message).toBe("Unused variable in Examples: '<variable4>'");
+    expect(file.messages[1].place).toMatchObject({
+      start: { line: 13, column: 15 },
+      end: { line: 13, column: 28 },
     });
   });
 
@@ -150,9 +154,9 @@ suite("remark-lint-gherkin-no-unused-variables", () => {
 `);
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Unused variable in Examples: '<param4>'");
-    expect(file.messages[0].place).toEqual({
-      start: { line: 3, column: 1, offset: 25 },
-      end: { line: 3, column: 43, offset: 67 },
+    expect(file.messages[0].place).toMatchObject({
+      start: { line: 9, column: 30 },
+      end: { line: 9, column: 40 },
     });
   });
 });
