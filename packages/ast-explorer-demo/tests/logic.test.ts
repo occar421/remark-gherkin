@@ -12,6 +12,7 @@ import {
   getLintRuleLabel,
   lintContent,
   lintRuleNames,
+  normalizeLintOptions,
 } from "../src/lib/lint-utils.js";
 
 const gherkin = `# Feature: Hello
@@ -103,5 +104,52 @@ describe("logic", () => {
     }
 
     expect(lintContent("# Feature:\n", settings).length).toBeGreaterThan(0);
+  });
+
+  test("normalizes empty and invalid rule options safely", () => {
+    expect(
+      normalizeLintOptions("remark-lint-gherkin-allowed-tags", {
+        tags: [" @smoke ", ""],
+        patterns: ["[", "^@ok$"],
+      }),
+    ).toEqual({
+      tags: ["@smoke"],
+      patterns: ["^@ok$"],
+    });
+    expect(
+      normalizeLintOptions("remark-lint-gherkin-name-length", { Feature: -1, Scenario: 20 }),
+    ).toEqual({ Scenario: 20 });
+    expect(
+      normalizeLintOptions("remark-lint-gherkin-no-dupe-scenario-names", "invalid" as never),
+    ).toBeUndefined();
+  });
+
+  test("passes individual rule options to lint", () => {
+    const settings = {
+      ...defaultLintSettings,
+      preset: false,
+      options: {
+        "remark-lint-gherkin-name-length": { Feature: 3 },
+      },
+    };
+    for (const name of lintRuleNames) {
+      settings[name] = name === "remark-lint-gherkin-name-length";
+    }
+
+    expect(() => lintContent("# Feature: Long\n", settings)).not.toThrow();
+  });
+
+  test("keeps preset behavior independent from individual options", () => {
+    const base = { ...defaultLintSettings, preset: true };
+    const changed = { ...base, options: { "remark-lint-gherkin-name-length": { Feature: 0 } } };
+    expect(
+      lintContent("# Feature: A reasonably long feature name\n", changed).map(
+        (message) => message.ruleId,
+      ),
+    ).toEqual(
+      lintContent("# Feature: A reasonably long feature name\n", base).map(
+        (message) => message.ruleId,
+      ),
+    );
   });
 });
