@@ -6,8 +6,8 @@ sessionId: session-260811-010116-1u33
 
 ### 目的
 
-- [ ] `packages/ast-explorer-demo` の Lint 設定画面で、各 Gherkin lint rule が公開している option を rule 単位で設定できるようにする。
-- [ ] 設定値をリアルタイム lint に反映し、入力を変更すると Monaco の marker が更新されるようにする。
+- [x] `packages/ast-explorer-demo` の Lint 設定画面で、各 Gherkin lint rule が公開している option を rule 単位で設定できるようにする。
+- [x] 設定値をリアルタイム lint に反映し、入力を変更すると Monaco の marker が更新されるようにする。
 
 ### 対象範囲
 
@@ -74,8 +74,8 @@ sessionId: session-260811-010116-1u33
 - [ ] preset 有効時に個別 option/checkbox を変更しても preset の結果が変わらないことを確認する。
 - [ ] preset 無効時に全 rule を無効化した場合に警告が出ない既存テストを維持する。
 - [ ] 空欄、空行、無効な数値、無効な正規表現などの入力で例外を投げず、lint が継続または明示的な設定エラーになることを確認する。
-- [ ] demo package で `vp check`、`vp test`、`vp build` を実行し、Oxlint/Oxfmt、TypeScript、Vitest、Vite build を通過させる。
-- [ ] 差分に `packages/remark-preset-lint-gherkin-lint` 配下の変更が含まれていないことを確認する。
+- [x] demo package で `vp check`、`vp test`、`vp build` を実行し、Oxlint/Oxfmt、TypeScript、Vitest、Vite build を通過させる。
+- [x] 差分に `packages/remark-preset-lint-gherkin-lint` 配下の変更が含まれていないことを確認する。
 
 # Delivery Steps
 
