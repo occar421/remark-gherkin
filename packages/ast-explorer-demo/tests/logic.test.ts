@@ -136,15 +136,26 @@ describe("logic", () => {
       settings[name] = name === "remark-lint-gherkin-name-length";
     }
 
-    expect(() => lintContent("# Feature: Long\n", settings)).not.toThrow();
+    const messages = lintContent("# Feature: Long\n", settings);
+
+    expect(messages).toContainEqual(
+      expect.objectContaining({
+        ruleId: "gherkin-name-length",
+        message: "Expected Feature name to be at most 3 characters, but found 4",
+      }),
+    );
   });
 
   test("applies individual options while preset is enabled", () => {
     const base = { ...defaultLintSettings, preset: true };
     const changed = { ...base, options: { "remark-lint-gherkin-name-length": { Feature: 0 } } };
-    expect(() => lintContent("# Feature: Long\n", changed)).not.toThrow();
-    expect(lintContent("# Feature: Long\n", changed).length).toBeGreaterThanOrEqual(
-      lintContent("# Feature: Long\n", base).length,
+    const messages = lintContent("# Feature: Long\n", changed);
+
+    expect(messages).toContainEqual(
+      expect.objectContaining({
+        ruleId: "gherkin-name-length",
+        message: "Expected Feature name to be at most 0 characters, but found 4",
+      }),
     );
   });
 });
