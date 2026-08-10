@@ -668,6 +668,9 @@ importers:
       unified-lint-rule:
         specifier: 'catalog:'
         version: 3.0.1
+      unist-util-find-until:
+        specifier: 'catalog:'
+        version: 0.1.0
       unist-util-visit:
         specifier: 'catalog:'
         version: 5.1.0

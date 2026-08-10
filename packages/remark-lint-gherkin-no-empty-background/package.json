@@ -37,6 +37,7 @@
     "mdast-util-gherkin": "workspace:*",
     "remark-lint": "catalog:",
     "unified-lint-rule": "catalog:",
+    "unist-util-find-until": "catalog:",
     "unist-util-visit": "catalog:"
   },
   "devDependencies": {

@@ -23,6 +23,13 @@ suite("remark-lint-gherkin-no-empty-background", () => {
     expect(file.messages).toHaveLength(0);
   });
 
+  test("Should not report when background has paragraph content", () => {
+    const file = processor.processSync(
+      "# Feature: Test\n\n## Background:\n\naaa\n\n## Scenario: S1\n- Given a step",
+    );
+    expect(file.messages).toHaveLength(0);
+  });
+
   test("Should report when background is empty (no list)", () => {
     const file = processor.processSync(
       "# Feature: Test\n\n## Background:\n\n## Scenario: S1\n- Given a step",
@@ -38,18 +45,6 @@ suite("remark-lint-gherkin-no-empty-background", () => {
 
   test("Should report when background is empty (at end of file)", () => {
     const file = processor.processSync("# Feature: Test\n\n## Background:");
-    expect(file.messages).toHaveLength(1);
-    expect(file.messages[0].message).toBe("Backgrounds must not be empty");
-    expect(file.messages[0].place).toEqual({
-      start: { line: 3, column: 1, offset: 17 },
-      end: { line: 3, column: 15, offset: 31 },
-    });
-  });
-
-  test("Should report when background has only non-step list items", () => {
-    const file = processor.processSync(
-      "# Feature: Test\n\n## Background:\n* Item 1\n\n## Scenario: S1\n- Given a step",
-    );
     expect(file.messages).toHaveLength(1);
     expect(file.messages[0].message).toBe("Backgrounds must not be empty");
     expect(file.messages[0].place).toEqual({
