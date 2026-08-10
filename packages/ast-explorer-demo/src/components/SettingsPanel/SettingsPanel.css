@@ -118,6 +118,11 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  .settings-panel__setting input[type="checkbox"],
+  .settings-panel__option-input[type="checkbox"] {
+    color-scheme: dark;
+  }
+
   .settings-panel__option-input[type="number"] {
     color-scheme: dark;
   }
