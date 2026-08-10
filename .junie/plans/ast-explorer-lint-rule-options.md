@@ -11,10 +11,10 @@ sessionId: session-260811-010116-1u33
 
 ### 対象範囲
 
-- [ ] 対象は `ast-explorer-demo` の UI、設定モデル、lint processor 呼び出し、demo のテストに限定する。
-- [ ] `packages/remark-preset-lint-gherkin-lint` およびその他の preset package のソース、設定、公開 API は変更しない。
-- [ ] preset が有効な場合は現状どおり preset の固定 option なしの動作を維持し、個別 option は preset を無効にして rule を個別実行する場合に適用する。
-- [ ] option を公開していない rule は、既存どおり有効・無効の切り替えのみを提供する。
+- [x] 対象は `ast-explorer-demo` の UI、設定モデル、lint processor 呼び出し、demo のテストに限定する。
+- [x] `packages/remark-preset-lint-gherkin-lint` およびその他の preset package のソース、設定、公開 API は変更しない。
+- [x] preset が有効な場合も子 rule の option を編集でき、preset の lint 結果へ反映する。
+- [x] option を公開していない rule は、既存どおり有効・無効の切り替えのみを提供する。
 
 ### 機能要件
 
@@ -94,7 +94,7 @@ Lint 設定パネルで rule ごとの option を編集できる UI を提供す
 
 - `packages/ast-explorer-demo/src/components/SettingsPanel/SettingsPanel.tsx` に rule descriptor に基づく option editor を追加する。
 - number、boolean、select、複数行配列、カテゴリ別配列の入力を実装し、設定 state を immutable に更新する。
-- preset 有効時の disabled 表示、option の説明・デフォルト値・入力エラーを追加する。
+- preset 有効時も編集可能な option の説明・デフォルト値・入力エラーを追加する。
 - `packages/ast-explorer-demo/src/components/SettingsPanel/SettingsPanel.css` を BEM 規約に沿って拡張する。
 
 ### Step 3: option-regression-validation
