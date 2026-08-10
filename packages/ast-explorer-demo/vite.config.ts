@@ -17,9 +17,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     lint: {
+      plugins: ["import"],
       options: {
         typeAware: true,
         typeCheck: true,
+      },
+      rules: {
+        "import/extensions": "error",
       },
     },
   };

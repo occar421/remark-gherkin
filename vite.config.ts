@@ -16,11 +16,13 @@ export default defineConfig({
     ignorePatterns: ["packages/mdast-util-gherkin/tests/fixtures/*"],
   },
   lint: {
+    plugins: ["import"],
     options: { typeAware: true, typeCheck: true },
     rules: {
       "typescript/no-explicit-any": "error",
       "react/exhaustive-deps": "error",
       "eslint/curly": "error",
+      "import/extensions": "error",
     },
     overrides: [
       {
