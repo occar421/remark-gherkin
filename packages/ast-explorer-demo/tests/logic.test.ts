@@ -14,6 +14,7 @@ import {
   lintRuleNames,
   normalizeLintOptions,
 } from "../src/lib/lint-utils.js";
+import { mergeStoredLintSettings } from "../src/hooks/useLintSettings.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World
@@ -157,5 +158,24 @@ describe("logic", () => {
         message: "Expected Feature name to be at most 0 characters, but found 4",
       }),
     );
+  });
+
+  test("restores lint settings and normalizes stored options", () => {
+    const name = "remark-lint-gherkin-name-length";
+    const restored = mergeStoredLintSettings({
+      preset: false,
+      [name]: true,
+      options: { [name]: { Feature: 3, Scenario: -1 } },
+    });
+
+    expect(restored.preset).toBe(false);
+    expect(restored[name]).toBe(true);
+    expect(restored.options?.[name]).toEqual({ Feature: 3 });
+    expect(restored["remark-lint-gherkin-use-and"]).toBe(true);
+  });
+
+  test("falls back to defaults for malformed stored settings", () => {
+    expect(mergeStoredLintSettings(null)).toEqual(defaultLintSettings);
+    expect(mergeStoredLintSettings("invalid")).toEqual(defaultLintSettings);
   });
 });
