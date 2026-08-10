@@ -1,5 +1,13 @@
-import type { Preset } from "unified";
 import remarkLint from "remark-lint";
+import type { Plugin } from "unified";
+import type { Options as AllowedTagsOptions } from "remark-lint-gherkin-allowed-tags";
+import type { Options as MaxScenariosPerFileOptions } from "remark-lint-gherkin-max-scenarios-per-file";
+import type { Options as NameLengthOptions } from "remark-lint-gherkin-name-length";
+import type { Options as NoDupeScenarioNamesOptions } from "remark-lint-gherkin-no-dupe-scenario-names";
+import type { RestrictedPatterns as NoRestrictedPatternsOptions } from "remark-lint-gherkin-no-restricted-patterns";
+import type { Options as NoRestrictedTagsOptions } from "remark-lint-gherkin-no-restricted-tags";
+import type { Options as RequiredTagsOptions } from "remark-lint-gherkin-required-tags";
+import type { Options as ScenarioSizeOptions } from "remark-lint-gherkin-scenario-size";
 import remarkLintGherkinNoTagsOnBackgrounds from "remark-lint-gherkin-no-tags-on-backgrounds";
 import remarkLintGherkinOneFeaturePerFile from "remark-lint-gherkin-one-feature-per-file";
 import remarkLintGherkinUpToOneBackgroundPerFile from "remark-lint-gherkin-up-to-one-background-per-file";
@@ -28,37 +36,59 @@ import remarkLintGherkinUseAnd from "remark-lint-gherkin-use-and";
 import remarkLintGherkinKeywordsInLogicalOrder from "remark-lint-gherkin-keywords-in-logical-order";
 import remarkLintGherkinOnlyOneWhen from "remark-lint-gherkin-only-one-when";
 
-const remarkPresetLintGherkinLint: Preset = {
-  plugins: [
-    remarkLint,
-    remarkLintGherkinNoTagsOnBackgrounds,
-    remarkLintGherkinOneFeaturePerFile,
-    remarkLintGherkinUpToOneBackgroundPerFile,
-    remarkLintGherkinAllowedTags,
+export type PresetOptions = {
+  rules?: {
+    "remark-lint-gherkin-allowed-tags"?: AllowedTagsOptions;
+    "remark-lint-gherkin-max-scenarios-per-file"?: MaxScenariosPerFileOptions;
+    "remark-lint-gherkin-name-length"?: NameLengthOptions;
+    "remark-lint-gherkin-no-dupe-scenario-names"?: NoDupeScenarioNamesOptions;
+    "remark-lint-gherkin-no-restricted-patterns"?: NoRestrictedPatternsOptions;
+    "remark-lint-gherkin-no-restricted-tags"?: NoRestrictedTagsOptions;
+    "remark-lint-gherkin-required-tags"?: RequiredTagsOptions;
+    "remark-lint-gherkin-scenario-size"?: ScenarioSizeOptions;
+  };
+};
+
+const remarkPresetLintGherkinLint: Plugin<[PresetOptions?]> = function (options?: PresetOptions) {
+  const rules = options?.rules;
+
+  this.use(remarkLint);
+  this.use(remarkLintGherkinNoTagsOnBackgrounds);
+  this.use(remarkLintGherkinOneFeaturePerFile);
+  this.use(remarkLintGherkinUpToOneBackgroundPerFile);
+  this.use(remarkLintGherkinAllowedTags, rules?.["remark-lint-gherkin-allowed-tags"]);
+  this.use(
     remarkLintGherkinMaxScenariosPerFile,
-    remarkLintGherkinNameLength,
-    remarkLintGherkinNoBackgroundOnlyScenario,
-    remarkLintGherkinNoDupeFeatureNames,
+    rules?.["remark-lint-gherkin-max-scenarios-per-file"],
+  );
+  this.use(remarkLintGherkinNameLength, rules?.["remark-lint-gherkin-name-length"]);
+  this.use(remarkLintGherkinNoBackgroundOnlyScenario);
+  this.use(remarkLintGherkinNoDupeFeatureNames);
+  this.use(
     remarkLintGherkinNoDupeScenarioNames,
-    remarkLintGherkinNoDuplicateTags,
-    remarkLintGherkinNoEmptyBackground,
-    remarkLintGherkinNoExamplesInScenarios,
-    remarkLintGherkinNoFilesWithoutScenarios,
-    remarkLintGherkinNoPartiallyCommentedTagLines,
+    rules?.["remark-lint-gherkin-no-dupe-scenario-names"],
+  );
+  this.use(remarkLintGherkinNoDuplicateTags);
+  this.use(remarkLintGherkinNoEmptyBackground);
+  this.use(remarkLintGherkinNoExamplesInScenarios);
+  this.use(remarkLintGherkinNoFilesWithoutScenarios);
+  this.use(remarkLintGherkinNoPartiallyCommentedTagLines);
+  this.use(
     remarkLintGherkinNoRestrictedPatterns,
-    remarkLintGherkinNoRestrictedTags,
-    remarkLintGherkinNoScenarioOutlinesWithoutExamples,
-    remarkLintGherkinNoSuperfluousTags,
-    remarkLintGherkinNoUnnamedFeatures,
-    remarkLintGherkinNoUnnamedScenarios,
-    remarkLintGherkinNoUnusedVariables,
-    remarkLintGherkinOneSpaceBetweenTags,
-    remarkLintGherkinRequiredTags,
-    remarkLintGherkinScenarioSize,
-    remarkLintGherkinUseAnd,
-    remarkLintGherkinKeywordsInLogicalOrder,
-    remarkLintGherkinOnlyOneWhen,
-  ],
+    rules?.["remark-lint-gherkin-no-restricted-patterns"],
+  );
+  this.use(remarkLintGherkinNoRestrictedTags, rules?.["remark-lint-gherkin-no-restricted-tags"]);
+  this.use(remarkLintGherkinNoScenarioOutlinesWithoutExamples);
+  this.use(remarkLintGherkinNoSuperfluousTags);
+  this.use(remarkLintGherkinNoUnnamedFeatures);
+  this.use(remarkLintGherkinNoUnnamedScenarios);
+  this.use(remarkLintGherkinNoUnusedVariables);
+  this.use(remarkLintGherkinOneSpaceBetweenTags);
+  this.use(remarkLintGherkinRequiredTags, rules?.["remark-lint-gherkin-required-tags"]);
+  this.use(remarkLintGherkinScenarioSize, rules?.["remark-lint-gherkin-scenario-size"]);
+  this.use(remarkLintGherkinUseAnd);
+  this.use(remarkLintGherkinKeywordsInLogicalOrder);
+  this.use(remarkLintGherkinOnlyOneWhen);
 };
 
 export default remarkPresetLintGherkinLint;
