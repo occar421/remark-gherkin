@@ -275,20 +275,42 @@ export function lintContent(content: string, settings: LintSettings) {
     lintProcessor.use(remarkPresetLintGherkinLint as Preset);
   } else {
     lintProcessor.use(remarkLint);
-    lintPlugins.forEach((plugin, index) => {
-      const name = lintRuleNames[index];
-      if (settings[name]) {
-        const options = normalizeLintOptions(
-          name as keyof LintRuleOptions,
-          settings.options?.[name as keyof LintRuleOptions],
-        );
+  }
+  lintPlugins.forEach((plugin, index) => {
+    const name = lintRuleNames[index];
+    if (!settings.preset && settings[name]) {
+      const options = normalizeLintOptions(
+        name as keyof LintRuleOptions,
+        settings.options?.[name as keyof LintRuleOptions],
+      );
+      if (options === undefined) {
+        lintProcessor.use(plugin);
+      } else {
         lintProcessor.use(plugin, options as never);
       }
-    });
-  }
+    }
+  });
 
   const tree = lintProcessor.parse(file);
   lintProcessor.runSync(tree, file);
+
+  if (settings.preset && settings.options) {
+    lintPlugins.forEach((plugin, index) => {
+      const name = lintRuleNames[index];
+      const rawOptions = settings.options?.[name as keyof LintRuleOptions];
+      if (rawOptions === undefined) {
+        return;
+      }
+      const optionProcessor = processor().use(remarkLint);
+      optionProcessor.use(
+        plugin,
+        normalizeLintOptions(name as keyof LintRuleOptions, rawOptions) as never,
+      );
+      const optionFile = new VFile({ value: content });
+      optionProcessor.runSync(optionProcessor.parse(optionFile), optionFile);
+      file.messages.push(...optionFile.messages);
+    });
+  }
   return file.messages;
 }
 

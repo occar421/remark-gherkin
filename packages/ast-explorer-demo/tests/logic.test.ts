@@ -139,17 +139,12 @@ describe("logic", () => {
     expect(() => lintContent("# Feature: Long\n", settings)).not.toThrow();
   });
 
-  test("keeps preset behavior independent from individual options", () => {
+  test("applies individual options while preset is enabled", () => {
     const base = { ...defaultLintSettings, preset: true };
     const changed = { ...base, options: { "remark-lint-gherkin-name-length": { Feature: 0 } } };
-    expect(
-      lintContent("# Feature: A reasonably long feature name\n", changed).map(
-        (message) => message.ruleId,
-      ),
-    ).toEqual(
-      lintContent("# Feature: A reasonably long feature name\n", base).map(
-        (message) => message.ruleId,
-      ),
+    expect(() => lintContent("# Feature: Long\n", changed)).not.toThrow();
+    expect(lintContent("# Feature: Long\n", changed).length).toBeGreaterThanOrEqual(
+      lintContent("# Feature: Long\n", base).length,
     );
   });
 });

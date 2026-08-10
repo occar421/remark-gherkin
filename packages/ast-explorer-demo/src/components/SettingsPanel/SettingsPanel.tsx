@@ -52,7 +52,7 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
     const option = optionValues?.[name] as Record<string, unknown> | string | undefined;
     const current = typeof option === "object" && option ? option[key] : option;
     const value = current ?? "";
-    const inputProps = { disabled: lintSettings.preset, className: "settings-panel__option-input" };
+    const inputProps = { className: "settings-panel__option-input" };
     const textArea = (category?: string) => {
       const categoryValue = category
         ? ((current as Record<string, string[]>)?.[category] ?? []).join("\n")
@@ -165,7 +165,6 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
               <input
                 type="checkbox"
                 checked={lintSettings[name]}
-                disabled={lintSettings.preset}
                 onChange={(event) =>
                   setLintSettings((current) => ({ ...current, [name]: event.target.checked }))
                 }
