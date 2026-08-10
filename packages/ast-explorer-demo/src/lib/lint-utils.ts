@@ -1,4 +1,4 @@
-import type { Plugin } from "unified";
+import { type Preset, type Plugin } from "unified";
 import remarkLint from "remark-lint";
 import remarkPresetLintGherkinLint from "remark-preset-lint-gherkin-lint";
 import { processor } from "./ast-utils.js";
@@ -37,12 +37,7 @@ export const lintRuleNames = [
 export type LintRuleName = (typeof lintRuleNames)[number];
 export type LintSettings = { preset: boolean } & Record<LintRuleName, boolean>;
 
-const presetPlugins: Plugin[] = [];
-remarkPresetLintGherkinLint.call({
-  use(plugin: Plugin) {
-    presetPlugins.push(plugin);
-  },
-} as never);
+const presetPlugins = remarkPresetLintGherkinLint.plugins ?? [];
 const lintPlugins = presetPlugins.slice(1);
 
 export const defaultLintSettings: LintSettings = {
@@ -58,7 +53,7 @@ export function lintContent(content: string, settings: LintSettings) {
   const file = new VFile({ value: content });
   const lintProcessor = processor();
   if (settings.preset) {
-    lintProcessor.use(remarkPresetLintGherkinLint as Plugin);
+    lintProcessor.use(remarkPresetLintGherkinLint as Preset);
   } else {
     lintProcessor.use(remarkLint);
     lintPlugins.forEach((plugin, index) => {
