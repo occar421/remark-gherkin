@@ -1,6 +1,32 @@
-import { type Preset, type Plugin } from "unified";
+import { type Plugin } from "unified";
 import remarkLint from "remark-lint";
-import remarkPresetLintGherkinLint from "remark-preset-lint-gherkin-lint";
+import remarkLintGherkinAllowedTags from "remark-lint-gherkin-allowed-tags";
+import remarkLintGherkinKeywordsInLogicalOrder from "remark-lint-gherkin-keywords-in-logical-order";
+import remarkLintGherkinMaxScenariosPerFile from "remark-lint-gherkin-max-scenarios-per-file";
+import remarkLintGherkinNameLength from "remark-lint-gherkin-name-length";
+import remarkLintGherkinNoBackgroundOnlyScenario from "remark-lint-gherkin-no-background-only-scenario";
+import remarkLintGherkinNoDupeFeatureNames from "remark-lint-gherkin-no-dupe-feature-names";
+import remarkLintGherkinNoDupeScenarioNames from "remark-lint-gherkin-no-dupe-scenario-names";
+import remarkLintGherkinNoDuplicateTags from "remark-lint-gherkin-no-duplicate-tags";
+import remarkLintGherkinNoEmptyBackground from "remark-lint-gherkin-no-empty-background";
+import remarkLintGherkinNoExamplesInScenarios from "remark-lint-gherkin-no-examples-in-scenarios";
+import remarkLintGherkinNoFilesWithoutScenarios from "remark-lint-gherkin-no-files-without-scenarios";
+import remarkLintGherkinNoPartiallyCommentedTagLines from "remark-lint-gherkin-no-partially-commented-tag-lines";
+import remarkLintGherkinNoRestrictedPatterns from "remark-lint-gherkin-no-restricted-patterns";
+import remarkLintGherkinNoRestrictedTags from "remark-lint-gherkin-no-restricted-tags";
+import remarkLintGherkinNoScenarioOutlinesWithoutExamples from "remark-lint-gherkin-no-scenario-outlines-without-examples";
+import remarkLintGherkinNoSuperfluousTags from "remark-lint-gherkin-no-superfluous-tags";
+import remarkLintGherkinNoTagsOnBackgrounds from "remark-lint-gherkin-no-tags-on-backgrounds";
+import remarkLintGherkinNoUnnamedFeatures from "remark-lint-gherkin-no-unnamed-features";
+import remarkLintGherkinNoUnnamedScenarios from "remark-lint-gherkin-no-unnamed-scenarios";
+import remarkLintGherkinNoUnusedVariables from "remark-lint-gherkin-no-unused-variables";
+import remarkLintGherkinOneFeaturePerFile from "remark-lint-gherkin-one-feature-per-file";
+import remarkLintGherkinOneSpaceBetweenTags from "remark-lint-gherkin-one-space-between-tags";
+import remarkLintGherkinOnlyOneWhen from "remark-lint-gherkin-only-one-when";
+import remarkLintGherkinRequiredTags from "remark-lint-gherkin-required-tags";
+import remarkLintGherkinScenarioSize from "remark-lint-gherkin-scenario-size";
+import remarkLintGherkinUpToOneBackgroundPerFile from "remark-lint-gherkin-up-to-one-background-per-file";
+import remarkLintGherkinUseAnd from "remark-lint-gherkin-use-and";
 import { processor } from "./ast-utils.js";
 import { VFile } from "vfile";
 
@@ -166,8 +192,35 @@ export const lintRuleOptionDescriptors: Partial<
   },
 };
 
-const presetPlugins = (remarkPresetLintGherkinLint as Preset).plugins ?? [];
-const lintPlugins: Plugin[] = presetPlugins.slice(1) as Plugin[];
+const lintPlugins = [
+  remarkLintGherkinNoTagsOnBackgrounds,
+  remarkLintGherkinOneFeaturePerFile,
+  remarkLintGherkinUpToOneBackgroundPerFile,
+  remarkLintGherkinAllowedTags,
+  remarkLintGherkinMaxScenariosPerFile,
+  remarkLintGherkinNameLength,
+  remarkLintGherkinNoBackgroundOnlyScenario,
+  remarkLintGherkinNoDupeFeatureNames,
+  remarkLintGherkinNoDupeScenarioNames,
+  remarkLintGherkinNoDuplicateTags,
+  remarkLintGherkinNoEmptyBackground,
+  remarkLintGherkinNoExamplesInScenarios,
+  remarkLintGherkinNoFilesWithoutScenarios,
+  remarkLintGherkinNoPartiallyCommentedTagLines,
+  remarkLintGherkinNoRestrictedPatterns,
+  remarkLintGherkinNoRestrictedTags,
+  remarkLintGherkinNoScenarioOutlinesWithoutExamples,
+  remarkLintGherkinNoSuperfluousTags,
+  remarkLintGherkinNoUnnamedFeatures,
+  remarkLintGherkinNoUnnamedScenarios,
+  remarkLintGherkinNoUnusedVariables,
+  remarkLintGherkinOneSpaceBetweenTags,
+  remarkLintGherkinRequiredTags,
+  remarkLintGherkinScenarioSize,
+  remarkLintGherkinUseAnd,
+  remarkLintGherkinKeywordsInLogicalOrder,
+  remarkLintGherkinOnlyOneWhen,
+] as Plugin[];
 
 export const defaultLintSettings: LintSettings = {
   preset: true,
@@ -271,14 +324,10 @@ export function normalizeLintOptions<Name extends keyof LintRuleOptions>(
 export function lintContent(content: string, settings: LintSettings) {
   const file = new VFile({ value: content });
   const lintProcessor = processor();
-  if (settings.preset) {
-    lintProcessor.use(remarkPresetLintGherkinLint as Preset);
-  } else {
-    lintProcessor.use(remarkLint);
-  }
+  lintProcessor.use(remarkLint);
   lintPlugins.forEach((plugin, index) => {
     const name = lintRuleNames[index];
-    if (!settings.preset && settings[name]) {
+    if (settings.preset || settings[name]) {
       const options = normalizeLintOptions(
         name as keyof LintRuleOptions,
         settings.options?.[name as keyof LintRuleOptions],
@@ -293,24 +342,6 @@ export function lintContent(content: string, settings: LintSettings) {
 
   const tree = lintProcessor.parse(file);
   lintProcessor.runSync(tree, file);
-
-  if (settings.preset && settings.options) {
-    lintPlugins.forEach((plugin, index) => {
-      const name = lintRuleNames[index];
-      const rawOptions = settings.options?.[name as keyof LintRuleOptions];
-      if (rawOptions === undefined) {
-        return;
-      }
-      const optionProcessor = processor().use(remarkLint);
-      optionProcessor.use(
-        plugin,
-        normalizeLintOptions(name as keyof LintRuleOptions, rawOptions) as never,
-      );
-      const optionFile = new VFile({ value: content });
-      optionProcessor.runSync(optionProcessor.parse(optionFile), optionFile);
-      file.messages.push(...optionFile.messages);
-    });
-  }
   return file.messages;
 }
 
