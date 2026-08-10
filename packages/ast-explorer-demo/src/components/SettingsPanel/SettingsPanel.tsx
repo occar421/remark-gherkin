@@ -160,7 +160,10 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
       </label>
       <div className="settings-panel__rule-list">
         {lintRuleNames.map((name: LintRuleName) => (
-          <div className="settings-panel__rule" key={name}>
+          <div
+            className={`settings-panel__rule${lintSettings[name] ? " settings-panel__rule--enabled" : ""}`}
+            key={name}
+          >
             <label className="settings-panel__setting">
               <input
                 type="checkbox"

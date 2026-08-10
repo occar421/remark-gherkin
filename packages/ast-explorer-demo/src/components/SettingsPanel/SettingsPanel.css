@@ -38,6 +38,34 @@
   accent-color: var(--accent);
 }
 
+.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"],
+.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  appearance: none;
+  border: 1px solid #5c9ed6;
+  border-radius: 3px;
+  background: #2f5270;
+}
+
+.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"]:checked,
+.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"]:checked {
+  border-color: #1769aa;
+  background: #1769aa;
+}
+
+.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"]:checked::after,
+.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"]:checked::after {
+  display: block;
+  width: 4px;
+  height: 8px;
+  margin: 1px 0 0 4px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  content: "";
+}
+
 .settings-panel__setting--preset {
   padding-left: 0;
   color: var(--text-h);
@@ -87,6 +115,12 @@
   background: var(--bg);
   color: var(--text);
   font: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  .settings-panel__option-input[type="number"] {
+    color-scheme: dark;
+  }
 }
 
 .settings-panel__category {
