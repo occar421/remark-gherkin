@@ -7,6 +7,10 @@
   --accent: #00627a; /* function.declaration */
   --accent-bg: rgba(0, 98, 122, 0.1); /* function.declaration */
   --accent-border: rgba(0, 98, 122, 0.5); /* function.declaration */
+  --checkbox-border: #5c9ed6;
+  --checkbox-bg: #2f5270;
+  --checkbox-checked: #1769aa;
+  --checkbox-check: #ffffff;
   --social-bg: rgba(245, 245, 245, 0.5); /* editorWidget.background */
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px; /* editor.background */
@@ -44,6 +48,10 @@
     --accent: #56a8f5; /* function.declaration */
     --accent-bg: #2b2d30; /* input.background */
     --accent-border: #3794ff; /* textLink.foreground */
+    --checkbox-border: #3f6f96;
+    --checkbox-bg: #1f354a;
+    --checkbox-checked: #124f80;
+    --checkbox-check: #d5d7dc;
     --json-label: #d5b778; /* XML Tags foreground */
     --json-string: #6aab73; /* string */
     --json-number: #2aacb8; /* number */

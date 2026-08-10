@@ -45,17 +45,17 @@
   width: 14px;
   height: 14px;
   appearance: none;
-  border: 1px solid #5c9ed6;
+  border: 1px solid var(--checkbox-border);
   border-radius: 3px;
-  background: #2f5270;
+  background: var(--checkbox-bg);
 }
 
 .settings-panel__rule-list--enabled
   > .settings-panel__rule
   > .settings-panel__setting
   input[type="checkbox"]:checked {
-  border-color: #1769aa;
-  background: #1769aa;
+  border-color: var(--checkbox-checked);
+  background: var(--checkbox-checked);
 }
 
 .settings-panel__rule-list--enabled
@@ -66,7 +66,7 @@
   width: 4px;
   height: 8px;
   margin: 1px 0 0 4px;
-  border: solid #fff;
+  border: solid var(--checkbox-check);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   content: "";
@@ -121,6 +121,13 @@
   background: var(--bg);
   color: var(--text);
   font: inherit;
+}
+
+.settings-panel__option-input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  justify-self: start;
+  padding: 0;
 }
 
 @media (prefers-color-scheme: dark) {
