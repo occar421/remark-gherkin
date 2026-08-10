@@ -1673,15 +1673,6 @@ importers:
       bumpp:
         specifier: 'catalog:'
         version: 11.1.0
-      remark-gfm:
-        specifier: 'catalog:'
-        version: 4.0.1
-      remark-gherkin:
-        specifier: workspace:*
-        version: link:../remark-gherkin
-      remark-parse:
-        specifier: 'catalog:'
-        version: 11.0.0
       typescript:
         specifier: 'catalog:'
         version: 7.0.2
