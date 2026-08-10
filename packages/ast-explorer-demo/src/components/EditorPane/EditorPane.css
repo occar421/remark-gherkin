@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.reset-button {
+.editor-pane__reset-button {
   position: absolute;
   z-index: 1;
   top: 8px;
@@ -20,6 +20,18 @@
   cursor: pointer;
 }
 
-.reset-button:hover {
+.editor-pane__reset-button:hover {
   border-color: var(--accent-border);
+}
+
+@media (max-width: 768px) {
+  .editor-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+.editor-pane__source-highlight {
+  background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-bottom: 2px solid var(--accent);
 }

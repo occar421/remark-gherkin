@@ -3,7 +3,6 @@ import { TreeConfig } from "../TreeConfig";
 import { useMemo } from "react";
 import { filterNode } from "../../lib/ast-utils.js";
 import type { Root } from "mdast";
-import "../../styles/tokens.css";
 import "./AstPane.css";
 
 type Props = {
@@ -24,11 +23,11 @@ export function AstPane({ ast, focusPath, onTreeHover, onTreeBlur }: Props) {
   );
 
   return (
-    <div>
-      <header>
+    <div className="ast-pane">
+      <header className="ast-pane__header">
         <TreeConfig />
       </header>
-      <div className={`ast-pane ${autofocus ? "autofocus-enabled" : ""}`}>
+      <div className={`ast-pane__content ${autofocus ? "ast-pane__content--autofocus" : ""}`}>
         <JsonViewer
           data={filteredAst}
           focusPath={autofocus ? focusPath : undefined}

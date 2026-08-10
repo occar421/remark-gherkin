@@ -1,5 +1,4 @@
 import { JsonItem } from "./JsonItem.js";
-import "../../styles/tokens.css";
 import "./JsonViewer.css";
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 
 export function JsonViewer({ data, focusPath, onHover, onBlur }: Props) {
   return (
-    <div className="json-view-container">
+    <div className="json-viewer">
       <JsonItem
         label="root"
         value={data}

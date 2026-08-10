@@ -1,1 +1,27 @@
-/* AST pane styles are included in the shared demo theme. */
+.ast-pane {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.ast-pane__header {
+  display: flex;
+  flex-direction: column;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.ast-pane__content {
+  flex: 1 1 0;
+  min-height: 0;
+  padding: 10px;
+  overflow: auto;
+  background: var(--bg);
+}
+
+.ast-pane__content--autofocus {
+  scroll-behavior: smooth;
+}

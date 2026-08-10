@@ -1,7 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { LintSettings } from "../../lib/lint-utils.js";
 import { SettingsPanel } from "../SettingsPanel";
-import "../../styles/tokens.css";
 import "./Header.css";
 
 export type HeaderProps = {
@@ -18,12 +17,12 @@ export function Header({
 }: HeaderProps) {
   return (
     <div className="header">
-      <a className="app-title" href="/" aria-label="AST Explorer home">
+      <a className="header__title" href="/" aria-label="AST Explorer home">
         AST Explorer Demo for Markdown with Gherkin
       </a>
-      <nav className="app-actions" aria-label="Application links">
+      <nav className="header__actions" aria-label="Application links">
         <button
-          className="settings-button"
+          className="header__settings-button"
           type="button"
           onClick={() => setSettingsOpen((open) => !open)}
           aria-expanded={settingsOpen}
@@ -31,7 +30,7 @@ export function Header({
           ⚙ Settings
         </button>
         <a
-          className="repository-link"
+          className="header__repository-link"
           href="https://github.com/occar421/unifiedjs-gherkin"
           target="_blank"
           rel="noreferrer"

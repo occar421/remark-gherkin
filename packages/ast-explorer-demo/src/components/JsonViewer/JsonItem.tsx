@@ -46,23 +46,23 @@ export function JsonItem({ label, value, path, focusPath, onHover, onBlur }: Pro
   if (!isObject) {
     const typeClass =
       value === null
-        ? "json-view-null"
+        ? "json-viewer__value--null"
         : typeof value === "boolean"
-          ? "json-view-boolean"
+          ? "json-viewer__value--boolean"
           : typeof value === "string"
-            ? "json-view-string"
-            : "json-view-number";
+            ? "json-viewer__value--string"
+            : "json-viewer__value--number";
 
     return (
       <div
-        className={`json-view-item ${isExact ? "json-view-active" : ""}`}
+        className={`json-viewer__item ${isExact ? "json-viewer__item--active" : ""}`}
         ref={ref}
         onMouseEnter={() => onHover?.(path)}
         onMouseLeave={() => onBlur?.()}
       >
-        <span className="json-view-label">{label}</span>
-        <span className="json-view-punctuation">:</span>
-        <span className={`json-view-value ${typeClass}`}>{JSON.stringify(value)}</span>
+        <span className="json-viewer__label">{label}</span>
+        <span className="json-viewer__punctuation">:</span>
+        <span className={`json-viewer__value ${typeClass}`}>{JSON.stringify(value)}</span>
       </div>
     );
   }
@@ -70,32 +70,32 @@ export function JsonItem({ label, value, path, focusPath, onHover, onBlur }: Pro
   const isArray = Array.isArray(value);
   return (
     <div
-      className={`json-view-item ${isExact ? "json-view-active" : ""}`}
+      className={`json-viewer__item ${isExact ? "json-viewer__item--active" : ""}`}
       ref={ref}
       onMouseEnter={() => onHover?.(path)}
       onMouseLeave={() => onBlur?.()}
     >
       <div
-        className="json-view-collapsible"
+        className="json-viewer__collapsible"
         onClick={(e) => {
           e.stopPropagation();
           setCollapsed(!collapsed);
         }}
       >
         <span
-          className={`json-view-toggle ${collapsed ? "json-view-expand" : "json-view-collapse"}`}
+          className={`json-viewer__toggle ${collapsed ? "json-viewer__toggle--expand" : "json-viewer__toggle--collapse"}`}
         >
           {collapsed ? "+" : "-"}
         </span>
-        <span className="json-view-label">{getItemLabel(label, value)}</span>
-        <span className="json-view-punctuation">
+        <span className="json-viewer__label">{getItemLabel(label, value)}</span>
+        <span className="json-viewer__punctuation">
           : {isArray ? "[" : "{"}
           {collapsed && (isArray ? " ... ]" : " ... }")}
         </span>
       </div>
       {!collapsed && (
         <>
-          <div className="json-view-children">
+          <div className="json-viewer__children">
             {Object.entries(value).map(([key, val]) => (
               <JsonItem
                 key={key}
@@ -108,7 +108,9 @@ export function JsonItem({ label, value, path, focusPath, onHover, onBlur }: Pro
               />
             ))}
           </div>
-          <div className="json-view-punctuation end">{isArray ? "]" : "}"}</div>
+          <div className="json-viewer__punctuation json-viewer__punctuation--end">
+            {isArray ? "]" : "}"}
+          </div>
         </>
       )}
     </div>

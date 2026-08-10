@@ -129,7 +129,7 @@ export function EditorPane({
             endLineNumber: range.end.line,
             endColumn: range.end.column,
           },
-          options: { inlineClassName: "ast-source-highlight" },
+          options: { inlineClassName: "editor-pane__source-highlight" },
         })),
       );
     },
@@ -137,7 +137,7 @@ export function EditorPane({
 
   return (
     <div className="editor-pane">
-      <button className="reset-button" type="button" onClick={handleReset}>
+      <button className="editor-pane__reset-button" type="button" onClick={handleReset}>
         Reset content
       </button>
       <Editor

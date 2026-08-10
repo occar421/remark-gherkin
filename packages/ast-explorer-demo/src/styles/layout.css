@@ -1,1 +1,55 @@
-/* Application layout is defined in tokens.css for compatibility. */
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.app__main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app__editor-pane,
+.app__ast-pane {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.app__ast-pane {
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .app__header {
+    padding: 0 12px;
+  }
+
+  .app__main {
+    flex-direction: column;
+  }
+
+  .app__ast-pane {
+    min-height: 0;
+  }
+}

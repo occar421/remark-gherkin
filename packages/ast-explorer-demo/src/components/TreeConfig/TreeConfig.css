@@ -1,1 +1,29 @@
-/* Tree configuration styles are included in the shared demo theme. */
+.tree-config {
+  padding: 8px 20px;
+}
+
+.tree-config__options {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tree-config__option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tree-config__option input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.tree-config__option:has(input:checked) {
+  color: var(--text-h);
+}

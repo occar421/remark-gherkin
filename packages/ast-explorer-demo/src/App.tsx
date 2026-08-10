@@ -67,8 +67,8 @@ export function App() {
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
+    <div className="app">
+      <header className="app__header">
         <Header
           settingsOpen={settingsOpen}
           setSettingsOpen={setSettingsOpen}
@@ -76,8 +76,8 @@ export function App() {
           setLintSettings={setLintSettings}
         />
       </header>
-      <main>
-        <div className="editor-pane-wrapper">
+      <main className="app__main">
+        <div className="app__editor-pane">
           <EditorPane
             ref={demoEditor}
             defaultContent={defaultContent}
@@ -87,7 +87,7 @@ export function App() {
             onDidChangeCursorPosition={handleChangeCursorPosition}
           />
         </div>
-        <div className="ast-pane-container">
+        <div className="app__ast-pane">
           <AstPane
             ast={ast}
             focusPath={focusPath}

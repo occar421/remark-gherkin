@@ -3,6 +3,8 @@
 Markdown with Gherkin AST Explorer inspired by [AST Explorer](https://astexplorer.net/).
 It provides a live preview of the Gherkin AST using `remark-gherkin`.
 
+See [CSS_CONVENTION.md](CSS_CONVENTION.md) for the CSS conventions used in this project.
+
 ## Use
 
 This is a web application. You can access the hosted version (if available) or run it locally.

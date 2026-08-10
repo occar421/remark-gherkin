@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../../styles/tokens.css";
 import "./TreeConfig.css";
 
 export function TreeConfig() {
@@ -12,13 +11,15 @@ export function TreeConfig() {
     ["Hide type keys", settings.hideType, settings.setHideType],
   ] as const;
   return (
-    <div className="header-bottom">
-      {controls.map(([label, checked, setter]) => (
-        <label className="checkbox-label" key={label}>
-          <input type="checkbox" checked={checked} onChange={(e) => setter(e.target.checked)} />
-          {label}
-        </label>
-      ))}
+    <div className="tree-config">
+      <div className="tree-config__options">
+        {controls.map(([label, checked, setter]) => (
+          <label className="tree-config__option" key={label}>
+            <input type="checkbox" checked={checked} onChange={(e) => setter(e.target.checked)} />
+            {label}
+          </label>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,1 +1,50 @@
-/* Settings panel styles are included in the shared demo theme. */
+.settings-panel {
+  --settings-panel-margin: 8px;
+  --settings-panel-padding-vertical: 12px;
+  --settings-panel-border-width: 1px;
+
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + var(--settings-panel-margin));
+  right: var(--settings-panel-margin);
+  width: min(360px, calc(100% - 16px));
+  max-height: calc(
+    100vh - var(--header-height) - var(--settings-panel-padding-vertical) -
+      var(--settings-panel-margin) * 3 - var(--settings-panel-border-width) * 2
+  );
+  overflow: auto;
+  padding: var(--settings-panel-padding-vertical) 16px;
+  border: var(--settings-panel-border-width) solid var(--border);
+  background: var(--code-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
+}
+
+.settings-panel__title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.settings-panel__setting {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0 3px 20px;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.settings-panel__setting input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.settings-panel__setting--preset {
+  padding-left: 0;
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.settings-panel__rule-list {
+  border-left: 1px solid var(--border);
+  margin-left: 6px;
+}

@@ -4,7 +4,6 @@ import {
   type LintRuleName,
   type LintSettings,
 } from "../../lib/lint-utils.js";
-import "../../styles/tokens.css";
 import "./SettingsPanel.css";
 
 export type SettingsPanelProps = {
@@ -13,9 +12,9 @@ export type SettingsPanelProps = {
 };
 export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelProps) {
   return (
-    <div>
-      <h2>Lint rules</h2>
-      <label className="lint-setting lint-preset">
+    <div className="settings-panel__content">
+      <h2 className="settings-panel__title">Lint rules</h2>
+      <label className="settings-panel__setting settings-panel__setting--preset">
         <input
           type="checkbox"
           checked={lintSettings.preset}
@@ -25,9 +24,9 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
         />
         remark-preset-lint-gherkin-lint
       </label>
-      <div className="lint-rule-list">
+      <div className="settings-panel__rule-list">
         {lintRuleNames.map((name: LintRuleName) => (
-          <label className="lint-setting" key={name}>
+          <label className="settings-panel__setting" key={name}>
             <input
               type="checkbox"
               checked={lintSettings[name]}
