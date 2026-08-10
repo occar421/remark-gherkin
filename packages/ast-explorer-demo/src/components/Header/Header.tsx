@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { LintSettings } from "../../lib/lint-utils.js";
-import { SettingsPanel } from "../SettingsPanel/index.js";
+import { SettingsPanel } from "../SettingsPanel";
 import "../../styles/tokens.css";
 import "./Header.css";
 

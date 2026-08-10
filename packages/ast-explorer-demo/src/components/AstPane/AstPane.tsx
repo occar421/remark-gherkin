@@ -1,5 +1,5 @@
-import { JsonViewer } from "../JsonViewer/index.js";
-import { TreeConfig } from "../TreeConfig/index.js";
+import { JsonViewer } from "../JsonViewer";
+import { TreeConfig } from "../TreeConfig";
 import { useMemo } from "react";
 import { filterNode } from "../../lib/ast-utils.js";
 import type { Root } from "mdast";

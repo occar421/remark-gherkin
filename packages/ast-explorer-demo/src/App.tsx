@@ -4,7 +4,7 @@ import {
   type CursorPositionChangedEvent,
   type DemoEditorHandle,
   EditorPane,
-} from "./components/EditorPane/index.js";
+} from "./components/EditorPane";
 import {
   defaultLintSettings,
   lintContent,
@@ -12,8 +12,8 @@ import {
   type LintSettings,
 } from "./lib/lint-utils.js";
 import { useContent } from "./hooks/useContent.js";
-import { AstPane } from "./components/AstPane/index.js";
-import { Header } from "./components/Header/index.js";
+import { AstPane } from "./components/AstPane";
+import { Header } from "./components/Header";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
