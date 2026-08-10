@@ -5,20 +5,16 @@ import {
   type DemoEditorHandle,
   EditorPane,
 } from "./components/EditorPane";
-import {
-  defaultLintSettings,
-  lintContent,
-  transformMessageToMarker,
-  type LintSettings,
-} from "./lib/lint-utils.js";
+import { lintContent, transformMessageToMarker } from "./lib/lint-utils.js";
 import { useContent } from "./hooks/useContent.js";
+import { useLintSettings } from "./hooks/useLintSettings.js";
 import { AstPane } from "./components/AstPane";
 import { Header } from "./components/Header";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
+  const { lintSettings, setLintSettings } = useLintSettings();
   const [focusPath, setFocusPath] = useState<string[]>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
