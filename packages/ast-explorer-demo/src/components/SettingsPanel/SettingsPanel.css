@@ -38,8 +38,10 @@
   accent-color: var(--accent);
 }
 
-.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"],
-.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"] {
+.settings-panel__rule-list--enabled
+  > .settings-panel__rule
+  > .settings-panel__setting
+  input[type="checkbox"] {
   width: 14px;
   height: 14px;
   appearance: none;
@@ -48,14 +50,18 @@
   background: #2f5270;
 }
 
-.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"]:checked,
-.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"]:checked {
+.settings-panel__rule-list--enabled
+  > .settings-panel__rule
+  > .settings-panel__setting
+  input[type="checkbox"]:checked {
   border-color: #1769aa;
   background: #1769aa;
 }
 
-.settings-panel__rule--enabled > .settings-panel__setting input[type="checkbox"]:checked::after,
-.settings-panel__rule--enabled .settings-panel__options input[type="checkbox"]:checked::after {
+.settings-panel__rule-list--enabled
+  > .settings-panel__rule
+  > .settings-panel__setting
+  input[type="checkbox"]:checked::after {
   display: block;
   width: 4px;
   height: 8px;

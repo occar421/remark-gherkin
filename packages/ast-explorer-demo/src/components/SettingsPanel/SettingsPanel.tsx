@@ -158,12 +158,11 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
         />
         remark-preset-lint-gherkin-lint
       </label>
-      <div className="settings-panel__rule-list">
+      <div
+        className={`settings-panel__rule-list${lintSettings.preset ? " settings-panel__rule-list--enabled" : ""}`}
+      >
         {lintRuleNames.map((name: LintRuleName) => (
-          <div
-            className={`settings-panel__rule${lintSettings[name] ? " settings-panel__rule--enabled" : ""}`}
-            key={name}
-          >
+          <div className="settings-panel__rule" key={name}>
             <label className="settings-panel__setting">
               <input
                 type="checkbox"
