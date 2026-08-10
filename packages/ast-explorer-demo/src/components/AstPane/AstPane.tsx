@@ -1,8 +1,10 @@
-import { JsonViewer } from "./JsonViewer.tsx";
-import { useTreeConfig } from "./useTreeConfig.tsx";
+import { JsonViewer } from "../JsonViewer/index.js";
+import { TreeConfig } from "../TreeConfig/index.js";
 import { useMemo } from "react";
-import { filterNode } from "./ast-utils.ts";
+import { filterNode } from "../../lib/ast-utils.js";
 import type { Root } from "mdast";
+import "../../styles/tokens.css";
+import "./AstPane.css";
 
 type Props = {
   ast: Root | Error;
@@ -10,15 +12,8 @@ type Props = {
   onTreeHover: (path: string[]) => void;
   onTreeBlur: () => void;
 };
-export default function AstPane({ ast, focusPath, onTreeHover, onTreeBlur }: Props) {
-  const {
-    hideLocation,
-    hideMethods,
-    hideEmpty,
-    hideType,
-    autofocus,
-    render: TreeConfig,
-  } = useTreeConfig();
+export function AstPane({ ast, focusPath, onTreeHover, onTreeBlur }: Props) {
+  const { hideLocation, hideMethods, hideEmpty, hideType, autofocus } = TreeConfig.useSettings();
 
   const filteredAst = useMemo(
     () =>

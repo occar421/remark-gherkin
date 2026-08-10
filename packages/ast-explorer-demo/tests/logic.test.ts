@@ -5,14 +5,14 @@ import {
   findPathAt,
   getNodeAtPath,
   getPositionAtPath,
-} from "../src/ast-utils.js";
-import { getItemLabel } from "../src/JsonItem.js";
+} from "../src/lib/ast-utils.js";
+import { getItemLabel } from "../src/components/JsonViewer/JsonItem.js";
 import {
   defaultLintSettings,
   getLintRuleLabel,
   lintContent,
   lintRuleNames,
-} from "../src/lint-utils.js";
+} from "../src/lib/lint-utils.js";
 
 const gherkin = `# Feature: Hello
 ## Scenario: World

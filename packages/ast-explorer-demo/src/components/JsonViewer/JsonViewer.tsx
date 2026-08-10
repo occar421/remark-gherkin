@@ -1,4 +1,6 @@
 import { JsonItem } from "./JsonItem.js";
+import "../../styles/tokens.css";
+import "./JsonViewer.css";
 
 type Props = {
   data: object | object[];

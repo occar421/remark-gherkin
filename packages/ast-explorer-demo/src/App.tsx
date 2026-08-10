@@ -1,18 +1,24 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import { findPathAt, getPositionAtPath, processor } from "./ast-utils.js";
+import { findPathAt, getPositionAtPath, processor } from "./lib/ast-utils.js";
 import {
   type CursorPositionChangedEvent,
   type DemoEditorHandle,
   EditorPane,
-} from "./EditorPane.js";
-import { lintContent, transformMessageToMarker } from "./lint-utils.js";
-import { useContent } from "./content-hook.ts";
-import AstPane from "./AstPane.tsx";
-import { useHeader } from "./useHeader.tsx";
+} from "./components/EditorPane/index.js";
+import {
+  defaultLintSettings,
+  lintContent,
+  transformMessageToMarker,
+  type LintSettings,
+} from "./lib/lint-utils.js";
+import { useContent } from "./hooks/useContent.js";
+import { AstPane } from "./components/AstPane/index.js";
+import { Header } from "./components/Header/index.js";
 
 export function App() {
   const { content, setContent } = useContent(defaultContent);
-  const { lintSettings, render: Header } = useHeader();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [lintSettings, setLintSettings] = useState<LintSettings>(defaultLintSettings);
   const [focusPath, setFocusPath] = useState<string[]>(["root"]);
   const demoEditor = useRef<DemoEditorHandle>(null);
 
@@ -63,7 +69,12 @@ export function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <Header />
+        <Header
+          settingsOpen={settingsOpen}
+          setSettingsOpen={setSettingsOpen}
+          lintSettings={lintSettings}
+          setLintSettings={setLintSettings}
+        />
       </header>
       <main>
         <div className="editor-pane-wrapper">

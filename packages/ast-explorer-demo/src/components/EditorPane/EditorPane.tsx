@@ -1,7 +1,7 @@
 import { type Ref, useCallback, useEffect, useImperativeHandle, useRef } from "react";
 import { Editor, type OnMount, type Monaco } from "@monaco-editor/react";
 import "./EditorPane.css";
-import type { Marker } from "./lint-utils.ts";
+import type { Marker } from "../../lib/lint-utils.js";
 
 type IStandaloneCodeEditor = Parameters<OnMount>[0];
 
