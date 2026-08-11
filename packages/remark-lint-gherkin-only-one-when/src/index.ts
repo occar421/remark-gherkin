@@ -2,8 +2,8 @@ import "mdast-util-gherkin";
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { findAfterUntil } from "unist-util-find-until";
-import type { Root } from "mdast";
-import { testGherkinNode } from "mdast-util-gherkin";
+import type { Node, Root } from "mdast";
+import { getSegmentName, testGherkinNode } from "mdast-util-gherkin";
 
 const remarkLintGherkinOnlyOneWhen = lintRule<Root>(
   {
@@ -23,18 +23,31 @@ const remarkLintGherkinOnlyOneWhen = lintRule<Root>(
 
       const targetNodes = findAfterUntil(parent, segmentLine, testGherkinNode("segmentLine"));
 
+      let previousKeyword: string | undefined;
       let whenCount = 0;
+      let firstViolationStep: Node | undefined;
       for (const node of targetNodes) {
         visit(node, testGherkinNode("stepLine"), (stepLine) => {
           const keyword = stepLine.data.gherkin.stepKeyword;
 
-          if (keyword === "When") {
+          if (keyword === "When" || (keyword === "And" && previousKeyword === "When")) {
+            previousKeyword = "When";
             whenCount++;
-            if (whenCount > 1) {
-              file.message('Step "When" should not appear more than once per scenario', stepLine);
+            if (whenCount > 1 && !firstViolationStep) {
+              firstViolationStep = stepLine;
             }
+            return;
           }
+
+          previousKeyword = keyword;
         });
+      }
+
+      if (whenCount > 1) {
+        file.message(
+          `Scenario "${getSegmentName(segmentLine)}" contains ${whenCount} When statements (max 1)`,
+          firstViolationStep,
+        );
       }
     });
   },

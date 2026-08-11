@@ -45,4 +45,17 @@ suite("remark-lint-gherkin-no-files-without-scenarios", () => {
     const file = processor.processSync("Just some text");
     expect(file.messages).toHaveLength(0);
   });
+
+  test("Should not report when a Rule contains a scenario", () => {
+    const file = processor.processSync(
+      "# Feature: Test\n\n## Rule: A rule\n\n### Scenario: Test Scenario\n- Given a step",
+    );
+    expect(file.messages).toHaveLength(0);
+  });
+
+  test("Should report when a Rule contains no scenarios", () => {
+    const file = processor.processSync("# Feature: Test\n\n## Rule: A rule");
+    expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].message).toBe("Feature files must have at least one scenario");
+  });
 });

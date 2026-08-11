@@ -64,4 +64,24 @@ suite("remark-lint-gherkin-one-space-between-tags", () => {
     const file = processor.processSync("  `@tag1` `@tag2`  \n# Feature: My Feature");
     expect(file.messages).toHaveLength(0);
   });
+
+  test("Should check tags before scenarios, outlines, and examples", () => {
+    const processor = getProcessor();
+    const file = processor.processSync(`
+# Feature: My Feature
+
+\`@tag1\`  \`@tag2\`
+## Scenario: Scenario
+
+\`@tag1\`  \`@tag2\`
+## Scenario Outline: Outline
+
+\`@tag1\`  \`@tag2\`
+### Examples: Examples
+| value |
+| ----- |
+| one   |
+`);
+    expect(file.messages).toHaveLength(3);
+  });
 });

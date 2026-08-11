@@ -67,4 +67,25 @@ suite("remark-lint-gherkin-no-duplicate-tags", () => {
 `);
     expect(file.messages).toHaveLength(0);
   });
+
+  test("Should report duplicate tags on Scenario Outline and Examples", () => {
+    const processor = getProcessor();
+    const file = processor.processSync(`
+# Feature: Feature 1
+
+\`@tag1\` \`@tag1\`
+## Scenario Outline: Outline
+
+\`@tag2\` \`@tag2\`
+### Examples: Examples
+| value |
+| ----- |
+| one   |
+`);
+    expect(file.messages).toHaveLength(2);
+    expect(file.messages.map((message) => message.message)).toEqual([
+      'Duplicate tag "@tag1"',
+      'Duplicate tag "@tag2"',
+    ]);
+  });
 });

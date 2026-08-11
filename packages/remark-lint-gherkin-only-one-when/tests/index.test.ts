@@ -48,9 +48,7 @@ suite("remark-lint-gherkin-only-one-when", () => {
 * When step 2
 `);
     expect(file.messages).toHaveLength(1);
-    expect(file.messages[0].message).toBe(
-      'Step "When" should not appear more than once per scenario',
-    );
+    expect(file.messages[0].message).toBe('Scenario "Test" contains 2 When statements (max 1)');
     expect(file.messages[0].ruleId).toBe("gherkin-only-one-when");
     expect(file.messages[0].place).toEqual({
       start: { line: 5, column: 1, offset: 49 },
@@ -67,20 +65,11 @@ suite("remark-lint-gherkin-only-one-when", () => {
 * When step 2
 * When step 3
 `);
-    expect(file.messages).toHaveLength(2);
-    expect(file.messages[0].message).toBe(
-      'Step "When" should not appear more than once per scenario',
-    );
-    expect(file.messages[1].message).toBe(
-      'Step "When" should not appear more than once per scenario',
-    );
+    expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].message).toBe('Scenario "Test" contains 3 When statements (max 1)');
     expect(file.messages[0].place).toEqual({
       start: { line: 5, column: 1, offset: 49 },
       end: { line: 5, column: 14, offset: 62 },
-    });
-    expect(file.messages[1].place).toEqual({
-      start: { line: 6, column: 1, offset: 63 },
-      end: { line: 6, column: 14, offset: 76 },
     });
   });
 
@@ -101,9 +90,7 @@ suite("remark-lint-gherkin-only-one-when", () => {
       start: { line: 5, column: 1, offset: 57 },
       end: { line: 5, column: 14, offset: 70 },
     });
-    expect(file.messages[0].message).toBe(
-      'Step "When" should not appear more than once per scenario',
-    );
+    expect(file.messages[0].message).toBe('Scenario "Test" contains 2 When statements (max 1)');
   });
 
   test("Should reset state across scenarios", () => {
@@ -118,7 +105,7 @@ suite("remark-lint-gherkin-only-one-when", () => {
     expect(file.messages).toHaveLength(0);
   });
 
-  test("Should not report And/But after When", () => {
+  test("Should report an And step that continues a When block", () => {
     const processor = getProcessor();
     const file = processor.processSync(`
 # Feature: Test
@@ -127,7 +114,8 @@ suite("remark-lint-gherkin-only-one-when", () => {
 * And step 2
 * But step 3
 `);
-    expect(file.messages).toHaveLength(0);
+    expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].message).toBe('Scenario "Test" contains 2 When statements (max 1)');
   });
 
   test("Should handle multiple scenarios with violations", () => {

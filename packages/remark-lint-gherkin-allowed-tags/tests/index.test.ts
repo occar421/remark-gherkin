@@ -131,4 +131,28 @@ suite("remark-lint-gherkin-allowed-tags", () => {
     const file = noAllowProcessor.processSync("`@any`\n# Feature: Test");
     expect(file.messages).toHaveLength(0);
   });
+
+  test("Should report disallowed tags on Scenario, Scenario Outline, and Examples", () => {
+    const file = processor.processSync(`
+# Feature: Feature
+
+\`@not-allowed\`
+## Scenario: Scenario
+
+\`@not-allowed\`
+## Scenario Outline: Outline
+
+\`@not-allowed\`
+### Examples: Examples
+| value |
+| ----- |
+| one   |
+`);
+    expect(file.messages).toHaveLength(3);
+    expect(file.messages.map((message) => message.message)).toEqual([
+      "Tag `@not-allowed` is not allowed",
+      "Tag `@not-allowed` is not allowed",
+      "Tag `@not-allowed` is not allowed",
+    ]);
+  });
 });
