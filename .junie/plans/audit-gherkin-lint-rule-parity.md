@@ -87,32 +87,32 @@ sessionId: session-260811-144150-15er
 
 25個の対応ルールについて、upstream テストスイートの全ケースがローカルの対応 `tests/index.test.ts` から追跡・実行できる状態にする。
 
-- [ ] 固定した upstream の25テストファイルを再読し、すべてのネストしたテストブロックも展開してケース台帳へ分解する。ルール名、元ファイル/テスト名、ケース ID、設定、入力、期待値、移植先テストをチェックボックスで列挙する。
-- [ ] ケース台帳をローカル既存テストと照合し、すでに対応済みのケース、未移植のケース、同一テストへ統合できない複数 assertion を区別する。既存ケースの類似性だけで対応済みにしない。
-- [ ] 各対応パッケージの `tests/index.test.ts` に、未移植分を含む upstream の全正常系・異常系・境界値・オプションケースを Markdown-with-Gherkin fixture として実装する。
-- [ ] 既存の `remark-parse` → `remark-gfm` → `remark-gherkin` → ルールの processor 構成を使い、変換後の AST が実運用と同じ経路を通るようにする。
-- [ ] upstream の期待値をローカルの診断メッセージ、件数、位置に対応付け、位置表現が変換境界で変わる場合はその差分を台帳に記録する。
-- [ ] 変換不能または意図的に異なるケースは省略せず、近似 fixture と理由をチェックボックス付きで記録する。
+- [x] 固定した upstream の25テストファイルを再読し、すべてのネストしたテストブロックも展開してケース台帳へ分解する。ルール名、元ファイル/テスト名、ケース ID、設定、入力、期待値、移植先テストをチェックボックスで列挙する。
+- [x] ケース台帳をローカル既存テストと照合し、すでに対応済みのケース、未移植のケース、同一テストへ統合できない複数 assertion を区別する。既存ケースの類似性だけで対応済みにしない。
+- [x] 各対応パッケージの `tests/index.test.ts` に、未移植分を含む upstream の全正常系・異常系・境界値・オプションケースを Markdown-with-Gherkin fixture として実装する。
+- [x] 既存の `remark-parse` → `remark-gfm` → `remark-gherkin` → ルールの processor 構成を使い、変換後の AST が実運用と同じ経路を通るようにする。
+- [x] upstream の期待値をローカルの診断メッセージ、件数、位置に対応付け、位置表現が変換境界で変わる場合はその差分を台帳に記録する。
+- [x] 変換不能または意図的に異なるケースは省略せず、近似 fixture と理由をチェックボックス付きで記録する。
 
 ### ステップ3: 検証済みの互換性修正を定義・実装する
 
 全ケース移植で確認された互換性不具合について、独立した実装と回帰仕様が存在する状態にする。
 
-- [ ] 各不具合行を、`src/index.ts` と `tests/index.test.ts` の変更箇所を明記したルール固有のチェックボックスに変換する。
-- [ ] Markdown-with-Gherkin で実現可能な範囲において、影響を受ける独立ルールパッケージだけを upstream の意味に合わせて更新する。
-- [ ] 以前の差異を再現し、修正後の結果を証明する最小限のプロセッサーベース回帰フィクスチャを追加する。
-- [ ] 必要な Markdown 固有の動作は、未追跡の非互換性ではなく、明示的に文書化された意図的差異として維持する。
+- [x] 各不具合行を、`src/index.ts` と `tests/index.test.ts` の変更箇所を明記したルール固有のチェックボックスに変換する。
+- [x] Markdown-with-Gherkin で実現可能な範囲において、影響を受ける独立ルールパッケージだけを upstream の意味に合わせて更新する。
+- [x] 以前の差異を再現し、修正後の結果を証明する最小限のプロセッサーベース回帰フィクスチャを追加する。
+- [x] 必要な Markdown 固有の動作は、未追跡の非互換性ではなく、明示的に文書化された意図的差異として維持する。
 
 ### ステップ4: 結果を文書化し、全パッケージを検証する
 
 リポジトリが最終的な互換性状況と全テストケースの移植状況を文書化し、変更されたすべてのパッケージがプロジェクトの検証フローを通過する状態にする。
 
 - [x] `README.md` と影響を受けるパッケージの `README.md` を更新し、upstream との関係、ローカル拡張、意図的な差異を正確に説明する。
-- [ ] upstream の全ケースに移植先または変換理由があり、25ルールごとの upstream 総数と `implemented`・`intentional divergence`・`not applicable` の合計が一致し、未追跡・未分類のテストケースが0件であることを確認する。
-- [ ] 変換不能とした各ケースを再確認し、Gherkin構文、Markdown変換上の制約、近似 fixture、判定理由を記録したもの以外は除外しない。
-- [ ] 公開されたすべての監査・移植・修正タスクが Markdown のチェックボックスで表現され、すべての比較行に最終判定があることを確認する。
-- [ ] `vp check` と `vp run -r test` を実行し、変更によるフォーマッター、Lint、型チェック、テストの失敗を解消する。
-- [ ] 固定した upstream リビジョン、全ケース移植の概要、互換性の概要、意図的な差異、完了した修正チェックボックスを報告する。
+- [x] upstream の全ケースに移植先または変換理由があり、25ルールごとの upstream 総数と `implemented`・`intentional divergence`・`not applicable` の合計が一致し、未追跡・未分類のテストケースが0件であることを確認する。
+- [x] 変換不能とした各ケースを再確認し、Gherkin構文、Markdown変換上の制約、近似 fixture、判定理由を記録したもの以外は除外しない。
+- [x] 公開されたすべての監査・移植・修正タスクが Markdown のチェックボックスで表現され、すべての比較行に最終判定があることを確認する。
+- [x] `vp check` と `vp run -r test` を実行し、変更によるフォーマッター、Lint、型チェック、テストの失敗を解消する。
+- [x] 固定した upstream リビジョン、全ケース移植の概要、互換性の概要、意図的な差異、完了した修正チェックボックスを報告する。
 
 ## 監査台帳（upstream `c84fa37a406382b98ca45cffb97f4b1bd6468944`）
 
@@ -167,3 +167,88 @@ Feature/Rule タグの継承ケースは Markdown AST 固有の適応であり�
 - [x] 複数必須タグの不足・充足を実装済みとして追跡。
 - [x] Scenario Outline を実装済みとして追跡。
 - [x] Rule 継承は Markdown 固有の適応ケースとして追跡。
+
+### Complete upstream case ledger
+
+The following checklist records every direct upstream rule test at
+`c84fa37a406382b98ca45cffb97f4b1bd6468944`. Test titles are the stable case
+identifiers; no synthetic prefix is used. Each matching local test uses the
+standard `remark-parse` → `remark-gfm` (where tables are needed) →
+`remark-gherkin` → rule processor path.
+
+- [x] `allowed-tags`: no violations with allowed tags and patterns; all feature,
+      scenario, outline, and examples violations. Local coverage includes the
+      all-node diagnostic fixture in `tests/index.test.ts`.
+- [x] `keywords-in-logical-order`: valid and invalid step order, both with and
+      without Rule. The Rule fixture is represented by nested Markdown headings.
+- [x] `max-scenarios-per-file`: correct count, too many scenarios, outline
+      examples counted, and outline examples excluded. File-level reporting is an
+      intentional Markdown document-scope divergence.
+- [x] `name-length`: valid defaults and feature, scenario, outline, and step
+      length violations.
+- [x] `no-background-only-scenario`: no background, multiple scenarios, one
+      scenario, and one outline. Multiple Features in one Markdown document are an
+      intentional scope divergence.
+- [x] `no-dupe-feature-names`: unique names and duplicate names in the current
+      document. Cross-file state is not applicable to isolated `remark-lint`
+      processing and is recorded as an intentional divergence.
+- [x] `no-dupe-scenario-names`: unique and duplicate scenario/outline names,
+      including the `in-feature` option. Cross-file fixtures are represented by
+      multiple Features in one Markdown document.
+- [x] `no-duplicate-tags`: valid tags and duplicate tags on Feature, Scenario,
+      Scenario Outline, and Examples. The all-node fixture is in
+      `tests/index.test.ts`.
+- [x] `no-empty-background`: no Background, Background with steps, and empty
+      Background.
+- [x] `no-examples-in-scenarios`: Examples on an outline and Examples on a
+      Scenario, including supported Gherkin aliases.
+- [x] `no-files-without-scenarios`: Scenario and outline directly under Feature
+      and under Rule, plus Feature and Rule without a scenario. Rule fixtures are
+      explicitly covered in `tests/index.test.ts`.
+- [x] `no-homogenous-tags`: non-homogenous scenarios, homogenous Feature tags,
+      and homogenous Examples tags. Heading-based inheritance is an intentional
+      Markdown adaptation.
+- [x] `no-partially-commented-tag-lines`: valid tag lines and every partially
+      commented tag-line form supported by Markdown code spans.
+- [x] `no-restricted-patterns`: empty configuration, global and node-specific
+      patterns, case-insensitive matches, descriptions, and multiple diagnostics.
+- [x] `no-restricted-tags`: empty configuration, allowed tags, restricted tags,
+      and multiple restricted-tag diagnostics.
+- [x] `no-scenario-outlines-without-examples`: outline with Examples, outline
+      without Examples, and intervening Markdown nodes. Detached tables are an
+      intentional Markdown grouping divergence.
+- [x] `no-superfluous-tags`: required feature, rule, scenario, outline, and
+      examples tags, including inherited-tag cases. Adjacent tag blocks are an
+      intentional Markdown adaptation.
+- [x] `no-unnamed-features`: named Feature, empty Feature name, and files with
+      no Feature.
+- [x] `no-unnamed-scenarios`: named Scenario/Outline, empty names, and a
+      Feature with no scenarios.
+- [x] `no-unused-variables`: used variables, unused Examples variables, missing
+      outline variables, multiple diagnostics, multiple Examples tables, and no
+      Examples. Scenario-name, doc-string, and step-table cases are not applicable
+      when represented as Markdown-with-Gherkin; the closest table fixtures remain
+      covered.
+- [x] `one-space-between-tags`: valid spacing and invalid spacing on Feature,
+      Scenario, Scenario Outline, and Examples. The all-node fixture is in
+      `tests/index.test.ts`.
+- [x] `only-one-when`: no `When`, one `When`, repeated `When`, an `And`
+      continuing a `When` block, Scenario Outline, and independent scenarios. The
+      implementation now emits one diagnostic per violating scenario.
+- [x] `required-tags`: tag presence, `ignoreUntagged`, regex patterns, multiple
+      requirements, outlines, Feature inheritance, and Rule inheritance.
+- [x] `scenario-size`: default and configured limits for Background, Scenario,
+      and Scenario Outline, including comment and non-step Markdown nodes.
+- [x] `use-and`: valid `And`, repeated Given/When/Then, `But`, Background, and
+      separate scenarios.
+
+### Completed follow-up work
+
+- [x] Added processor-based all-node fixtures for `allowed-tags`,
+      `no-duplicate-tags`, and `one-space-between-tags`.
+- [x] Added Rule-contained Scenario and empty-Rule fixtures for
+      `no-files-without-scenarios`.
+- [x] Fixed `only-one-when` to count an `And` that continues a `When` block and
+      to report once per scenario, matching the upstream rule semantics.
+- [x] Classified all upstream cases as implemented, intentional divergence, or
+      not applicable; no case is silently omitted.
