@@ -76,10 +76,10 @@ sessionId: session-260811-144150-15er
 
 28個すべてのローカルルールパッケージについて、チェックボックス付きの互換性レコードが存在する状態にする。
 
-- [ ] 監査に使用する upstream `gherkin-lint` のコミットを固定し、各対象ルールの実装とテストスイートを確認する。
-- [ ] 25個の直接対応ルールを記録し、`no-tags-on-backgrounds`、`one-feature-per-file`、`up-to-one-background-per-file` を現在の upstream に対するローカル専用ルールとして明示する。
-- [ ] オプションとデフォルト、対象ノード、動作、診断、Markdown AST への適応に関する結果を互換性マトリクスに記録する。
-- [ ] 各行を、ソースとテストの根拠付きで `parity`、`intentional divergence`、`defect` のいずれかに分類する。
+- [x] 監査に使用する upstream `gherkin-lint` のコミットを固定し、各対象ルールの実装とテストスイートを確認する。
+- [x] 25個の直接対応ルールを記録し、`no-tags-on-backgrounds`、`one-feature-per-file`、`up-to-one-background-per-file` を現在の upstream に対するローカル専用ルールとして明示する。
+- [x] オプションとデフォルト、対象ノード、動作、診断、Markdown AST への適応に関する結果を互換性マトリクスに記録する。
+- [x] 各行を、ソースとテストの根拠付きで `parity`、`intentional divergence`、`defect` のいずれかに分類する。
 
 ### ステップ2: upstream の全テストケースをローカルへ移植する
 
@@ -104,8 +104,50 @@ sessionId: session-260811-144150-15er
 
 リポジトリが最終的な互換性状況と全テストケースの移植状況を文書化し、変更されたすべてのパッケージがプロジェクトの検証フローを通過する状態にする。
 
-- [ ] `README.md` と影響を受けるパッケージの `README.md` を更新し、upstream との関係、ローカル拡張、意図的な差異を正確に説明する。
+- [x] `README.md` と影響を受けるパッケージの `README.md` を更新し、upstream との関係、ローカル拡張、意図的な差異を正確に説明する。
 - [ ] upstream の全ケースに移植先または変換理由があり、未追跡のテストケースが残っていないことを確認する。
 - [ ] 公開されたすべての監査・移植・修正タスクが Markdown のチェックボックスで表現され、すべての比較行に最終判定があることを確認する。
 - [ ] `vp check` と `vp run -r test` を実行し、変更によるフォーマッター、Lint、型チェック、テストの失敗を解消する。
 - [ ] 固定した upstream リビジョン、全ケース移植の概要、互換性の概要、意図的な差異、完了した修正チェックボックスを報告する。
+
+## 監査台帳（upstream `c84fa37a406382b98ca45cffb97f4b1bd6468944`）
+
+`src/index.ts` と `tests/index.test.ts` は各ローカルパッケージ、`src/rules/<rule>.js` と `test/rules/<rule>.js` は固定した upstream の根拠を示す。ローカル診断は対象 Gherkin ノードを報告し、位置は Markdown のインラインコード、見出し、またはテーブルセルの位置へ適応される。
+
+| Local package                           | Upstream source / test                                                                                       | Options and default                 | Scope and result                                                                             |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------- | -------------------------------------------------------------------------------------------- |
+| `allowed-tags`                          | `src/rules/allowed-tags.js` / `test/rules/allowed-tags.js`                                                   | `tags: []`, `patterns: []`          | Tags; `@` values and regex; `parity`                                                         |
+| `keywords-in-logical-order`             | `src/rules/keywords-in-logical-order.js` / `test/rules/keywords-in-logical-order.js`                         | none                                | Scenario steps; `parity`                                                                     |
+| `max-scenarios-per-file`                | `src/rules/max-scenarios-per-file.js` / `test/rules/max-scenarios-per-file.js`                               | numeric limit, upstream default `0` | Feature file scenario count; `intentional divergence` for Markdown file scope                |
+| `name-length`                           | `src/rules/name-length.js` / `test/rules/name-length.js`                                                     | max lengths, upstream defaults      | Feature, scenario, step names; `parity`                                                      |
+| `no-background-only-scenario`           | `src/rules/no-background-only-scenario.js` / `test/rules/no-background-only-scenario.js`                     | none                                | Feature background/scenario count; `intentional divergence` for multi-feature Markdown scope |
+| `no-dupe-feature-names`                 | `src/rules/no-dupe-feature-names.js` / `test/rules/no-dupe-feature-names.js`                                 | none                                | Feature names; `parity`                                                                      |
+| `no-dupe-scenario-names`                | `src/rules/no-dupe-scenario-names.js` / `test/rules/no-dupe-scenario-names.js`                               | none                                | Scenario names within feature; `parity`                                                      |
+| `no-duplicate-tags`                     | `src/rules/no-duplicate-tags.js` / `test/rules/no-duplicate-tags.js`                                         | none                                | Adjacent/inherited tag lines; `intentional divergence` for Markdown separation               |
+| `no-empty-background`                   | `src/rules/no-empty-background.js` / `test/rules/no-empty-background.js`                                     | none                                | Background body; `parity`                                                                    |
+| `no-examples-in-scenarios`              | `src/rules/no-examples-in-scenarios.js` / `test/rules/no-examples-in-scenarios.js`                           | none                                | Scenario examples; `parity`                                                                  |
+| `no-files-without-scenarios`            | `src/rules/no-files-without-scenarios.js` / `test/rules/no-files-without-scenarios.js`                       | none                                | File scenario count; `intentional divergence` for Markdown documents                         |
+| `no-homogenous-tags`                    | `src/rules/no-homogenous-tags.js` / `test/rules/no-homogenous-tags.js`                                       | none                                | Feature/scenario tag inheritance; `intentional divergence`                                   |
+| `no-partially-commented-tag-lines`      | `src/rules/no-partially-commented-tag-lines.js` / `test/rules/no-partially-commented-tag-lines.js`           | none                                | Tag line syntax; `parity`                                                                    |
+| `no-restricted-patterns`                | `src/rules/no-restricted-patterns.js` / `test/rules/no-restricted-patterns.js`                               | pattern list, default `[]`          | Step text regex; `parity`                                                                    |
+| `no-restricted-tags`                    | `src/rules/no-restricted-tags.js` / `test/rules/no-restricted-tags.js`                                       | tag list, default `[]`              | Tags; `@` values; `parity`                                                                   |
+| `no-scenario-outlines-without-examples` | `src/rules/no-scenario-outlines-without-examples.js` / `test/rules/no-scenario-outlines-without-examples.js` | none                                | Outline/Examples grouping; `intentional divergence` for separated Markdown tables            |
+| `no-superfluous-tags`                   | `src/rules/no-superfluous-tags.js` / `test/rules/no-superfluous-tags.js`                                     | required tags, default `[]`         | Tag inheritance; `intentional divergence`                                                    |
+| `no-unnamed-features`                   | `src/rules/no-unnamed-features.js` / `test/rules/no-unnamed-features.js`                                     | none                                | Feature heading; `parity`                                                                    |
+| `no-unnamed-scenarios`                  | `src/rules/no-unnamed-scenarios.js` / `test/rules/no-unnamed-scenarios.js`                                   | none                                | Scenario headings; `parity`                                                                  |
+| `no-unused-variables`                   | `src/rules/no-unused-variables.js` / `test/rules/no-unused-variables.js`                                     | none                                | Outline variables and GFM tables; `intentional divergence` for multiple tables               |
+| `one-space-between-tags`                | `src/rules/one-space-between-tags.js` / `test/rules/one-space-between-tags.js`                               | none                                | Tag line spacing; `parity`                                                                   |
+| `only-one-when`                         | `src/rules/only-one-when.js` / `test/rules/only-one-when.js`                                                 | none                                | Scenario steps; `parity`                                                                     |
+| `required-tags`                         | `src/rules/required-tags.js` / `test/rules/required-tags.js`                                                 | tags/patterns, default `[]`         | Scenario tags; `intentional divergence` for Markdown tag blocks                              |
+| `scenario-size`                         | `src/rules/scenario-size.js` / `test/rules/scenario-size.js`                                                 | max, upstream default               | Scenario/background steps; `parity`                                                          |
+| `use-and`                               | `src/rules/use-and.js` / `test/rules/use-and.js`                                                             | none                                | Ordered sibling steps; `parity`                                                              |
+| `no-tags-on-backgrounds`                | no current upstream rule / —                                                                                 | none                                | Local extension; `intentional divergence`                                                    |
+| `one-feature-per-file`                  | no current upstream rule / —                                                                                 | none                                | Local extension; `intentional divergence`                                                    |
+| `up-to-one-background-per-file`         | no current upstream rule / —                                                                                 | none                                | Local extension; `intentional divergence`                                                    |
+
+### 監査結果と追随項目
+
+- [x] 28パッケージのローカル実装・テスト参照を確認し、upstream 対応の有無と判定を記録した。
+- [x] Markdown-with-Gherkin のフラットな兄弟ノード、タグブロック、GFM Examples テーブルが `.feature` の構造を完全には再現しない差異を、`intentional divergence` として記録した。
+- [x] 現時点の比較で再現可能な `defect` は確認されなかったため、修正用の空チェックボックスは追加していない。
+- [x] upstream 現行ルールにない3ルールを削除せず、ローカル拡張として README と台帳に明記した。

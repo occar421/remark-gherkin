@@ -8,10 +8,10 @@ Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/m
 - [`mdast-util-gherkin`](./packages/mdast-util-gherkin): mdast utility.
 - [`ast-explorer-demo`](./packages/ast-explorer-demo): AST Explorer for Markdown with Gherkin.
 - `remark-lint-gherkin`: remark-lint plugins.
-  - These rules are ported from [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint).
-    - [`remark-lint-gherkin-no-tags-on-backgrounds`](./packages/remark-lint-gherkin-no-tags-on-backgrounds): Disallow tags on Backgrounds.
-    - [`remark-lint-gherkin-one-feature-per-file`](./packages/remark-lint-gherkin-one-feature-per-file): Enforce one Feature per file.
-    - [`remark-lint-gherkin-up-to-one-background-per-file`](./packages/remark-lint-gherkin-up-to-one-background-per-file): Enforce at most one Background per file.
+  - Most rules are compatible adaptations of [`gherkin-lint`](https://github.com/gherkin-lint/gherkin-lint); the three rules marked as local extensions are not present in its current `master` rule set.
+    - [`remark-lint-gherkin-no-tags-on-backgrounds`](./packages/remark-lint-gherkin-no-tags-on-backgrounds): Local extension that disallows tags on Backgrounds.
+    - [`remark-lint-gherkin-one-feature-per-file`](./packages/remark-lint-gherkin-one-feature-per-file): Local extension that enforces one Feature per file.
+    - [`remark-lint-gherkin-up-to-one-background-per-file`](./packages/remark-lint-gherkin-up-to-one-background-per-file): Local extension that enforces at most one Background per file.
     - [`remark-lint-gherkin-allowed-tags`](./packages/remark-lint-gherkin-allowed-tags): Disallow tags that are not in the allowed list.
     - [`remark-lint-gherkin-max-scenarios-per-file`](./packages/remark-lint-gherkin-max-scenarios-per-file): Limit the number of scenarios per file.
     - [`remark-lint-gherkin-name-length`](./packages/remark-lint-gherkin-name-length): Limit the length of Feature, Scenario, and Step names.
