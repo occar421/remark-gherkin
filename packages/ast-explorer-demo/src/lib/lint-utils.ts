@@ -271,8 +271,15 @@ export function normalizeLintOptions<Name extends keyof LintRuleOptions>(
     return options === "in-feature" || options === "anywhere-in-file" ? options : undefined;
   }
   if (name === "remark-lint-gherkin-no-restricted-patterns") {
+    const source = options as Record<string, unknown>;
+    const patterns =
+      typeof source.patterns === "object" &&
+      source.patterns !== null &&
+      !Array.isArray(source.patterns)
+        ? source.patterns
+        : source;
     return Object.fromEntries(
-      Object.entries(options)
+      Object.entries(patterns)
         .map(([key, value]) => [key, normalizePatterns(value)])
         .filter(([, value]) => value !== undefined),
     ) as LintRuleOptions[Name];

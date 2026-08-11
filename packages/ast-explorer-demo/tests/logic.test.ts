@@ -160,6 +160,30 @@ describe("logic", () => {
     );
   });
 
+  test("applies restricted patterns saved by the settings panel", () => {
+    const settings = {
+      ...defaultLintSettings,
+      preset: false,
+      options: {
+        "remark-lint-gherkin-no-restricted-patterns": {
+          patterns: { Global: ["die"] },
+        },
+      },
+    };
+    for (const name of lintRuleNames) {
+      settings[name] = name === "remark-lint-gherkin-no-restricted-patterns";
+    }
+
+    const messages = lintContent("# Feature: Test\n## Rule: If you die\n", settings as never);
+
+    expect(messages).toContainEqual(
+      expect.objectContaining({
+        ruleId: "gherkin-no-restricted-patterns",
+        message: 'Restricted pattern match found for Global: "die"',
+      }),
+    );
+  });
+
   test("applies scenario size options saved by the settings panel", () => {
     const settings = {
       ...defaultLintSettings,
