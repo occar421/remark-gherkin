@@ -21,7 +21,7 @@ const remarkLintGherkinRequiredTags = lintRule<Root, Options>(
       return;
     }
 
-    const tagRegexps = tags.map((t) => ({ pattern: t, regexp: new RegExp(t) }));
+    const tagRegexps = tags.map((pattern) => ({ pattern, regexp: new RegExp(pattern) }));
 
     let featureTags: string[] = [];
     let ruleTags: string[] = [];

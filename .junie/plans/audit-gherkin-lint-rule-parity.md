@@ -155,3 +155,15 @@ sessionId: session-260811-144150-15er
 - [x] Markdown-with-Gherkin のフラットな兄弟ノード、タグブロック、GFM Examples テーブルが `.feature` の構造を完全には再現しない差異を、`intentional divergence` として記録した。
 - [x] 現時点の比較で再現可能な `defect` は確認されなかったため、修正用の空チェックボックスは追加していない。
 - [x] upstream 現行ルールにない3ルールを削除せず、ローカル拡張として README と台帳に明記した。
+
+### ケース追跡（required-tags）
+
+`required-tags` の upstream `test/rules/required-tags.js` の各ケースを、ローカルの
+`packages/remark-lint-gherkin-required-tags/tests/index.test.ts` に追跡 ID 付きで対応付ける。
+Feature/Rule タグの継承ケースは Markdown AST 固有の適応であり、`intentional divergence` とする。
+
+- [x] `UP-REQ-01`〜`UP-REQ-05`: タグ有無、未タグ要素の `ignoreUntagged`、不一致タグを実装済みとして追跡。
+- [x] `UP-REQ-06`〜`UP-REQ-07`: 正規表現の一致・不一致を実装済みとして追跡。
+- [x] `UP-REQ-08`〜`UP-REQ-09`: 複数必須タグの不足・充足を実装済みとして追跡。
+- [x] `UP-REQ-10`: Scenario Outline を実装済みとして追跡。
+- [x] `UP-REQ-11`: Rule 継承は Markdown 固有の適応ケースとして追跡。
