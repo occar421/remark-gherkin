@@ -56,6 +56,19 @@ suite("remark-lint-gherkin-only-one-when", () => {
     });
   });
 
+  test("Should report when a Background contains multiple When steps", () => {
+    const processor = getProcessor();
+    const file = processor.processSync(`
+# Background:
+
+* When I eat
+* When I drink
+* Then I left
+`);
+    expect(file.messages).toHaveLength(1);
+    expect(file.messages[0].ruleId).toBe("gherkin-only-one-when");
+  });
+
   test("Should report when there are more than two When steps", () => {
     const processor = getProcessor();
     const file = processor.processSync(`

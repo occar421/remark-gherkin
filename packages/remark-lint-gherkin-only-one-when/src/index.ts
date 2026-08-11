@@ -17,7 +17,11 @@ const remarkLintGherkinOnlyOneWhen = lintRule<Root>(
       }
 
       const segmentKeyword = segmentLine.data.gherkin.segmentKeyword;
-      if (segmentKeyword !== "Scenario" && segmentKeyword !== "ScenarioOutline") {
+      if (
+        segmentKeyword !== "Background" &&
+        segmentKeyword !== "Scenario" &&
+        segmentKeyword !== "ScenarioOutline"
+      ) {
         return;
       }
 

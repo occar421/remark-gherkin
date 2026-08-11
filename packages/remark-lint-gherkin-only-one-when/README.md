@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/remark-lint-gherkin-only-one-when.svg)](https://www.npmjs.com/package/remark-lint-gherkin-only-one-when)
 
-[remark-lint](https://github.com/remarkjs/remark-lint) plugin to enforce that only one `When` step is used per scenario.
+[remark-lint](https://github.com/remarkjs/remark-lint) plugin to enforce that only one `When` step is used per Background or scenario.
 This rule is ported from [gherkin-lint](https://github.com/gherkin-lint/gherkin-lint).
 
 ## Install
@@ -43,7 +43,7 @@ console.error(reporter(file));
 
 ### `unified().use(remarkLintGherkinOnlyOneWhen)`
 
-Configures `remark-lint` to check that there is at most one `When` step for each scenario.
+Configures `remark-lint` to check that there is at most one `When` step for each Background or scenario.
 
 ## Examples
 
@@ -59,6 +59,13 @@ Configures `remark-lint` to check that there is at most one `When` step for each
 ```
 
 Triggers a lint error: `Step "When" should not appear more than once per scenario`
+
+```markdown
+# Background:
+
+- When I eat
+- When I drink
+```
 
 ### Correct
 
