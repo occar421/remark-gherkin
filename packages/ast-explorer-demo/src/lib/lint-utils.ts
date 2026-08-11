@@ -104,7 +104,7 @@ export type LintSettings = { preset: boolean; options?: LintOptions } & Record<
 export type LintOptionDescriptor = {
   label: string;
   description: string;
-  type: "number" | "boolean" | "select" | "array" | "categorized-array";
+  type: "number" | "boolean" | "select" | "array" | "categorized-array" | "categorized-number";
   default?: string | number | boolean;
   choices?: readonly string[];
 };
@@ -186,7 +186,7 @@ export const lintRuleOptionDescriptors: Partial<
     "steps-length": {
       label: "Step limits",
       description: "Maximum steps in Background and Scenario.",
-      type: "categorized-array",
+      type: "categorized-number",
       default: 15,
     },
   },
@@ -313,7 +313,12 @@ export function normalizeLintOptions<Name extends keyof LintRuleOptions>(
         limits &&
         Object.fromEntries(
           Object.entries(limits)
-            .map(([key, value]) => [key, normalizeNumber(value)])
+            .map(([key, value]) => [
+              key,
+              normalizeNumber(
+                Array.isArray(value) && value.length === 1 ? Number(value[0]) : value,
+              ),
+            ])
             .filter(([, value]) => value !== undefined),
         ),
     } as LintRuleOptions[Name];

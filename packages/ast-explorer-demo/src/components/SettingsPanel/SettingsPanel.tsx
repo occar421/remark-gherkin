@@ -27,7 +27,7 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
     name: LintRuleName,
     key: string,
     category: string,
-    value: string[],
+    value: unknown,
   ) => {
     setLintSettings((current) => ({
       ...current,
@@ -73,6 +73,22 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
         />
       );
     };
+    const numberInput = (category: string) => (
+      <input
+        {...inputProps}
+        type="number"
+        min="0"
+        value={(current as Record<string, number | undefined>)?.[category] ?? ""}
+        onChange={(event) =>
+          updateCategorizedOption(
+            name,
+            key,
+            category,
+            event.target.value === "" ? undefined : Number(event.target.value),
+          )
+        }
+      />
+    );
     return (
       <div className="settings-panel__option" key={key}>
         <label className="settings-panel__option-label">{descriptor.label}</label>
@@ -141,6 +157,13 @@ export function SettingsPanel({ lintSettings, setLintSettings }: SettingsPanelPr
                   {textArea(category)}
                 </label>
               )))}
+        {descriptor.type === "categorized-number" &&
+          ["Background", "Scenario"].map((category) => (
+            <label className="settings-panel__category" key={category}>
+              {category}
+              {numberInput(category)}
+            </label>
+          ))}
       </div>
     );
   };

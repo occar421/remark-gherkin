@@ -160,6 +160,33 @@ describe("logic", () => {
     );
   });
 
+  test("applies scenario size options saved by the settings panel", () => {
+    const settings = {
+      ...defaultLintSettings,
+      preset: false,
+      options: {
+        "remark-lint-gherkin-scenario-size": {
+          "steps-length": { Scenario: ["1"] },
+        },
+      },
+    };
+    for (const name of lintRuleNames) {
+      settings[name] = name === "remark-lint-gherkin-scenario-size";
+    }
+
+    const messages = lintContent(
+      "# Feature: Test\n## Scenario: Test\n* Given step 1\n* And step 2\n",
+      settings as never,
+    );
+
+    expect(messages).toContainEqual(
+      expect.objectContaining({
+        ruleId: "gherkin-scenario-size",
+        message: "Expected Scenario to have at most 1 steps, but found 2",
+      }),
+    );
+  });
+
   test("restores lint settings and normalizes stored options", () => {
     const name = "remark-lint-gherkin-name-length";
     const restored = mergeStoredLintSettings({
