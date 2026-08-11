@@ -40,15 +40,14 @@ console.error(reporter(file));
 
 All scenarios have the same tag. It should be moved to the Feature level.
 
+<!-- prettier-ignore -->
 ```markdown
 # Feature: Homogenous tags
 
 `@tag`
-
 ## Scenario: Scenario 1
 
 `@tag`
-
 ## Scenario: Scenario 2
 ```
 
@@ -56,9 +55,9 @@ All scenarios have the same tag. It should be moved to the Feature level.
 
 The tag is at the Feature level, so it applies to all scenarios without repetition.
 
+<!-- prettier-ignore -->
 ```markdown
 `@tag`
-
 # Feature: Homogenous tags
 
 ## Scenario: Scenario 1

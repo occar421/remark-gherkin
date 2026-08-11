@@ -30,17 +30,17 @@ remark()
 
 ### Examples of Incorrect Code
 
+<!-- prettier-ignore -->
 ```markdown
 `@tag1` `@tag2` `@tag3`
-
 # Feature: A feature with too many spaces between tags
 ```
 
 ### Examples of Correct Code
 
+<!-- prettier-ignore -->
 ```markdown
 `@tag1` `@tag2` `@tag3`
-
 # Feature: A feature with correctly spaced tags
 ```
 

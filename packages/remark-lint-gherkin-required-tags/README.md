@@ -64,9 +64,9 @@ When configured with `{ "tags": ["@smoke"], "ignoreUntagged": false }`.
 
 ### Examples of Correct Code
 
+<!-- prettier-ignore -->
 ```md
 `@smoke`
-
 # Feature: Has required tag
 
 ## Scenario: Scenario 1

@@ -52,9 +52,9 @@ Configures `remark-lint` to check for restricted tags.
 
 Inlined tags `@watch` or `@todo` are restricted if configured.
 
+<!-- prettier-ignore -->
 ```markdown
 `@watch`
-
 # Feature: Restricted Tag Example
 ```
 
@@ -62,9 +62,9 @@ Inlined tags `@watch` or `@todo` are restricted if configured.
 
 Tags not in the restricted list are allowed.
 
+<!-- prettier-ignore -->
 ```markdown
 `@allowed`
-
 # Feature: Allowed Tag Example
 ```
 

@@ -38,25 +38,23 @@ console.error(reporter(file));
 
 ### Examples of Incorrect Code
 
+<!-- prettier-ignore -->
 ```markdown
 `@tag1`
-
 # Feature: Test
 
 `@tag1`
-
 ## Scenario: Scenario 1
 ```
 
 ### Examples of Correct Code
 
+<!-- prettier-ignore -->
 ```markdown
 `@tag1`
-
 # Feature: Test
 
 `@tag2`
-
 ## Scenario: Scenario 1
 ```
 
