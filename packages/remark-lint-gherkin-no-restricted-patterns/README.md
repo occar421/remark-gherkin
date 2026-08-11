@@ -41,11 +41,12 @@ console.log(file.messages);
 
 #### `example.feature`
 
-```gherkin
+```markdown
 # Feature: This contains restricted word
 
 ## Scenario: Scenario 1
-* Given a restricted word
+
+- Given a restricted word
 ```
 
 When configured with `{ "Global": ["restricted word"] }`.
@@ -54,11 +55,12 @@ When configured with `{ "Global": ["restricted word"] }`.
 
 #### `example.feature`
 
-```gherkin
+```markdown
 # Feature: Correct Title
 
 ## Scenario: Scenario 1
-* Given a valid step
+
+- Given a valid step
 ```
 
 ## Development
