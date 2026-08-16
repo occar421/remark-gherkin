@@ -14,6 +14,9 @@
   "dependencies": {
     "@monaco-editor/react": "catalog:",
     "mdast-util-gherkin": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-json-view-lite": "catalog:",
     "remark-gfm": "catalog:",
     "remark-gherkin": "workspace:*",
     "remark-lint": "catalog:",
@@ -51,6 +54,8 @@
   "devDependencies": {
     "@types/mdast": "catalog:",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@types/unist": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
