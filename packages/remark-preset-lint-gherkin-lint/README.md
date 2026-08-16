@@ -12,16 +12,22 @@ npm install remark-preset-lint-gherkin-lint
 
 ## Use
 
+### Command
+
+With remark-cli and this package are installed,
+
+```shell
+remark src/ --frail --use remark-preset-lint-gherkin-lint
+```
+
+### API
+
 ```javascript
 import { remark } from "remark";
-import remarkGherkin from "remark-gherkin";
-import remarkLint from "remark-lint";
 import remarkPresetLintGherkinLint from "remark-preset-lint-gherkin-lint";
 import { reporter } from "vfile-reporter";
 
 const file = await remark()
-  .use(remarkGherkin)
-  .use(remarkLint)
   .use(remarkPresetLintGherkinLint)
   .process("# Feature: Gherkin\n## Scenario: Empty Scenario");
 
