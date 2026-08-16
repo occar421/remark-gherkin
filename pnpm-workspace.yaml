@@ -33,7 +33,7 @@ catalog:
   remark-gfm: 4.0.1
   unified-lint-rule: 3.0.1
   vfile: 6.0.3
-  "@changesets/cli": 2.31.0
+  "@changesets/cli": 3.0.0
   react: 19.2.8
   react-dom: 19.2.8
   "@types/react": 19.2.17
