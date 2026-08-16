@@ -8,7 +8,7 @@ import { findBetween } from "unist-util-find-between";
 const remarkLintGherkinOneSpaceBetweenTags = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-one-space-between-tags",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-one-space-between-tags#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-one-space-between-tags#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("tagLine"), (tagLine) => {

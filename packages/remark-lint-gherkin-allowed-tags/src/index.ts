@@ -12,7 +12,7 @@ export type Options = {
 const remarkLintGherkinAllowedTags = lintRule<Root, Options>(
   {
     origin: "remark-lint:gherkin-allowed-tags",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-allowed-tags#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-allowed-tags#readme",
   },
   (tree, file, options) => {
     const { tags = [], patterns = [] } = options || {};

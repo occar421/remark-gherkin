@@ -13,7 +13,7 @@ export interface Options {
 const remarkLintGherkinNameLength = lintRule<Root, Options>(
   {
     origin: "remark-lint:gherkin-name-length",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-name-length#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-name-length#readme",
   },
   (tree, file, options) => {
     const limits = {

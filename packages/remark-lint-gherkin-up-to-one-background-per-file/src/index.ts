@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinUpToOneBackgroundPerFile = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-up-to-one-background-per-file",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-up-to-one-background-per-file#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-up-to-one-background-per-file#readme",
   },
   (tree, file) => {
     let backgroundCount = 0;

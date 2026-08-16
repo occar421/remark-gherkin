@@ -7,7 +7,7 @@ import { getSegmentName, testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoUnnamedScenarios = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-unnamed-scenarios",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-unnamed-scenarios#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-unnamed-scenarios#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (node) => {

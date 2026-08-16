@@ -2,15 +2,15 @@
   "name": "remark-lint-gherkin-no-restricted-tags",
   "version": "0.1.0",
   "description": "remark-lint plugin to disallow restricted tags in Gherkin files.",
-  "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-restricted-tags#readme",
+  "homepage": "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-restricted-tags#readme",
   "bugs": {
-    "url": "https://github.com/occar421/unifiedjs-gherkin/issues"
+    "url": "https://github.com/occar421/remark-gherkin/issues"
   },
   "license": "Apache-2.0",
   "author": "MasuqaT <occar@hotmail.co.jp>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/occar421/unifiedjs-gherkin.git",
+    "url": "https://github.com/occar421/remark-gherkin.git",
     "directory": "packages/remark-lint-gherkin-no-restricted-tags"
   },
   "files": [

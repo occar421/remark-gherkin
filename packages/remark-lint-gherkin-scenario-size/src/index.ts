@@ -15,7 +15,7 @@ export interface Options {
 const remarkLintGherkinScenarioSize = lintRule<Root, Options>(
   {
     origin: "remark-lint:gherkin-scenario-size",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-scenario-size#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-scenario-size#readme",
   },
   (tree, file, options) => {
     const limits = {

@@ -8,7 +8,7 @@ import { findAfterUntil } from "unist-util-find-until";
 const remarkLintGherkinNoEmptyBackground = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-empty-background",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-empty-background#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-empty-background#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (node) => {

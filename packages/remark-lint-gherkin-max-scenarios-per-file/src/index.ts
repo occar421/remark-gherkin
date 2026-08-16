@@ -13,7 +13,7 @@ export interface Options {
 const remarkLintGherkinMaxScenariosPerFile = lintRule<Root, Options>(
   {
     origin: "remark-lint:gherkin-max-scenarios-per-file",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-max-scenarios-per-file#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-max-scenarios-per-file#readme",
   },
   (tree, file, options) => {
     const maxScenarios = options?.maxScenarios ?? 10;

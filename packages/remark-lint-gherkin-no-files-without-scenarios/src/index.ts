@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoFilesWithoutScenarios = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-files-without-scenarios",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-files-without-scenarios#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-files-without-scenarios#readme",
   },
   (tree, file) => {
     let scenarioCount = 0;

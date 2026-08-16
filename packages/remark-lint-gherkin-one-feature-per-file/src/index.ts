@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinOneFeaturePerFile = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-one-feature-per-file",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-one-feature-per-file#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-one-feature-per-file#readme",
   },
   (tree, file) => {
     let featureCount = 0;

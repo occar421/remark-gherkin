@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoSuperfluousTags = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-superfluous-tags",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-superfluous-tags#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-superfluous-tags#readme",
   },
   (tree, file) => {
     let featureTags: string[] = [];

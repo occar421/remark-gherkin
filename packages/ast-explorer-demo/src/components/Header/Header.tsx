@@ -31,7 +31,7 @@ export function Header({
         </button>
         <a
           className="header__repository-link"
-          href="https://github.com/occar421/unifiedjs-gherkin"
+          href="https://github.com/occar421/remark-gherkin"
           target="_blank"
           rel="noreferrer"
         >

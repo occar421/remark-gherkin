@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoPartiallyCommentedTagLines = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-partially-commented-tag-lines",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-partially-commented-tag-lines#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-partially-commented-tag-lines#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("tagLine"), (node) => {

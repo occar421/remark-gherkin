@@ -12,7 +12,7 @@ export type Options = {
 const remarkLintGherkinRequiredTags = lintRule<Root, Options>(
   {
     origin: "remark-lint:gherkin-required-tags",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-required-tags#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-required-tags#readme",
   },
   (tree, file, options) => {
     const { tags = [], ignoreUntagged = true } = options || {};

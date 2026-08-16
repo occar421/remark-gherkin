@@ -8,7 +8,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinKeywordsInLogicalOrder = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-keywords-in-logical-order",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-keywords-in-logical-order#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-keywords-in-logical-order#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (segmentLine, _index, parent) => {

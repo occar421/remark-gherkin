@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoExamplesInScenarios = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-examples-in-scenarios",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-examples-in-scenarios#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-examples-in-scenarios#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (node, index, parent) => {

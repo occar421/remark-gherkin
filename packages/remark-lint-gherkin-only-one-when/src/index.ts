@@ -8,7 +8,7 @@ import { getSegmentName, testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinOnlyOneWhen = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-only-one-when",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-only-one-when#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-only-one-when#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (segmentLine, _index, parent) => {

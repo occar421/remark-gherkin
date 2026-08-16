@@ -15,7 +15,7 @@ interface Container {
 const remarkLintGherkinNoHomogenousTags = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-homogenous-tags",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-homogenous-tags#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-homogenous-tags#readme",
   },
   (tree, file) => {
     const featureContainer: Container = { scenarios: [] };

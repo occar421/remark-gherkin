@@ -8,7 +8,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinUseAnd = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-use-and",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-use-and#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-use-and#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (segmentLine, _index, parent) => {

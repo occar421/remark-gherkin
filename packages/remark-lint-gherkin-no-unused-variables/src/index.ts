@@ -9,7 +9,7 @@ import { findBetween } from "unist-util-find-between";
 const remarkLintGherkinNoUnusedVariables = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-unused-variables",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-unused-variables#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-unused-variables#readme",
   },
   (tree, file) => {
     visit(tree, testGherkinNode("segmentLine"), (scenarioOutlineNode, _index, parent) => {

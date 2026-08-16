@@ -20,7 +20,7 @@ export type RestrictedPatterns = {
 const remarkLintGherkinNoRestrictedPatterns = lintRule<Root, RestrictedPatterns>(
   {
     origin: "remark-lint:gherkin-no-restricted-patterns",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-restricted-patterns#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-restricted-patterns#readme",
   },
   (tree, file, options) => {
     if (!options || Object.keys(options).length === 0) {

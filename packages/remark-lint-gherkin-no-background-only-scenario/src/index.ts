@@ -7,7 +7,7 @@ import { testGherkinNode } from "mdast-util-gherkin";
 const remarkLintGherkinNoBackgroundOnlyScenario = lintRule<Root>(
   {
     origin: "remark-lint:gherkin-no-background-only-scenario",
-    url: "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-background-only-scenario#readme",
+    url: "https://github.com/occar421/remark-gherkin/tree/main/packages/remark-lint-gherkin-no-background-only-scenario#readme",
   },
   (tree, file) => {
     let backgroundNode: GherkinSegmentLine | undefined;
