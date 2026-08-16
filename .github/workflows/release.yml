@@ -46,3 +46,4 @@ jobs:
         with:
           publish-script: vp run release
           version-script: vp run version
+          create-github-releases: true
