@@ -33,7 +33,4 @@ export default defineConfig({
       },
     ],
   },
-  run: {
-    cache: true,
-  },
 });

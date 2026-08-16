@@ -32,7 +32,6 @@ jobs:
         with:
           node-version: "lts"
           cache: true
-          registry-url: https://registry.npmjs.org
       - name: Download Build Artifacts
         uses: actions/download-artifact@v8
         with:
@@ -41,14 +40,7 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - run: vp install
-      - name: Debug OIDC
-        run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL=$ACTIONS_ID_TOKEN_REQUEST_URL"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN exists=$([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo yes || echo no)"
-          node --version
-          npm --version
-          pnpm --version
-          vp --version
+      - run: vp run debug-oidc
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v2

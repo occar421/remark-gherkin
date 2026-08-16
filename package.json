@@ -16,7 +16,8 @@
     "prepare": "vp config",
     "release": "pnpm publish -r --no-git-checks",
     "version": "changeset version",
-    "bump-interactive": "changeset"
+    "bump-interactive": "changeset",
+    "debug-oidc": "node -e \"console.log('TOKEN', !!process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN)\""
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
