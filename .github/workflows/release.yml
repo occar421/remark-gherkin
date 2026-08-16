@@ -42,7 +42,7 @@ jobs:
       - run: vp install
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          publish: vp run release
-          version: vp run version
+          publish-script: vp run release
+          version-script: vp run version
