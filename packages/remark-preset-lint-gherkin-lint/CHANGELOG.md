@@ -1,5 +1,11 @@
 # remark-preset-lint-gherkin-lint
 
+## 0.1.1
+
+### Patch Changes
+
+- d7b7671: Fix dependency
+
 ## 0.1.0
 
 ### Minor Changes
