@@ -14,7 +14,7 @@
     "ready": "vp run -r ready",
     "check-fix": "vp run -r check --fix",
     "prepare": "vp config",
-    "release": "pnpm publish -r --no-git-checks",
+    "release": "vp pm publish -r --no-git-checks",
     "version": "changeset version",
     "bump-interactive": "changeset"
   },
