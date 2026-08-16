@@ -40,6 +40,11 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - run: vp install
+      - name: Check GitHub environment
+        run: |
+          echo "GITHUB_WORKFLOW=$GITHUB_WORKFLOW"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_SHA=$GITHUB_SHA"
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v2
