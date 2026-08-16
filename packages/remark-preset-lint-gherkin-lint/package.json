@@ -1,6 +1,6 @@
 {
   "name": "remark-preset-lint-gherkin-lint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint preset for Gherkin lint rules.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-preset-lint-gherkin-lint#readme",
   "bugs": {

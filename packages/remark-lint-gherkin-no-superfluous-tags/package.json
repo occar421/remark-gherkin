@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-no-superfluous-tags",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to disallow superfluous tags on Gherkin elements.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-superfluous-tags#readme",
   "bugs": {
