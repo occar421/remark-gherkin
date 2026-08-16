@@ -14,11 +14,11 @@
     "ready": "vp run -r ready",
     "check-fix": "vp run -r check --fix",
     "prepare": "vp config",
-    "release": "pnpm publish -r --no-git-checks",
+    "release": "pnpm publish -r --no-git-checks --loglevel debug",
     "version": "changeset version",
     "bump-interactive": "changeset",
     "debug-oidc": "pnpm debug-oidc2",
-    "debug-oidc2": "node -e \"console.log('TOKEN', !!process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN, 'URL', !!process.env.ACTIONS_ID_TOKEN_REQUEST_URL)\""
+    "debug-oidc2": "node -e \"console.log('TOKEN', process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN?.length ?? 'undefined', 'URL', process.env.ACTIONS_ID_TOKEN_REQUEST_URL?.length ?? 'undefined')\""
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
