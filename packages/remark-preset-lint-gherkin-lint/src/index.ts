@@ -1,5 +1,6 @@
 import type { Preset } from "unified";
 import remarkLint from "remark-lint";
+import remarkGherkin from "remark-gherkin";
 import remarkLintGherkinNoTagsOnBackgrounds from "remark-lint-gherkin-no-tags-on-backgrounds";
 import remarkLintGherkinOneFeaturePerFile from "remark-lint-gherkin-one-feature-per-file";
 import remarkLintGherkinUpToOneBackgroundPerFile from "remark-lint-gherkin-up-to-one-background-per-file";
@@ -31,6 +32,7 @@ import remarkLintGherkinOnlyOneWhen from "remark-lint-gherkin-only-one-when";
 const remarkPresetLintGherkinLint: Preset = {
   plugins: [
     remarkLint,
+    remarkGherkin,
     remarkLintGherkinNoTagsOnBackgrounds,
     remarkLintGherkinOneFeaturePerFile,
     remarkLintGherkinUpToOneBackgroundPerFile,

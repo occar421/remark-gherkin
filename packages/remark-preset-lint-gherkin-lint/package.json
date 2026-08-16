@@ -33,6 +33,7 @@
     "ready": "vp run check && vp run test && vp run build"
   },
   "dependencies": {
+    "remark-gherkin": "workspace:*",
     "remark-lint": "catalog:",
     "remark-lint-gherkin-allowed-tags": "workspace:*",
     "remark-lint-gherkin-keywords-in-logical-order": "workspace:*",

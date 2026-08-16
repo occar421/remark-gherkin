@@ -1659,6 +1659,9 @@ importers:
 
   packages/remark-preset-lint-gherkin-lint:
     dependencies:
+      remark-gherkin:
+        specifier: workspace:*
+        version: link:../remark-gherkin
       remark-lint:
         specifier: 'catalog:'
         version: 10.0.1
