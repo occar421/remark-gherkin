@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: "lts"
           cache: true
+          registry-url: https://registry.npmjs.org
       - name: Download Build Artifacts
         uses: actions/download-artifact@v8
         with:
