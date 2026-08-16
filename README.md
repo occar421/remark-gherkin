@@ -2,6 +2,70 @@
 
 Support [Markdown with Gherkin (MDG)](https://github.com/cucumber/gherkin/blob/main/MARKDOWN_WITH_GHERKIN.md) in [remark](https://github.com/remarkjs/remark).
 
+## Getting Started
+
+Install the remark plugin and the Gherkin lint preset with your preferred package manager:
+
+```shell
+npm install --save-dev remark-cli remark-preset-lint-gherkin-lint
+```
+
+Markdown with Gherkin represents features as headings, scenarios as subheadings, and steps as list items:
+
+```markdown
+# Feature: Eating cucumbers
+
+## Scenario: Eat a cucumber
+
+- Given there are 12 cucumbers
+- When I eat 1 cucumber
+- Then there are 11 cucumbers
+```
+
+### Command Line
+
+Use `remark-cli` to lint Markdown with Gherkin syntax. The `--frail` flag makes lint warnings fail the command, which is useful in continuous integration:
+
+```shell
+npx remark "**/*.features.md" --frail --use remark-preset-lint-gherkin-lint
+```
+
+### npm Scripts
+
+Add a script to `package.json` to run the same check consistently locally and in CI:
+
+```json
+{
+  "scripts": {
+    "lint:gherkin": "remark \"features/**/*.md\" --frail --use remark-preset-lint-gherkin-lint"
+  }
+}
+```
+
+Then run it with:
+
+```shell
+npm run lint:gherkin
+```
+
+### API
+
+Use the packages directly with the unified API when Gherkin-aware processing is part of an application or build pipeline:
+
+```javascript
+import { remark } from "remark";
+import remarkPresetLintGherkinLint from "remark-preset-lint-gherkin-lint";
+import { reporter } from "vfile-reporter";
+
+const file = await remark()
+  .use(remarkPresetLintGherkinLint)
+  .process("# Feature: Eating cucumbers\n\n## Scenario: Eat\n\n- Given there are 12 cucumbers");
+
+console.error(reporter(file));
+```
+
+For lower-level mdast parsing, serialization, and Gherkin node utilities, use [`mdast-util-gherkin`](./packages/mdast-util-gherkin).
+
 ## Packages
 
 - [`remark-gherkin`](./packages/remark-gherkin): remark plugin.
