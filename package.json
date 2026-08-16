@@ -17,7 +17,8 @@
     "release": "pnpm publish -r --no-git-checks",
     "version": "changeset version",
     "bump-interactive": "changeset",
-    "debug-oidc": "node -e \"console.log('TOKEN', !!process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN)\""
+    "debug-oidc": "pnpm debug-oidc2",
+    "debug-oidc2": "node -e \\\"console.log('TOKEN', !!process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN, 'URL', !!process.env.ACTIONS_ID_TOKEN_REQUEST_URL)\\\""
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
