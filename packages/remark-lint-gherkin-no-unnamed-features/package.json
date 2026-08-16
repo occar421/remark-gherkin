@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-no-unnamed-features",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to disallow empty Feature name.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-no-unnamed-features#readme",
   "bugs": {

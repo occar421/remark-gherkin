@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-only-one-when",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to enforce that only one When step is used per Background or scenario.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-only-one-when#readme",
   "bugs": {

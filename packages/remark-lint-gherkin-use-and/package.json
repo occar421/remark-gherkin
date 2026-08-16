@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-use-and",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to enforce using And instead of repeated keywords in Gherkin scenarios.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-use-and#readme",
   "bugs": {

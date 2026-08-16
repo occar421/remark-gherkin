@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-scenario-size",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to enforce maximum step count of Gherkin scenarios and backgrounds.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-scenario-size#readme",
   "bugs": {

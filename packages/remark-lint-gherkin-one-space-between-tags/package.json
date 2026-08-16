@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-gherkin-one-space-between-tags",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "remark-lint plugin to ensure exactly one space between Gherkin tags.",
   "homepage": "https://github.com/occar421/unifiedjs-gherkin/tree/main/packages/remark-lint-gherkin-one-space-between-tags#readme",
   "bugs": {
